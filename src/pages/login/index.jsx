@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-export default class extends Component {
-    submitData = (e) => {
+export default class Login extends Component {
+    submitData = e => {
         e.preventDefault();
         this.props.setPage('map');
     }

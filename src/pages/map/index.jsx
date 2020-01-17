@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 
-export default class extends Component {
+export default class Map extends Component {
     render() {
-        return (
-            <>
-                <h1>MAP</h1>
-            </>
-        );
+        return <h1>MAP</h1>
     }
 }

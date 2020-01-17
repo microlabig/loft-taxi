@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MenuButton from './../menu-buttons';
 
-export default class extends Component {
+export default class Header extends Component {
 
     handleClick = (e) => this.props.checkPage(e.target.name);
 

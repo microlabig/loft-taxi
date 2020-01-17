@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class extends Component {
+export default class RegisterForm extends Component {
     submitData = (e) => {
         e.preventDefault();
         this.props.setPage('map');

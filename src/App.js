@@ -7,14 +7,14 @@ import Header from './components/header';
 import Profile from './pages/profile';
 import Map from './pages/map';
 import Login from './pages/login';
-import Submit from './pages/submit';
+import RegisterForm from './pages/register';
 
 // список страниц
 const PAGES = {
   profile: () => <Profile />,
   map: () => <Map />,
   login: setPage => <Login setPage={setPage}/>,
-  submit: setPage => <Submit setPage={setPage}/>
+  submit: setPage => <RegisterForm setPage={setPage}/>
 };
 
 // root-компонент
