@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 export default class extends Component {
-    submitData = () => {
+    submitData = (e) => {
+        e.preventDefault();
         this.props.setPage('map');
     }
 
@@ -10,15 +11,19 @@ export default class extends Component {
             <>
                 <h1>LOGIN</h1>
                 <form name="formLogin">
-                    <label>
-                        <input type="text" name="name"/>
-                    </label>
-                    <label>
-                        <input type="password" name="password"/>
-                    </label>
-                    <label>
-                        <button type="submit" name="submit" onClick={this.submitData}>Отправить</button>
-                    </label>
+                    <div>
+                        <label>
+                            <input type="text" name="name"/>
+                        </label>
+                        <label>
+                            <input type="password" name="password"/>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <button type="submit" name="submit" onClick={this.submitData}>Отправить</button>
+                        </label>
+                    </div>
                 </form>
             </>
         );

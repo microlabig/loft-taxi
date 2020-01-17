@@ -27,7 +27,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header checkPage={checkPage}/>
+      <Header pagesList={Object.keys(PAGES)} checkPage={checkPage}/>
       {PAGES[page](setPage)}
     </div>
   );
