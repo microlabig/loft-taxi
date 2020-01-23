@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class RegisterForm extends Component {
+    // значения props по-умолчанию (заглушки)
+    static defaultProps = {
+        setPage: () => {}
+    }
+
+    // проверка на принимаемый тип данных из props
+    static propTypes = {
+        setPage: PropTypes.func
+    }
+
     submitData = (e) => {
         e.preventDefault();
         this.props.setPage('map');
