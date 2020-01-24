@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react';
-import { AppProvider } from '../../contexts/login-context';
 
+// компонент перехода между картой и логином пользователя 
+// относительно изменения isLoggedIn контекста авторизации
 function CheckOnline(props) {
-  const { children } = props;
+  const { isLoggedIn, setPage, children } = props;
 
   useEffect(() => {
-    if (props.isLoggedIn) {
-        props.setPage('map');
-    } else {
-        props.setPage('login');
-    }
-  }, [props.isLoggedIn]);
+    isLoggedIn ? setPage('map') : setPage('login');
+  }, [isLoggedIn, setPage]);
 
   return (
     <>
