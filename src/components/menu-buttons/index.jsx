@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MenuButton = ({ page, onClick }) => {
+const MenuButton = ({ caption, onClick }) => {
     return (
         <button 
             type="button"
-            name={page} 
+            name={caption} 
             onClick={e => onClick(e)}
         >
-            {page}
+            {caption}
         </button>
     );
 }
@@ -16,13 +16,13 @@ const MenuButton = ({ page, onClick }) => {
 // значения props по-умолчанию (заглушки)
 MenuButton.defaultProps = {
     onClick: () => {},
-    page: ""
+    caption: ""
 }
 
 // проверка на принимаемый тип данных из props
 MenuButton.propTypes = {
     onClick: PropTypes.func,
-    page: PropTypes.string
+    caption: PropTypes.string
 }
 
 export default MenuButton;

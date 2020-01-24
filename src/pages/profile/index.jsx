@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { LoginContext } from '../../api/login-context';
+import { AppContext } from '../../contexts/login-context';
 
-export default class Profile extends Component {
-    static contextType = LoginContext;
-
+export default class ProfilePage extends Component {
     render() {
         return (
-            <>
-                {this.context.isLoggedIn && <h1>PROFILE</h1>}
-            </>
+            <AppContext.Consumer>
+                {({ isLoggedIn }) => (
+                    <>
+                        { isLoggedIn && <h1>PROFILE</h1>}
+                    </>
+                )}
+            </AppContext.Consumer>
         );
     }
 }

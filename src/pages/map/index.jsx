@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-import { LoginContext } from '../../api/login-context';
 
-export default class Map extends Component {
-    // static contextType = LoginContext;
+import Map from '../../components/map';
 
+import { AppContext } from '../../contexts/login-context';
+
+export default class MapPage extends Component {
     render() {
-        // console.log(LoginContext);
-        // console.log(this.context.isLoggedIn);
-
         return (
-            <LoginContext.Consumer>
+            <AppContext.Consumer>
                 {({ isLoggedIn }) => (
                     <>
                         { isLoggedIn && <h1>MAP</h1>}
+                        <Map />
                     </>
                 )}
-            </LoginContext.Consumer>
+            </AppContext.Consumer>
         );
     }
 }

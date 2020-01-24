@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import { LoginContext } from "../../api/login-context";
+import { AppContext } from "../../contexts/login-context";
 
-export default class Login extends Component {
+export default class LoginPage extends Component {
     // значения props по-умолчанию (заглушки)
     static defaultProps = {
         setPage: () => { }
@@ -14,28 +14,15 @@ export default class Login extends Component {
         setPage: PropTypes.func
     };
 
-    static contextType = LoginContext; // забираем контекст авторизации
-
-    submitData = (e, contextData = {}) => {
+    submitData = (e, login) => {
         e.preventDefault();
-
-        contextData.isLoggedIn = contextData.login("", "");
-
-        if (contextData.isLoggedIn) {
-            this.props.setPage("map");
-        }
-
-        console.log(LoginContext);
-        console.log(contextData.isLoggedIn);
+        this.context.login("email", "password");
     };
 
     render() {
-        // console.log(LoginContext);
-        // console.log(this.context.isLoggedIn);
-
         return (
-            <LoginContext.Consumer>
-                {({ login, isLoggedIn }) => (
+            <AppContext.Consumer>
+                {({ isLoggedIn }) => (
                     <>
                         <h1>LOGIN</h1>
                         <form name="formLogin">
@@ -52,7 +39,7 @@ export default class Login extends Component {
                                     <button
                                         type="submit"
                                         name="submit"
-                                        onClick={e => this.submitData(e, { login, isLoggedIn })}
+                                        onClick={this.submitData}
                                     >
                                         Отправить
                                     </button>
@@ -61,7 +48,9 @@ export default class Login extends Component {
                         </form>
                     </>
                 )}
-            </LoginContext.Consumer>
+            </AppContext.Consumer>
         );
     }
 }
+
+LoginPage.contextType = AppContext; // заберем контекст авторизации

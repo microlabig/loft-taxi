@@ -2,59 +2,75 @@ import React, { Component } from 'react';
 import MenuButton from './../menu-buttons';
 import PropTypes from 'prop-types';
 
-import { LoginContext } from '../../api/login-context';
+import { AppContext } from '../../contexts/login-context';
 
 export default class Header extends Component {
     // значения props по-умолчанию (заглушки)
     static defaultProps = {
         checkPage: () => { },
-        pagesList: [],
-        loginPagesList: []
+        pages: {}
     }
 
     // проверка на принимаемый тип данных из props
     static propTypes = {
         checkPage: PropTypes.func,
-        pagesList: PropTypes.array,
-        loginPagesList: PropTypes.array
+        pages: PropTypes.object
     }
 
-    static contextType = LoginContext;
+    static contextType = AppContext; // забираем контекст авторизации
 
     handleClick = (e) => this.props.checkPage(e.target.name);
 
+    exit = (e) => {
+        this.context.logout();
+    }
+
     getButtons = (isLoggedIn) => {
-        return this.props.pagesList.map((page, index) => {
+        const pages = this.props.pages;
+        const btnList = [];
+        
+        for (const page in pages) {
             const menuButtonTemplate = (
                 <MenuButton
                     onClick={(e) => this.handleClick(e)}
-                    page={page}
-                    key={index}
+                    caption={page}
+                    key={page}
                 />
             );
-
-            if (this.props.loginPagesList.includes(page)) { // если в списке страниц, зависящих от авторизации, есть название текущей страницы
-                if (isLoggedIn) { // и если пользователь авторизовался
-                    return menuButtonTemplate;
+            
+            if (pages.hasOwnProperty(page)) { // не искать в __proto__
+                if (pages[page].auth) {
+                    if (isLoggedIn) {
+                        btnList.push(menuButtonTemplate);
+                    }
+                } else {
+                    if (!isLoggedIn) {
+                        btnList.push(menuButtonTemplate);
+                    }
                 }
-
-                return null;
             }
+        }
 
-            return menuButtonTemplate;
-        });
+        return btnList;
     }
 
     render() {
         return (
-            <LoginContext.Consumer>
+            <AppContext.Consumer>
                 {({ isLoggedIn }) => (
                     <header>
                         {this.getButtons(isLoggedIn)}
-                        <p>{isLoggedIn}</p>
+                        {isLoggedIn ? 
+                            <MenuButton 
+                                caption={'Выйти'}
+                                onClick={this.exit}
+                            /> : null
+                        }
                     </header>
                 )}
-            </LoginContext.Consumer>
+            </AppContext.Consumer>
         );
     }
 }
+
+Header.contextType = AppContext; // заберем контекст авторизации
