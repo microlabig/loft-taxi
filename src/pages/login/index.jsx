@@ -1,56 +1,55 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import { AppContext } from "../../contexts/login-context";
+import Logo from '../../components/logo';
+import FormLogin from '../../components/forms/login';
+import DescpriptionForForm from '../../components/forms/description';
+
+import { AuthContext } from "../../contexts/login-context";
+
+import './styles.scss';
 
 export default class LoginPage extends Component {
-    // значения props по-умолчанию (заглушки)
-    static defaultProps = {
-        setPage: () => { }
-    };
+  // значения props по-умолчанию (заглушки)
+  static defaultProps = {
+    setPage: () => {}
+  };
 
-    // проверка на принимаемый тип данных из props
-    static propTypes = {
-        setPage: PropTypes.func
-    };
+  // проверка на принимаемый тип данных из props
+  static propTypes = {
+    setPage: PropTypes.func
+  };
 
-    submitData = (e, login) => {
-        e.preventDefault();
-        this.context.login("email", "password");
-    };
+  static contextType = AuthContext; // заберем контекст авторизации
 
-    render() {
-        return (
-            <AppContext.Consumer>
-                {({ isLoggedIn }) => (
-                    <>
-                        <h1>LOGIN</h1>
-                        <form name="formLogin">
-                            <div>
-                                <label>
-                                    <input type="text" name="name" />
-                                </label>
-                                <label>
-                                    <input type="password" name="password" />
-                                </label>
-                            </div>
-                            <div>
-                                <label>
-                                    <button
-                                        type="submit"
-                                        name="submit"
-                                        onClick={this.submitData}
-                                    >
-                                        Отправить
-                                    </button>
-                                </label>
-                            </div>
-                        </form>
-                    </>
-                )}
-            </AppContext.Consumer>
-        );
-    }
+  submitData = (e) => {
+    e.preventDefault();
+    this.context.login("email", "password");
+  };
+
+  toAction = (e) => {
+    e.preventDefault();
+    this.props.setPage('submit');
+  }
+
+  render() {
+    return (
+      <div className="login">
+            <div className="login__container">
+                <div className="login__logo">
+                    <Logo type={'white'} showIcon={true}/>
+                </div>
+                <div className="login__data">
+                    <DescpriptionForForm 
+                      headingText={'Войти'}
+                      questionText={'Новый пользователь? '}
+                      actionTextLink={'Зарегистрируйтесь'}
+                      toAction={this.toAction}
+                    />
+                    <FormLogin submitData={this.submitData}/>
+                </div>
+            </div>
+      </div>
+    );
+  }
 }
-
-LoginPage.contextType = AppContext; // заберем контекст авторизации

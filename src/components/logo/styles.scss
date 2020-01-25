@@ -1,0 +1,40 @@
+@import '../../assets/styles/variables.scss';
+
+@font-face {
+    font-family: 'Forte';
+    src: url('../../assets/fonts/Forte.woff2') format('woff2'), url('../../assets/fonts/Forte.woff') format('woff');
+    font-weight: $normal;
+    font-style: normal;
+}
+
+.logo {
+    font-family: 'Forte', Courier, monospace;
+    line-height: 1.41;
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.logo__image {
+    display: inline-block;
+    width: 25px;
+    height: 30px;
+    background: url('../../assets/icons/logo.png') center center / cover no-repeat;
+    margin-right: 6px;
+}
+
+.logo__description {
+    display: inline-block;
+}
+
+.logo__company {
+    color: $logo_color;
+}
+
+.logo__type {
+    color: $black_color;
+
+    &.white {
+        color: $white_color;
+    }
+}

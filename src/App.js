@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import './App.css';
+import './App.scss';
 
 import Header from './components/header';
 
@@ -10,23 +10,27 @@ import RegisterFormPage from './pages/register';
 
 import CheckOnline from './components/checkOnline';
 
-import { AppProvider, AppContext } from './contexts/login-context';
+import { AuthProvider, AuthContext } from './contexts/login-context';
 
 // список страниц
 const PAGES = {
-  profile: {
-    component: () => <ProfilePage />,
-    auth: true
-  },
   map: {
+    caption: 'Карта',
     component: () => <MapPage />,
     auth: true
   },
+  profile: {
+    caption: 'Профиль',
+    component: () => <ProfilePage />,
+    auth: true
+  },
   login: {
+    caption: 'Логин',
     component: (setPage) => <LoginPage setPage={setPage} />,
     auth: false
   },
   submit: {
+    caption: 'Регистрация',
     component: (setPage) => <RegisterFormPage setPage={setPage} />,
     auth: false
   }
@@ -39,24 +43,23 @@ function App() {
   //стейт root-компонента
   const [page, setPage] = useState('login');
 
-  // ф-ия для изменения поля page стейта
-  const checkPage = (data) => setPage(data);
-
   return (
     <div className="App">
-      <AppProvider>
-        <AppContext.Consumer>
+      <AuthProvider>
+        {PAGES[page].component(setPage)}
+        <AuthContext.Consumer>
           {({ isLoggedIn }) => (
-            <CheckOnline setPage={setPage} isLoggedIn={isLoggedIn}>
+            <>
+              <CheckOnline setPage={setPage} isLoggedIn={isLoggedIn} />
               <Header
                 pages={PAGES}
-                checkPage={checkPage}
+                setPage={setPage}
+                isLoggedIn={isLoggedIn}
               />
-              {PAGES[page].component(setPage)}
-            </CheckOnline>
+            </>
           )}
-        </AppContext.Consumer>
-      </AppProvider>
+        </AuthContext.Consumer>
+      </AuthProvider>
     </div>
   );
 }

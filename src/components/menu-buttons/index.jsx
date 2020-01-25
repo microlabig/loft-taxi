@@ -1,28 +1,30 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import { Button } from "@material-ui/core";
 
-const MenuButton = ({ caption, onClick }) => {
-    return (
-        <button 
-            type="button"
-            name={caption} 
-            onClick={e => onClick(e)}
-        >
-            {caption}
-        </button>
-    );
-}
+const MenuButton = ({ name, caption, onClick }) => {
+  return (
+    <Button
+      name={name}
+      onClick={e => {
+        onClick(e);
+      }}
+    >
+      {caption}
+    </Button>
+  );
+};
 
 // значения props по-умолчанию (заглушки)
 MenuButton.defaultProps = {
-    onClick: () => {},
-    caption: ""
-}
+  onClick: () => {},
+  caption: ""
+};
 
 // проверка на принимаемый тип данных из props
 MenuButton.propTypes = {
-    onClick: PropTypes.func,
-    caption: PropTypes.string
-}
+  onClick: PropTypes.func,
+  caption: PropTypes.string
+};
 
 export default MenuButton;

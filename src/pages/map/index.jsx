@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
-
+import React from 'react';
 import Map from '../../components/map';
+import FormRoute from '../../components/forms/route';
 
-import { AppContext } from '../../contexts/login-context';
+const MapPage = (isLoggedIn) => {
+    const mapTemplate = (
+        <>
+            <Map />
+            <FormRoute />
+        </>
+    );
 
-export default class MapPage extends Component {
-    render() {
-        return (
-            <AppContext.Consumer>
-                {({ isLoggedIn }) => (
-                    <>
-                        { isLoggedIn && <h1>MAP</h1>}
-                        <Map />
-                    </>
-                )}
-            </AppContext.Consumer>
-        );
-    }
+    return (
+        <>
+            { isLoggedIn && mapTemplate }
+        </>
+    );
 }
+
+export default MapPage;

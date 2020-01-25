@@ -1,0 +1,41 @@
+@import '../../../assets/styles/variables.scss';
+@import '../login/styles';
+
+.routeform {
+    display: block;
+    position: relative;
+
+    background-color: $white-color;
+    max-width: 480px;
+
+    top: 15%;
+    left: 2%;
+
+    padding: 45px;
+
+    & .form__wrapper {
+        display: flex;
+        align-items: center;
+
+        margin-bottom: 40px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    & .form__elements {
+        margin-bottom: 0;
+
+        &:first-child {
+            width: 23px;
+            margin-right: 13px;
+        }
+    }
+
+    & .form__input {
+        & input {
+            font-size: 18px;
+        }
+    }
+}

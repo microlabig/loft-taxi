@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-const AppContext = React.createContext();
+const AuthContext = React.createContext();
 
-class AppProvider extends Component {
+class AuthProvider extends Component {
     state = {
         isLoggedIn: false
     }
@@ -30,34 +30,11 @@ class AppProvider extends Component {
     render() {
         const { children } = this.props;
         return (
-            <AppContext.Provider value={this.getProviderValues()}>
+            <AuthContext.Provider value={this.getProviderValues()}>
                 {children}
-            </AppContext.Provider>
+            </AuthContext.Provider>
         );
     }
 }
 
-export { AppContext, AppProvider};
-
-/* import React from 'react';
-
-export function login(email, password) {
-    return new Promise( (resolve, reject) => {
-        resolve(true);
-    });
-};
-
-export function logout() {
-    return new Promise( (resolve, reject) => {
-        resolve(false);
-    });
-};
-
-// контекст для авторизации
-export const LoginContext = React.createContext({
-    //  login: (email, password) => {}, 
-    //  logout: () => {},
-     isLoggedIn: false,
-     setLoggedIn: () => { }
-});
- */
+export { AuthContext, AuthProvider};

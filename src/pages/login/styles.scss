@@ -1,0 +1,19 @@
+@import '../../assets/styles/variables.scss';
+
+.login {
+    background-color: rgba(#323232, .6);
+}
+
+.login__container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.login__data {
+    background-color: $white-color;
+    width: 500px;
+    padding: 60px;
+}
+

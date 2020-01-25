@@ -1,0 +1,13 @@
+@import '../login/styles';
+
+.newuser {
+    & .form__row {
+        margin-bottom: 0;
+    }
+    & .form__elements {
+        &.names {
+            display: flex;
+            flex-direction: row;
+        }
+    }
+}

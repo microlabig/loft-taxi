@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import './styles.scss';
+
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
+// import MapboxDirections from 'mapbox-gl/dist/mapbox-gl-js';
 import { API_MAPBOX_ACCESS_TOKEN } from '../../api/consts';
 
 mapboxgl.accessToken = API_MAPBOX_ACCESS_TOKEN;
@@ -19,13 +22,6 @@ export default class Map extends Component {
     }
   
     render() {
-      const style = {
-        position: 'absolute',
-        bottom: 0,
-        width: '100%',
-        height: 'calc(100% - 80px)'
-      };
-  
-      return <div style={style} ref={el => this.mapContainer = el} />;
+      return <div className='map' ref={el => this.mapContainer = el} />;
     }
 }
