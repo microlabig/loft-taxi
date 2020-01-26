@@ -1,0 +1,25 @@
+.form__cvc {
+    max-width: 110px;
+}
+
+.form__cvc-hintwrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+}
+
+.form__cvc-text {
+    display: inline-block;
+    vertical-align: text-top;
+    font-size: 15px;
+}
+
+.form__cvc-helpicon {
+    display: inline-block;
+    vertical-align: baseline;
+
+    opacity: .5;
+    
+    margin-left: 10px;
+}

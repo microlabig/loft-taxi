@@ -1,16 +1,19 @@
-import React, { Component } from 'react';
-import { AuthContext } from '../../contexts/login-context';
+import React, {useState} from 'react';
 
-export default class ProfilePage extends Component {
-    render() {
-        return (
-            <AuthContext.Consumer>
-                {({ isLoggedIn }) => (
-                    <>
-                        { isLoggedIn && <h1>PROFILE</h1>}
-                    </>
-                )}
-            </AuthContext.Consumer>
-        );
+import FormPayment from '../../components/forms/payment';
+
+const ProfilePage = () => {
+    const [showForm, setShowForm] = useState(true);
+
+    const changeShowForm = () => {
+        setShowForm(showForm => !showForm);
     }
+   
+    return (
+        <>
+            <FormPayment changeShowForm={changeShowForm} showForm={showForm} />
+        </>
+    );
 }
+
+export default ProfilePage;

@@ -2,7 +2,7 @@ import React from "react";
 
 import './styles.scss';
 
-const Logo = ({type}) => {
+const LogoCompany = ({type}) => {
   return (
     <div className="logo">
         <div className="logo__image"></div>
@@ -14,4 +14,4 @@ const Logo = ({type}) => {
   );
 };
 
-export default Logo;
+export default LogoCompany;

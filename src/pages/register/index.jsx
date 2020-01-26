@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-import Logo from '../../components/logo';
+import LogoCompany from '../../components/logocompany';
 import FormSubmit from '../../components/forms/submit';
 import DescpriptionForForm from '../../components/forms/description';
 
@@ -39,7 +39,7 @@ export default class RegisterFormPage extends Component {
           <div className="login newuser">
             <div className="login__container">
                 <div className="login__logo">
-                    <Logo type={'white'} />
+                    <LogoCompany type={'white'} />
                 </div>
                 <div className="login__data">
                     <DescpriptionForForm 

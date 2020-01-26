@@ -1,0 +1,70 @@
+@import '../../../assets/styles/variables.scss';
+@import '../login/styles';
+
+.paymentform {
+    display: block;
+    position: relative;
+
+    background-color: $white-color;
+    max-width: 945px;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    padding: 45px;
+
+    .form__card {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 45px;
+    }
+
+    & .form__title,
+    & .form__description {
+        text-align: center;
+    }
+
+    .form__description {
+        margin-bottom: 45px;
+    }
+
+    .form__side {
+        width: 380px;
+        margin-right: 30px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    .form__side-facial,
+    .form__side-reverse {
+        position: relative;
+        padding: 30px;
+    }
+
+
+    .form__mastercard-logo {
+        display: inline-block;
+        position: absolute;
+
+        right: 30px;
+        width: 40px;
+        height: 24px;
+        background: url('../../../assets/icons/mc.png') center center / cover no-repeat;
+    }
+
+    .form__button {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .form__input {
+        margin-bottom: 35px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

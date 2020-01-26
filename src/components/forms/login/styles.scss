@@ -1,3 +1,9 @@
+@import '../../../assets/styles/variables.scss';
+
+.form__title {
+    font-weight: $bold;
+}
+
 .form__elements {
     display: flex;
     flex-wrap: nowrap;

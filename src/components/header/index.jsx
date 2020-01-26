@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MenuButton from './../menu-buttons';
 import PropTypes from 'prop-types';
 
-import Logo from '../logo';
+import Logo from '../logocompany';
 
 import { AuthContext } from '../../contexts/login-context';
 
@@ -24,12 +24,7 @@ export default class Header extends Component {
 
     static contextType = AuthContext; // забираем контекст авторизации
 
-    handleClick = (e) => {
-        console.log(1);
-        
-        this.props.setPage(e.currentTarget.name);
-        console.log(e.currentTarget.name);
-    }
+    handleClick = (e) => this.props.setPage(e.currentTarget.name);
 
     exit = (e) => {
         this.context.logout();
