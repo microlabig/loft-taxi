@@ -35,6 +35,8 @@ const FormLogin = ({ submitData }) => {
                         onClick={submitData}
                         variant="contained" 
                         color="primary"
+                        data-testid="button-submit"
+                        className="form__button-submit"
                     >
                         Войти
                     </Button>

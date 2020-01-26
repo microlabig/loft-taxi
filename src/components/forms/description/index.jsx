@@ -7,11 +7,17 @@ import './styles.scss';
 const DescpriptionForForm = ({ headingText, questionText, actionTextLink, toAction }) => {
     return (
         <div className="description">
-            <h2>{headingText}</h2>
+            <h2 className="description__title" data-testid="descriptionTitle">{headingText}</h2>
             <div>
                 <Typography>
                     <span>{questionText}</span>
-                    <Link href="#" onClick={toAction}>{actionTextLink}</Link>
+                    <Link 
+                        href="#" 
+                        onClick={toAction}
+                        data-testid="linkToregisterForm"
+                    >
+                        {actionTextLink}
+                    </Link>
                 </Typography>
             </div>
         </div>
