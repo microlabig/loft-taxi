@@ -17,12 +17,14 @@ const MenuButton = ({ name, caption, onClick }) => {
 
 // значения props по-умолчанию (заглушки)
 MenuButton.defaultProps = {
+  name: '',
   onClick: () => {},
   caption: ""
 };
 
 // проверка на принимаемый тип данных из props
 MenuButton.propTypes = {
+  name: PropTypes.string,
   onClick: PropTypes.func,
   caption: PropTypes.string
 };

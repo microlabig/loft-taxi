@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Tooltip  } from "@material-ui/core";
@@ -35,6 +36,16 @@ const Hint = ({ children, textHint }) => {
             {children}
         </Tooltip>
     );
+}
+
+Hint.defaultProps = {
+    children: null, 
+    textHint: ''
+}
+
+Hint.propTypes = {
+    children: PropTypes.node.isRequired, 
+    textHint: PropTypes.string.isRequired
 }
 
 export default Hint;

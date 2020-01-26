@@ -24,6 +24,11 @@
         }
     }
 
+    .form__title,
+    .form__description {
+        text-align: center;
+    }
+
     & .form__elements {
         margin-bottom: 0;
 

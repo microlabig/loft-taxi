@@ -29,7 +29,7 @@ const PAGES = {
     component: (setPage) => <LoginPage setPage={setPage} />,
     auth: false
   },
-  submit: {
+  register: {
     caption: 'Регистрация',
     component: (setPage) => <RegisterFormPage setPage={setPage} />,
     auth: false

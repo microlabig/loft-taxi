@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
+
 import Map from '../../components/map';
 import FormRoute from '../../components/forms/route';
 
@@ -21,6 +23,14 @@ const MapPage = (isLoggedIn) => {
             { isLoggedIn && mapTemplate }
         </>
     );
+}
+
+MapPage.defaultProps = {
+    isLoggedIn: false
+}
+
+MapPage.propTypes = {
+    isLoggedIn: PropTypes.bool.isRequired
 }
 
 export default MapPage;

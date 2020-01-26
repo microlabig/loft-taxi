@@ -1,7 +1,7 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import Hint from '../hint';
-import NumberInput from '../../components/numberinput';
 
 import { IconButton, Input, InputLabel, InputAdornment } from "@material-ui/core";
 import { Visibility, VisibilityOff } from '@material-ui/icons';
@@ -54,9 +54,16 @@ const CVC = ({ submitData }) => {
                     </InputAdornment>
                 }
             />
-            <div>{values.showPassword ? 'true' : 'false'}</div>
         </div>
     );
+}
+
+CVC.defaultProps = {
+    submitData: () => { }
+}
+
+CVC.propTypes = {
+    submitData: PropTypes.func.isRequired
 }
 
 export default CVC;

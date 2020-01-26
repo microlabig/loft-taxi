@@ -1,11 +1,11 @@
 import React from "react";
-
+import PropTypes from 'prop-types';
 
 import { Button } from "@material-ui/core";
 import './styles.scss';
 
 const FormPaymentDone = ({ changeShowForm }) => {
-    const handlerClick = (event) => {
+    const handlerClick = () => {
         changeShowForm();
     }
 
@@ -27,6 +27,14 @@ const FormPaymentDone = ({ changeShowForm }) => {
             </div>
         </>
     );
+}
+
+FormPaymentDone.defaultProps = {
+    changeShowForm: () => false
+}
+
+FormPaymentDone.propTypes = {
+    changeShowForm: PropTypes.func.isRequired
 }
 
 export default FormPaymentDone;

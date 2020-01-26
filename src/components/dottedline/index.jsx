@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './styles.scss';
 
 const DottedLine = ({num}) => {
@@ -30,6 +31,14 @@ const DottedLine = ({num}) => {
     }
 
     return renderDots(num);
+}
+
+DottedLine.defaultProps = {
+    num: 0
+}
+
+DottedLine.propTypes = {
+    num: PropTypes.number.isRequired
 }
 
 export default DottedLine;

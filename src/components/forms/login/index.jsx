@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from 'prop-types';
+
 import { TextField, Button } from "@material-ui/core";
 import './styles.scss';
 
@@ -40,6 +42,14 @@ const FormLogin = ({ submitData }) => {
             </div>
         </form>
     );
+}
+
+FormLogin.defaultProps = {
+    submitData: () => { }
+}
+
+FormLogin.propTypes = {
+    submitData: PropTypes.func.isRequired
 }
 
 export default FormLogin;

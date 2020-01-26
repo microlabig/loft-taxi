@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import { Button } from "@material-ui/core";
 
@@ -22,6 +23,14 @@ const FormRouteDone = ({ submitData }) => {
             </div>
         </>
     );
+}
+
+FormRouteDone.defaultProps = {
+    submitData: () => { }
+}
+
+FormRouteDone.propTypes = {
+    submitData: PropTypes.func.isRequired
 }
 
 export default FormRouteDone;

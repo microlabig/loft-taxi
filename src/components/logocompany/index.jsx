@@ -1,8 +1,9 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import './styles.scss';
 
-const LogoCompany = ({type}) => {
+const LogoCompany = ({ type }) => {
   return (
     <div className="logo">
         <div className="logo__image"></div>
@@ -13,5 +14,13 @@ const LogoCompany = ({type}) => {
     </div>
   );
 };
+
+LogoCompany.defaultProps = {
+  type: ''
+}
+
+LogoCompany.propTypes = {
+  type: PropTypes.string
+}
 
 export default LogoCompany;

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 const AuthContext = React.createContext();
 
@@ -35,6 +36,14 @@ class AuthProvider extends Component {
             </AuthContext.Provider>
         );
     }
+}
+
+AuthProvider.defaultProps = {
+    children: null
+}
+
+AuthProvider.propTypes = {
+    children: PropTypes.node
 }
 
 export { AuthContext, AuthProvider};

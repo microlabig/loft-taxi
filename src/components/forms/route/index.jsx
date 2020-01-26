@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import DottedLine from '../../dottedline';
 import FormRouteDone from '../../forms/done/route';
@@ -63,6 +64,16 @@ const FormRoute = ({ submitData, showForm }) => {
             </form>
         </div>
     );
+}
+
+FormRoute.defaultProps = {
+    submitData: () => { }, 
+    showForm: false
+}
+
+FormRoute.propTypes = {
+    submitData: PropTypes.func.isRequired, 
+    showForm: PropTypes.bool.isRequired
 }
 
 export default FormRoute;

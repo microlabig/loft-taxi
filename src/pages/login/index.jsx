@@ -29,7 +29,7 @@ export default class LoginPage extends Component {
 
   toAction = (e) => {
     e.preventDefault();
-    this.props.setPage('submit');
+    this.props.setPage('register');
   }
 
   render() {

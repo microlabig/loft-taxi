@@ -1,11 +1,11 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import FormPaymentDone from '../../forms/done/payment';
 import NumberInput from '../../numberinput';
 import CVC from '../../cvc';
 
 import { TextField, Button, Paper } from "@material-ui/core";
-
 import './styles.scss';
 
 const FormPayment = ({ changeShowForm, showForm }) => {
@@ -69,6 +69,16 @@ const FormPayment = ({ changeShowForm, showForm }) => {
             </form>
         </div>
     );
+}
+
+FormPayment.defaultProps = {
+    changeShowForm: () => { }, 
+    showForm: false
+}
+
+FormPayment.propTypes = {
+    changeShowForm: PropTypes.func.isRequired, 
+    showForm: PropTypes.bool.isRequired
 }
 
 export default FormPayment;
