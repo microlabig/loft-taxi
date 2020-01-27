@@ -6,8 +6,8 @@ const ProfilePage = () => {
     const [showForm, setShowForm] = useState(true);
 
     const changeShowForm = () => {
-        setShowForm(showForm => !showForm);
-    }
+        setShowForm(showForm => !showForm); 
+    } 
    
     return (
         <>

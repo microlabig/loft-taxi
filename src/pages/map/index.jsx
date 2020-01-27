@@ -8,7 +8,7 @@ const MapPage = (isLoggedIn) => {
     const [showForm, setShowForm] = useState(true);
 
     const submitData = () => {
-        setShowForm(showForm => !showForm);
+        setShowForm(showForm => !showForm); 
     }
 
     const mapTemplate = (

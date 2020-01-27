@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class Profile extends Component {
+export default class InputLazy extends Component {
     // значения props по-умолчанию (заглушки)
     static defaultProps = {
         onChange: function(e) {}, // заглушка (т.е. если в props не передаем - то undefined)

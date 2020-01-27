@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MenuButton from './../menu-buttons';
+import MenuButton from './../menu-button';
 import PropTypes from 'prop-types';
 
 import Logo from '../logocompany';
