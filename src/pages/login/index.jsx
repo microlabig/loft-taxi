@@ -1,55 +1,46 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React from "react";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import LogoCompany from '../../components/logocompany';
-import FormLogin from '../../components/forms/login';
-import DescpriptionForForm from '../../components/forms/description';
+import LogoCompany from "../../components/logocompany";
+import FormLogin from "../../components/forms/login";
+import DescpriptionForForm from "../../components/forms/description";
 
-import { AuthContext } from "../../contexts/login-context";
+import "./styles.scss";
 
-import './styles.scss';
+const LoginPage = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-export default class LoginPage extends Component {
-  // значения props по-умолчанию (заглушки)
-  static defaultProps = {
-    setPage: () => {}
-  };
-
-  // проверка на принимаемый тип данных из props
-  static propTypes = {
-    setPage: PropTypes.func
-  };
-
-  static contextType = AuthContext; // заберем контекст авторизации
-
-  submitData = (e) => {
+  const submitData = e => {
     e.preventDefault();
-    this.context.login("email", "password");
+    dispatch({ type: "LOGIN" });
+    history.push("/map");
   };
 
-  toAction = (e) => {
+  const toAction = e => {
     e.preventDefault();
-    this.props.setPage('register');
-  }
+    history.push("/register");
+  };
 
-  render() {
-    return (
-      <div className="login">
-            <div className="login__container">
-                <div className="login__logo">
-                    <LogoCompany type={'white'} showIcon={true}/>
-                </div>
-                <div className="login__data">
-                    <DescpriptionForForm 
-                      headingText={'Войти'}
-                      questionText={'Новый пользователь? '}
-                      actionTextLink={'Зарегистрируйтесь'}
-                      toAction={this.toAction}
-                    />
-                    <FormLogin submitData={this.submitData}/>
-                </div>
-            </div>
+  return (
+    <div className="login">
+      <div className="login__container">
+        <div className="login__logo">
+          <LogoCompany type={"white"} showIcon={true} />
+        </div>
+        <div className="login__data">
+          <DescpriptionForForm
+            headingText={"Войти"}
+            questionText={"Новый пользователь? "}
+            actionTextLink={"Зарегистрируйтесь"}
+            toAction={toAction}
+          />
+          <FormLogin submitData={submitData} />
+        </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default LoginPage;

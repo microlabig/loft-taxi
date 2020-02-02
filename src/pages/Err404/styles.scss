@@ -1,0 +1,15 @@
+@import '../../assets/styles/variables.scss';
+
+.error404 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.error404__container {
+    text-align: center;
+    background-color: rgba($black_color, .5);
+    color: $white_color;
+    padding: 10px;
+}

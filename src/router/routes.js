@@ -36,7 +36,7 @@ export default [
     {
         name: 'error',
         url: '**',
-        exact: true,
+        exact: false,
         private: false,
         component: Err404
     }

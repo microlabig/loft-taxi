@@ -5,16 +5,22 @@ import App from './App';
 
 import { theme } from 'loft-taxi-mui-theme';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+
 import { BrowserRouter } from 'react-router-dom';
+
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 // import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-    <BrowserRouter>
-        <MuiThemeProvider theme={theme}>
-            <App />
-        </MuiThemeProvider>
-    </BrowserRouter>,
+    <Provider store={store}>
+        <BrowserRouter>
+            <MuiThemeProvider theme={theme}>
+                <App />
+            </MuiThemeProvider>
+        </BrowserRouter>
+    </Provider>,
 document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
