@@ -24,7 +24,8 @@ class AuthProvider extends Component {
         return {
             isLoggedIn: this.state.isLoggedIn,
             login: this.login,
-            logout: this.logout
+            logout: this.logout,
+            defaultUrl: '/login'
         }
     }
 
@@ -46,4 +47,4 @@ AuthProvider.propTypes = {
     children: PropTypes.node
 }
 
-export { AuthContext, AuthProvider};
+export { AuthContext, AuthProvider };
