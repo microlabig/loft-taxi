@@ -13,7 +13,7 @@ const FormLogin = ({ submitData }) => {
                         required 
                         name="name" 
                         label="Имя пользователя" 
-                        defaultValue="User123"
+                        defaultValue="test1211@exa4mple.com"
                         fullWidth={true} 
                         autoFocus
                     />
@@ -22,7 +22,8 @@ const FormLogin = ({ submitData }) => {
                     <TextField 
                         required
                         name="password" 
-                        label="Пароль" 
+                        label="Пароль"
+                        defaultValue="password00001654564"
                         type="password" 
                         fullWidth={true} 
                     />

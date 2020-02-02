@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserLogin } from "../../store/user";
 
 import LogoCompany from "../../components/logocompany";
 import FormLogin from "../../components/forms/login";
@@ -11,11 +12,22 @@ import "./styles.scss";
 const LoginPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const authed = useSelector(state => state.user.authed);
+
+  useEffect(() => {
+    if (authed) {
+      history.push("/map");
+    }
+  }, [authed, history]);
 
   const submitData = e => {
     e.preventDefault();
-    dispatch({ type: "LOGIN" });
-    history.push("/map");
+    dispatch(
+      fetchUserLogin({
+        email: "test1211@exa4mple.com",
+        password: "password00001654564"
+      })
+    );
   };
 
   const toAction = e => {

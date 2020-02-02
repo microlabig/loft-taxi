@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { useDispatch } from "react-redux";
+import { fetchRouteRequest, fetchAddressListRequest } from "../../../store/user";
 
 import DottedLine from '../../dottedline';
 import FormRouteDone from '../../forms/done/route';
@@ -12,6 +14,15 @@ import { Place, MyLocation } from '@material-ui/icons';
 import './styles.scss';
 
 const FormRoute = ({ submitData, showForm }) => {
+    const dispatch = useDispatch();
+
+    dispatch(fetchRouteRequest({
+        address1: 'Шаверма на Невском',
+        address2: 'Пулково (LED)'
+    }));
+
+    dispatch(fetchAddressListRequest());
+
     const formTemplate = (
         <>
             <div className="form__wrapper">

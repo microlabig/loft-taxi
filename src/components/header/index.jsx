@@ -2,6 +2,7 @@ import React from "react";
 
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { fetchUserLogout } from "../../store/user";
 
 import MenuButton from "../menu-button";
 import Logo from "../logocompany";
@@ -28,7 +29,7 @@ const Header = () => {
   const handleClick = e => history.push(e.currentTarget.name);
 
   const exit = e => {
-    dispatch({ type: "LOGOUT" });
+    dispatch(fetchUserLogout());
     history.push("/");
   };
 
@@ -45,7 +46,7 @@ const Header = () => {
       );
     });
   };
-
+  
   return (
     <div className="header">
       <AppBar position="static">

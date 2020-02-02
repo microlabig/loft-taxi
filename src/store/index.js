@@ -1,18 +1,15 @@
-import { createStore } from "redux";
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 
-const initStore = {
-    authed: false
-}
+import user, { userMiddleware } from './user';
 
-const rootReducer = (state = initStore, action) => {
-    switch (action.type) {
-        case "LOGIN":
-            return { authed: true };
-        case "LOGOUT":
-            return { authed: false };
-        default:
-            return state;
-    }
-};
-
-export const store = createStore(rootReducer);
+export default createStore(
+    combineReducers({
+        user,
+    }),
+    compose(
+        applyMiddleware(userMiddleware),
+        window.__REDUX_DEVTOOLS_EXTENSION__
+            ? window.__REDUX_DEVTOOLS_EXTENSION__
+            : noop => noop
+    )
+); 

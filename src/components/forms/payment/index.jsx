@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 
 import FormPaymentDone from '../../forms/done/payment';
@@ -65,7 +65,7 @@ const FormPayment = ({ changeShowForm, showForm }) => {
             <form className="form" name="formPayment">
                 <h2 className="form__title">Профиль</h2>
                 <p className="form__description">Способ оплаты</p>
-                {showForm ? formTemplate : <FormPaymentDone changeShowForm={changeShowForm}/>}
+                {showForm ? formTemplate : <FormPaymentDone />}
             </form>
         </div>
     );
