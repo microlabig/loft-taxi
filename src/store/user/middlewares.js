@@ -65,8 +65,6 @@ export const userMiddleware = store => next => action => {
             fetch(SERVER_URL + '/addressList', { method: 'GET' })
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
-                    
                     store.dispatch(fetchAddressListSuccess(data));
                 })
                 .catch(error => store.dispatch(fetchAddressListFailure(error)));

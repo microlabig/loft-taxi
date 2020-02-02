@@ -79,7 +79,10 @@ export default (state = initStore, action) => {
 
         // Route
         case fetchRouteSuccess.toString():
-            return { ...state, route: [...action.payload] };
+            newState = { ...state, route: [...action.payload] };
+            localStorage.setItem(STORAGE_NAME, JSON.stringify(newState));
+
+            return newState;
 
         case fetchRouteFailure.toString():
             newState = { ...state, error: action.payload.error };
@@ -88,12 +91,16 @@ export default (state = initStore, action) => {
 
         // AddressList
         case fetchAddressListSuccess.toString():
-            return { ...state, addressList: [...action.payload] };
+            newState = { ...state, addressList: [...action.payload] };
+            localStorage.setItem(STORAGE_NAME, JSON.stringify(newState));
+
+            return newState;
 
         case fetchAddressListFailure.toString():
             newState = { ...state, error: action.payload.error };
 
             return newState;
+            
         default:
             return state;
     }
