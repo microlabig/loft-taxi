@@ -100,7 +100,7 @@ export default (state = initStore, action) => {
             newState = { ...state, error: action.payload.error };
 
             return newState;
-            
+
         default:
             return state;
     }

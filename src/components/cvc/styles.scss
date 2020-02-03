@@ -1,25 +1,31 @@
-.form__cvc {
+.cvc {
     max-width: 110px;
 }
 
-.form__cvc-hintwrapper {
+.cvc__wrapper {
+    position: relative;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
     align-items: center;
 }
 
-.form__cvc-text {
-    display: inline-block;
-    vertical-align: text-top;
-    font-size: 15px;
+// .cvc__text {
+//     // display: inline-block;
+//     // vertical-align: text-top;
+//     // font-size: 15px;
+// }
+
+.cvc__helpicon {
+    // display: inline-block;
+    // vertical-align: baseline;
+    position: absolute;
+    right: 36%;
+    top: 23%;
+    opacity: .5;
 }
 
-.form__cvc-helpicon {
-    display: inline-block;
-    vertical-align: baseline;
-
-    opacity: .5;
-    
-    margin-left: 10px;
+.cvc__button {
+    position: absolute;
+    right: -5%;
 }

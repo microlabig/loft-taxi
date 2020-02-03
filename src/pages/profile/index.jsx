@@ -9,7 +9,8 @@ const ProfilePage = () => {
   const [showForm, setShowForm] = useState(true);
   const dispatch = useDispatch();
   const cardIsUpdate = useSelector(state => state.user.card.isUpdate);
-  
+  const token = useSelector(state => state.user.token);
+
   useEffect(() => {
     setShowForm(showForm => false);
     dispatch(fetchCardGetInfo());
@@ -19,10 +20,13 @@ const ProfilePage = () => {
     setShowForm(showForm => true);
   },[])
 
-  const changeShowForm = () => {
+  const changeShowForm = (e, {cardNumber, expiryDate, cardName, cvc}) => {
+      e.preventDefault();
+      
     dispatch(
       fetchCardRequest({
-        cardNumber: "0014 0030 0020 0040", expiryDate: "01/31", cardName: "TEST NAME", cvc: "123", token: "recYP3UHH89o6XAIx"
+        //cardNumber: "0014 0030 0020 0040", expiryDate: "01/31", cardName: "TEST NAME", cvc: "123", token: "recYP3UHH89o6XAIx"
+        cardNumber, expiryDate, cardName, cvc, token: token
       })
     );
   };

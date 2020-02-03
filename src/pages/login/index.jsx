@@ -20,14 +20,16 @@ const LoginPage = () => {
     }
   }, [authed, history]);
 
-  const submitData = e => {
+  const submitData = (e, {emailValue, passwordValue}) => {
     e.preventDefault();
     dispatch(
       fetchUserLogin({
-        email: "test1211@exa4mple.com",
-        password: "password00001654564"
+        // email: "test1211@exa4mple.com",
+        // password: "password00001654564"
+        email: emailValue,
+        password: passwordValue
       })
-    );
+    ); 
   };
 
   const toAction = e => {
@@ -48,7 +50,7 @@ const LoginPage = () => {
             actionTextLink={"Зарегистрируйтесь"}
             toAction={toAction}
           />
-          <FormLogin submitData={submitData} />
+          <FormLogin submitData={submitData}/>
         </div>
       </div>
     </div>

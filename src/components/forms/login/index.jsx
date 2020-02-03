@@ -1,21 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from 'prop-types';
 
 import { TextField, Button } from "@material-ui/core";
 import './styles.scss';
 
 const FormLogin = ({ submitData }) => {
+    const [emailValue, setEmailValue] = useState('');
+    const [passwordValue, setPasswordValue] = useState('');
+
     return (
         <form className="form" name="formLogin">
             <div className="form__elements">
                 <label className="form__row">
                     <TextField 
                         required 
-                        name="name" 
-                        label="Имя пользователя" 
-                        defaultValue="test1211@exa4mple.com"
+                        name="email" 
+                        label="Имя пользователя"
                         fullWidth={true} 
                         autoFocus
+                        value={emailValue}
+                        onChange={(e) => setEmailValue(e.target.value)}
                     />
                 </label>
                 <label className="form__row">
@@ -23,9 +27,10 @@ const FormLogin = ({ submitData }) => {
                         required
                         name="password" 
                         label="Пароль"
-                        defaultValue="password00001654564"
                         type="password" 
                         fullWidth={true} 
+                        value={passwordValue}
+                        onChange={(e) => setPasswordValue(e.target.value)}
                     />
                 </label>
             </div>
@@ -33,7 +38,7 @@ const FormLogin = ({ submitData }) => {
                 <label className="form__row button-submit">
                     <Button 
                         name="submit" 
-                        onClick={submitData}
+                        onClick={(e) => submitData(e, {emailValue, passwordValue})}
                         variant="contained" 
                         color="primary"
                         data-testid="button-submit"

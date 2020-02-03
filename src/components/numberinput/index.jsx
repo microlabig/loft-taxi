@@ -5,16 +5,19 @@ import NumberFormat from "react-number-format";
 import { TextField } from "@material-ui/core";
 import './style.scss';
 
-const NumberInput = ({textmask, format, label, type, className}) => {
+const NumberInput = ({textmask, format, label, type, className, onChangeValue}) => {
   return (
       <NumberFormat 
         required
-        label={label} 
-        value={textmask} 
+        label={label}
+        type={type}
+        textmask={textmask} 
         customInput={TextField} 
         format={format}
+        autoComplete="new-password"
         fullWidth={true}
         className={className}
+        onValueChange={(values) => onChangeValue(values.formattedValue)}
       />
   );
 };
@@ -34,3 +37,4 @@ NumberInput.propTypes = {
 }
 
 export default NumberInput;
+

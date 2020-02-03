@@ -20,14 +20,18 @@ const RegisterFormPage = () => {
     }
   }, [authed, history]);
 
-  const submitData = e => {
+  const submitData = (e, {email, password, name, surname}) => {
     e.preventDefault();
     dispatch(
       fetchUserRegister({
-        email: "test1211@exa4mple.com",
-        password: "password00001654564",
-        name: "Name",
-        surname: "Surname"
+        // email: "test1211@exa4mple.com",
+        // password: "password00001654564",
+        // name: "Name",
+        // surname: "Surname"
+        email,
+        password,
+        name,
+        surname
       })
     );
   };

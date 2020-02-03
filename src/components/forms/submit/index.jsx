@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from 'prop-types';
 
 import { TextField, Button } from "@material-ui/core";
 import './styles.scss';
 
 const FormSubmit = ({ submitData }) => {
+    const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
+    const [surname, setSurname] = useState('');
+    const [password, setPassword] = useState('');
+
     return (
         <form className="form" name="formSubmit">
             <div className="form__elements">
@@ -13,10 +18,11 @@ const FormSubmit = ({ submitData }) => {
                         required 
                         name="email" 
                         label="Адрес электронной почты" 
-                        defaultValue="mail@mail.ru"
                         type="email"
                         fullWidth={true} 
                         autoFocus
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </label>
             </div>
@@ -25,14 +31,18 @@ const FormSubmit = ({ submitData }) => {
                     <TextField 
                         required
                         name="name" 
-                        label="Имя"  
+                        label="Имя" 
+                        value={name}
+                        onChange={(e) => setName(e.target.value)} 
                     />
                 </label>
                 <label className="form__row">
                     <TextField 
                         required
-                        name="lastName" 
+                        name="surName" 
                         label="Фамилия" 
+                        value={surname}
+                        onChange={(e) => setSurname(e.target.value)} 
                     />
                 </label>
             </div>
@@ -44,6 +54,8 @@ const FormSubmit = ({ submitData }) => {
                         label="Пароль" 
                         type="password" 
                         fullWidth={true} 
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)} 
                     />
                 </label>
             </div>
@@ -51,7 +63,7 @@ const FormSubmit = ({ submitData }) => {
                 <label className="form__row button-submit">
                     <Button 
                         name="submit" 
-                        onClick={submitData}
+                        onClick={(e) => submitData(e, {email, name, surname, password})}
                         variant="contained" 
                         color="primary"
                     >
