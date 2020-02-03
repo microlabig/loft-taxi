@@ -5,8 +5,9 @@ import { TextField, Button } from "@material-ui/core";
 import './styles.scss';
 
 const FormLogin = ({ submitData }) => {
-    const [emailValue, setEmailValue] = useState('');
-    const [passwordValue, setPasswordValue] = useState('');
+    const [values, setValues] = useState({
+        emailValue:'', passwordValue:''
+    });
 
     return (
         <form className="form" name="formLogin">
@@ -18,8 +19,8 @@ const FormLogin = ({ submitData }) => {
                         label="Имя пользователя"
                         fullWidth={true} 
                         autoFocus
-                        value={emailValue}
-                        onChange={(e) => setEmailValue(e.target.value)}
+                        value={values.emailValue}
+                        onChange={(e) => setValues({...values, emailValue: e.target.value})}
                     />
                 </label>
                 <label className="form__row">
@@ -29,8 +30,8 @@ const FormLogin = ({ submitData }) => {
                         label="Пароль"
                         type="password" 
                         fullWidth={true} 
-                        value={passwordValue}
-                        onChange={(e) => setPasswordValue(e.target.value)}
+                        value={values.passwordValue}
+                        onChange={(e) => setValues({...values, passwordValue: e.target.value})}
                     />
                 </label>
             </div>
@@ -38,7 +39,7 @@ const FormLogin = ({ submitData }) => {
                 <label className="form__row button-submit">
                     <Button 
                         name="submit" 
-                        onClick={(e) => submitData(e, {emailValue, passwordValue})}
+                        onClick={(e) => submitData(e, values)}
                         variant="contained" 
                         color="primary"
                         data-testid="button-submit"

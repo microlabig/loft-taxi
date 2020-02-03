@@ -22,13 +22,14 @@ const ProfilePage = () => {
 
   const changeShowForm = (e, {cardNumber, expiryDate, cardName, cvc}) => {
       e.preventDefault();
+      console.log(cardNumber, expiryDate, cardName, cvc, token);
       
-    dispatch(
+    /* dispatch(
       fetchCardRequest({
         //cardNumber: "0014 0030 0020 0040", expiryDate: "01/31", cardName: "TEST NAME", cvc: "123", token: "recYP3UHH89o6XAIx"
         cardNumber, expiryDate, cardName, cvc, token: token
       })
-    );
+    ); */
   };
 
   return (

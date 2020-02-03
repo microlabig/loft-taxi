@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserRegister } from "../../store/user";
 
 import LogoCompany from "../../components/logocompany";
-import FormSubmit from "../../components/forms/submit";
+import FormRegister from "../../components/forms/register";
 import DescpriptionForForm from "../../components/forms/description";
 
 import "./styles.scss";
@@ -54,7 +54,7 @@ const RegisterFormPage = () => {
             actionTextLink={"Войти"}
             toAction={toAction}
           />
-          <FormSubmit submitData={submitData} />
+          <FormRegister submitData={submitData} />
         </div>
       </div>
     </div>

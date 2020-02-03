@@ -9,10 +9,9 @@ import { TextField, Button, Paper } from "@material-ui/core";
 import './styles.scss';
 
 const FormPayment = ({ changeShowForm, showForm }) => {
-    const [cardNumber, setCardNumber] = useState('');
-    const [expiryDate, setExpiryDate] = useState('');
-    const [cardName, setCardName] = useState('');
-    const [cvc, setCvc] = useState('');
+    const [values, setValues] = useState({
+        cardNumber:'', expiryDate:'', cardName:'', cvc:''
+    });
 
     const formTemplate = (
         <>
@@ -25,14 +24,14 @@ const FormPayment = ({ changeShowForm, showForm }) => {
                                 textmask="" 
                                 format="#### #### #### ####"
                                 className="form__input"
-                                onChangeValue={(value) => setCardNumber(value)}
+                                onChangeValue={(value) => setValues({...values, cardNumber: value})}
                             />
                             <NumberInput 
                                 label="Срок действия:" 
                                 textmask="" 
                                 format="##/##"
                                 className="form__input validity"
-                                onChangeValue={(value) => setExpiryDate(value)}
+                                onChangeValue={(value) => setValues({...values, expiryDate: value})}
                             />
                     </div>
                 </Paper>
@@ -44,12 +43,12 @@ const FormPayment = ({ changeShowForm, showForm }) => {
                             label="Имя владельца:"
                             fullWidth={true} 
                             className="form__input"
-                            value={cardName}
-                            onChange={(e) => setCardName(e.target.value)}
+                            value={values.cardName}
+                            onChange={(e) => setValues({...values, cardName: e.target.value})}
                         />  
                         <CVC 
                             className="form__input"
-                            onChangeValue={(value) => setCvc(value)}
+                            onChangeValue={(value) => setValues({...values, cvc: value})}
                         />
                     </div>
                 </Paper>
@@ -59,7 +58,7 @@ const FormPayment = ({ changeShowForm, showForm }) => {
                 <label className="form__row button-submit">
                     <Button 
                         name="call" 
-                        onClick={(e) => changeShowForm(e, {cardNumber, expiryDate, cardName, cvc})}
+                        onClick={(e) => changeShowForm(e, values)}
                         variant="contained" 
                         color="primary"
                         className="form__button"

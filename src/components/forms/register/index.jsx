@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 import { TextField, Button } from "@material-ui/core";
 import './styles.scss';
 
-const FormSubmit = ({ submitData }) => {
-    const [email, setEmail] = useState('');
-    const [name, setName] = useState('');
-    const [surname, setSurname] = useState('');
-    const [password, setPassword] = useState('');
+const FormRegister = ({ submitData }) => {
+    const [values, setValues] = useState({
+        email:'', name:'', surname:'', password:''
+    });
 
     return (
         <form className="form" name="formSubmit">
@@ -21,8 +20,8 @@ const FormSubmit = ({ submitData }) => {
                         type="email"
                         fullWidth={true} 
                         autoFocus
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={values.email}
+                        onChange={(e) => setValues({...values, email: e.target.value})}
                     />
                 </label>
             </div>
@@ -32,8 +31,8 @@ const FormSubmit = ({ submitData }) => {
                         required
                         name="name" 
                         label="Имя" 
-                        value={name}
-                        onChange={(e) => setName(e.target.value)} 
+                        value={values.name}
+                        onChange={(e) => setValues({...values, name: e.target.value})}
                     />
                 </label>
                 <label className="form__row">
@@ -41,8 +40,8 @@ const FormSubmit = ({ submitData }) => {
                         required
                         name="surName" 
                         label="Фамилия" 
-                        value={surname}
-                        onChange={(e) => setSurname(e.target.value)} 
+                        value={values.surname}
+                        onChange={(e) => setValues({...values, surname: e.target.value})}
                     />
                 </label>
             </div>
@@ -54,8 +53,8 @@ const FormSubmit = ({ submitData }) => {
                         label="Пароль" 
                         type="password" 
                         fullWidth={true} 
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)} 
+                        value={values.password}
+                        onChange={(e) => setValues({...values, password: e.target.value})} 
                     />
                 </label>
             </div>
@@ -63,7 +62,7 @@ const FormSubmit = ({ submitData }) => {
                 <label className="form__row button-submit">
                     <Button 
                         name="submit" 
-                        onClick={(e) => submitData(e, {email, name, surname, password})}
+                        onClick={(e) => submitData(e, values)}
                         variant="contained" 
                         color="primary"
                     >
@@ -75,12 +74,12 @@ const FormSubmit = ({ submitData }) => {
     );
 }
 
-FormSubmit.defaultProps = {
+FormRegister.defaultProps = {
     submitData: () => { }
 }
 
-FormSubmit.propTypes = {
+FormRegister.propTypes = {
     submitData: PropTypes.func.isRequired
 }
 
-export default FormSubmit;
+export default FormRegister;
