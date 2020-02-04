@@ -38,7 +38,7 @@ export default (state = initStore, action) => {
         case actions.fetchUserLogout.toString():
             localStorage.removeItem(STORAGE_NAME);
 
-            return { ...state, user: {}, card: {}, route: {}, authed: false, token: null, error: null };
+            return { user: {}, authed: false, token: null, error: null };
 
         default:
             return state;

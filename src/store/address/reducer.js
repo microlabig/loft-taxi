@@ -42,6 +42,11 @@ export default (state = initStore, action) => {
 
             return newState;
 
+        case actions.fetchAddressReset.toString():
+            localStorage.removeItem(STORAGE_NAME);
+
+            return { route: [], addressList: [],  error: null };
+
         default:
             return state;
     }

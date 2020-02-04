@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { getCardInfo } from "../../../store/card";
+import { getCardInfo, getCardInfoLoaded, fetchCardIsLoadedReset } from "../../../store/card";
 
 import FormPaymentDone from "../../forms/done/payment";
 import NumberInput from "../../numberinput";
@@ -12,13 +12,17 @@ import { TextField, Button, Paper } from "@material-ui/core";
 import "./styles.scss";
 
 const FormPayment = ({ changeShowForm, showForm }) => {
+  const dispatch = useDispatch();
   const cardInfo = useSelector(state => getCardInfo(state.card));
-  const [values, setValues] = useState({
-    cardNumber: cardInfo.cardNumber,
-    expiryDate: cardInfo.expiryDate,
-    cardName: cardInfo.cardName,
-    cvc: cardInfo.cvc
-  });
+  const cardInfoLoaded = useSelector(state => getCardInfoLoaded(state.card));
+  const [values, setValues] = useState({ ...cardInfo });
+
+  useEffect(() => {
+    if (cardInfoLoaded) {
+      setValues({ ...values, ...cardInfo });
+      dispatch(fetchCardIsLoadedReset());
+    }
+  }, [cardInfoLoaded, dispatch, cardInfo, values]);
 
   const formTemplate = (
     <>
@@ -30,7 +34,7 @@ const FormPayment = ({ changeShowForm, showForm }) => {
               label="Номер карты:"
               textmask=""
               format="#### #### #### ####"
-              currentValue={cardInfo.cardNumber}
+              currentValue={values.cardNumber}
               onChangeValue={value =>
                 setValues({ ...values, cardNumber: value })
               }
@@ -40,7 +44,7 @@ const FormPayment = ({ changeShowForm, showForm }) => {
               label="Срок действия:"
               textmask=""
               format="##/##"
-              currentValue={cardInfo.expiryDate}
+              currentValue={values.expiryDate}
               onChangeValue={value =>
                 setValues({ ...values, expiryDate: value })
               }
@@ -57,11 +61,11 @@ const FormPayment = ({ changeShowForm, showForm }) => {
               fullWidth={true}
               className="form__input"
               value={values.cardName}
-              onChange={e => setValues({ ...values, cardName: e.target.value })}
+              onChange={e => setValues({ ...values, cardName: e.target.value.toUpperCase() })}
             />
             <CVC
               className="form__input"
-              currentValue={cardInfo.cvc}
+              currentValue={values.cvc}
               onChangeValue={value => setValues({ ...values, cvc: value })}
             />
           </div>

@@ -15,7 +15,7 @@ const NumberInput = ({textmask, format, label, type, currentValue, className, on
         customInput={TextField} 
         format={format}
         className={className}
-        defaultValue={currentValue}
+        value={currentValue}
         autoComplete="new-password"
         fullWidth={true}
         onValueChange={(values) => onChangeValue(values.formattedValue)}

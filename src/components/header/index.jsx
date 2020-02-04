@@ -3,6 +3,8 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchUserLogout } from "../../store/user";
+import { fetchCardReset } from "../../store/card";
+import { fetchAddressReset } from "../../store/address";
 
 import MenuButton from "../menu-button";
 import Logo from "../logocompany";
@@ -30,6 +32,8 @@ const Header = () => {
 
   const exit = e => {
     dispatch(fetchUserLogout());
+    dispatch(fetchCardReset());
+    dispatch(fetchAddressReset());
     history.push("/");
   };
 
