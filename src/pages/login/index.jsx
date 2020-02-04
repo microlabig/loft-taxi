@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserLogin } from "../../store/user";
+import { fetchUserLogin, getAuthed } from "../../store/user";
 
 import LogoCompany from "../../components/logocompany";
 import FormLogin from "../../components/forms/login";
@@ -12,7 +12,7 @@ import "./styles.scss";
 const LoginPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const authed = useSelector(state => state.user.authed);
+  const authed = useSelector(state => getAuthed(state));
 
   useEffect(() => {
     if (authed) {

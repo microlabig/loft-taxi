@@ -1,73 +1,72 @@
-import { SERVER_URL } from '../../api/consts';
-import {
-    fetchUserSuccess, fetchUserFailure, fetchUserLogin, fetchUserRegister,
-    fetchCardRequest, fetchCardSuccess, fetchCardFailure, fetchCardGetInfo, fetchCardSaveInfoToLS,
-    fetchRouteRequest, fetchRouteSuccess, fetchRouteFailure,
-    fetchAddressListRequest, fetchAddressListSuccess, fetchAddressListFailure
-} from './actions';
+import { SERVER_URL } from '../../utils/consts';
+import * as actions from './actions';
 
 export const userMiddleware = store => next => action => {
-    const dataPayload = action.payload;
+    const { payload } = action;
 
     switch (action.type) {
-        case fetchUserRegister.toString():
-            fetch(SERVER_URL + '/register', { method: 'POST', headers: { 'content-Type': 'application/json' }, body: JSON.stringify(dataPayload) })
+        // User
+        case actions.fetchUserRegister.toString():
+            fetch(SERVER_URL + '/register', { method: 'POST', headers: { 'content-Type': 'application/json' }, body: JSON.stringify(payload) })
                 .then(response => response.json())
                 .then(data => {
                     data.success
-                        ? store.dispatch(fetchUserSuccess(data))
+                        ? store.dispatch(actions.fetchUserSuccess(data))
                         : Promise.reject(data);
                 })
-                .catch(error => store.dispatch(fetchUserFailure(error)));
+                .catch(error => store.dispatch(actions.fetchUserFailure(error)));
             break;
 
-        case fetchUserLogin.toString():
-            fetch(SERVER_URL + '/auth', { method: 'POST', headers: { 'content-Type': 'application/json' }, body: JSON.stringify(dataPayload) })
+        case actions.fetchUserLogin.toString():
+            fetch(SERVER_URL + '/auth', { method: 'POST', headers: { 'content-Type': 'application/json' }, body: JSON.stringify(payload) })
                 .then(response => response.json())
                 .then(data => {
                     data.success
-                        ? store.dispatch(fetchUserSuccess(data))
+                        ? store.dispatch(actions.fetchUserSuccess(data))
                         : Promise.reject(data);
                 })
-                .catch(error => store.dispatch(fetchUserFailure(error)));
+                .catch(error => store.dispatch(actions.fetchUserFailure(error)));
             break;
 
-        case fetchCardRequest.toString():
-            fetch(SERVER_URL + '/card', { method: 'POST', headers: { 'content-Type': 'application/json' }, body: JSON.stringify(dataPayload) })
+        // Card
+        case actions.fetchCardRequest.toString():
+            fetch(SERVER_URL + '/card', { method: 'POST', headers: { 'content-Type': 'application/json' }, body: JSON.stringify(payload) })
                 .then(response => response.json())
                 .then(data => {
                     data.success
-                        ? store.dispatch(fetchCardSuccess(dataPayload))
+                        ? store.dispatch(actions.fetchCardSuccess(payload))
                         : Promise.reject(data);
                 })
-                .catch(error => store.dispatch(fetchCardFailure(error)));
+                .catch(error => store.dispatch(actions.fetchCardFailure(error)));
             break;
 
-        case fetchCardGetInfo.toString():
+        case actions.fetchCardGetInfo.toString():
             fetch(SERVER_URL + `/card?token=${store.getState().user.token}`, { method: 'GET' })
                 .then(response => response.json())
                 .then(data => {
-                    store.dispatch(fetchCardSaveInfoToLS(data));
+                    store.dispatch(actions.fetchCardSaveInfoToLS(data));
                 })
-                .catch(error => store.dispatch(fetchCardFailure(error)));
+                .catch(error => store.dispatch(actions.fetchCardFailure(error)));
             break;
-
-        case fetchRouteRequest.toString():
-            fetch(SERVER_URL + `/route?address1=${dataPayload.address1}&${dataPayload.address2}`, { method: 'GET' })
+        
+        // Route
+        case actions.fetchRouteRequest.toString():
+            fetch(SERVER_URL + `/route?address1=${payload.address1}&${payload.address2}`, { method: 'GET' })
                 .then(response => response.json())
                 .then(data => {
-                    store.dispatch(fetchRouteSuccess(data));
+                    store.dispatch(actions.fetchRouteSuccess(data));
                 })
-                .catch(error => store.dispatch(fetchRouteFailure(error)));
+                .catch(error => store.dispatch(actions.fetchRouteFailure(error)));
             break;
 
-        case fetchAddressListRequest.toString():
+        // AddressList
+        case actions.fetchAddressListRequest.toString():
             fetch(SERVER_URL + '/addressList', { method: 'GET' })
                 .then(response => response.json())
                 .then(data => {
-                    store.dispatch(fetchAddressListSuccess(data));
+                    store.dispatch(actions.fetchAddressListSuccess(data));
                 })
-                .catch(error => store.dispatch(fetchAddressListFailure(error)));
+                .catch(error => store.dispatch(actions.fetchAddressListFailure(error)));
             break;
 
         default:

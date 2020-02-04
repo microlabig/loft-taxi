@@ -5,7 +5,7 @@ import NumberFormat from "react-number-format";
 import { TextField } from "@material-ui/core";
 import './style.scss';
 
-const NumberInput = ({textmask, format, label, type, className, onChangeValue}) => {
+const NumberInput = ({textmask, format, label, type, currentValue, className, onChangeValue}) => {
   return (
       <NumberFormat 
         required
@@ -14,9 +14,10 @@ const NumberInput = ({textmask, format, label, type, className, onChangeValue}) 
         textmask={textmask} 
         customInput={TextField} 
         format={format}
+        className={className}
+        defaultValue={currentValue}
         autoComplete="new-password"
         fullWidth={true}
-        className={className}
         onValueChange={(values) => onChangeValue(values.formattedValue)}
       />
   );

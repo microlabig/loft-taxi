@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './styles.scss';
 
 import mapboxgl from 'mapbox-gl';
-import { API_MAPBOX_ACCESS_TOKEN } from '../../api/consts';
+import { API_MAPBOX_ACCESS_TOKEN } from '../../utils/consts';
 
 mapboxgl.accessToken = API_MAPBOX_ACCESS_TOKEN;
 

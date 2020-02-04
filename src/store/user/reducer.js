@@ -1,9 +1,4 @@
-import {
-    fetchUserSuccess, fetchUserFailure, fetchUserLogout,
-    fetchCardSuccess, fetchCardFailure, fetchCardSaveInfoToLS,
-    fetchRouteSuccess, fetchRouteFailure,
-    fetchAddressListSuccess, fetchAddressListFailure
-} from './actions';
+import * as actions from './actions';
 
 const STORAGE_NAME = 'loft-taxi';
 const cashedStore = JSON.parse(localStorage.getItem(STORAGE_NAME));
@@ -38,37 +33,36 @@ export default (state = initStore, action) => {
 
     switch (action.type) {
         // User
-        case fetchUserSuccess.toString():
+        case actions.fetchUserSuccess.toString():
             newState = { ...state, authed: true, token: action.payload.token };
             localStorage.setItem(STORAGE_NAME, JSON.stringify(newState));
 
             return newState;
 
-        case fetchUserFailure.toString():
+        case actions.fetchUserFailure.toString():
             newState = { ...state, authed: false, error: action.payload.error };
 
             return newState;
 
-        case fetchUserLogout.toString():
+        case actions.fetchUserLogout.toString():
             localStorage.removeItem(STORAGE_NAME);
 
             return { ...state, user: {}, card: {}, route: {}, authed: false, token: null, error: null };
 
         // Card
-        case fetchCardSuccess.toString():
+        case actions.fetchCardSuccess.toString():
             newState = { ...state, card: { ...action.payload, isUpdate: !state.card.isUpdate } };
             if (newState.card.hasOwnProperty('token')) {
                 delete newState.card.token;
             }
-
             localStorage.setItem(STORAGE_NAME, JSON.stringify(newState));
 
             return newState;
 
-        case fetchCardFailure.toString():
+        case actions.fetchCardFailure.toString():
             return { ...state, card: {}, error: action.payload.error };
 
-        case fetchCardSaveInfoToLS.toString():
+        case actions.fetchCardSaveInfoToLS.toString():
             newState = { ...state, card: { ...action.payload } };
             if (newState.card.hasOwnProperty('id')) {
                 delete newState.card.id;
@@ -78,25 +72,25 @@ export default (state = initStore, action) => {
             return newState;
 
         // Route
-        case fetchRouteSuccess.toString():
+        case actions.fetchRouteSuccess.toString():
             newState = { ...state, route: [...action.payload] };
             localStorage.setItem(STORAGE_NAME, JSON.stringify(newState));
 
             return newState;
 
-        case fetchRouteFailure.toString():
+        case actions.fetchRouteFailure.toString():
             newState = { ...state, error: action.payload.error };
 
             return newState;
 
         // AddressList
-        case fetchAddressListSuccess.toString():
+        case actions.fetchAddressListSuccess.toString():
             newState = { ...state, addressList: [...action.payload] };
             localStorage.setItem(STORAGE_NAME, JSON.stringify(newState));
 
             return newState;
 
-        case fetchAddressListFailure.toString():
+        case actions.fetchAddressListFailure.toString():
             newState = { ...state, error: action.payload.error };
 
             return newState;

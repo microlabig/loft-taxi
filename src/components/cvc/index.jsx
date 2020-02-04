@@ -9,7 +9,7 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 import HelpOutlineSharpIcon from '@material-ui/icons/HelpOutlineSharp';
 import './styles.scss';
 
-const CVC = ({ onChangeValue }) => {
+const CVC = ({ currentValue, onChangeValue }) => {
     const [showPassword, setshowPassword] = React.useState(false);
 
     const handleClickShowCVC = () => {
@@ -28,8 +28,9 @@ const CVC = ({ onChangeValue }) => {
                     textmask=""
                     type={showPassword ? 'text' : 'password'}
                     format="###"
-                    className="form__input validity cvc__input"
+                    currentValue={currentValue}
                     onChangeValue={(value) => onChangeValue(value)}
+                    className="form__input validity cvc__input"
                 />
                 <div className="cvc__helpicon">
                     <Hint textHint="3 последние цифры на оборотной стороне карты" className="cvc__helpicon">
