@@ -14,16 +14,16 @@ let initStore = {
     error: null
 };
 
-if (cashedStore && cashedStore.token) {
+if (cashedStore) {
     initStore = { ...cashedStore };
 }
 
 export default (state = initStore, action) => {
+    const { payload } = action;
     let newState = {};
 
     switch (action.type) {
-
-        // // Card
+        
         case actions.fetchCardSuccess.toString():
             newState = { ...state, card: { ...action.payload, isUpdate: !state.card.isUpdate } };
             if (newState.card.hasOwnProperty('token')) {
@@ -34,10 +34,10 @@ export default (state = initStore, action) => {
             return newState;
 
         case actions.fetchCardFailure.toString():
-            return { ...state, card: {}, error: action.payload.error };
+            return { ...state, card: {}, error: payload.error };
 
         case actions.fetchCardSaveInfoToLS.toString():
-            newState = { ...state, card: { ...action.payload } };
+            newState = { ...state, card: { ...payload } };
             if (newState.card.hasOwnProperty('id')) {
                 delete newState.card.id;
             }

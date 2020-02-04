@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
-import { fetchRouteRequest, fetchAddressListRequest } from "../../../store/user";
+import { fetchRouteRequest, fetchAddressListRequest } from "../../../store/address";
 
 import DottedLine from '../../dottedline';
 import FormRouteDone from '../../forms/done/route';
