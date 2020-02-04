@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getToken } from "../../store/user";
 import {
   fetchCardRequest,
   fetchCardGetInfo,
-  getCardInfoIsUpdate,
-  getToken
-} from "../../store/user";
+  getCardInfoIsUpdate
+} from "../../store/card";
 
 import Header from "../../components/header";
 import FormPayment from "../../components/forms/payment";
@@ -13,15 +13,13 @@ import FormPayment from "../../components/forms/payment";
 const ProfilePage = () => {
   const [showForm, setShowForm] = useState(true);
   const dispatch = useDispatch();
-  const stateInfo = useSelector(state => ({
-    cardInfoIsUpdate: getCardInfoIsUpdate(state),
-    token: getToken(state)
-  }));
+  const cardInfoIsUpdate = useSelector(state => getCardInfoIsUpdate(state.card));
+  const token = useSelector(state => getToken(state));
 
   useEffect(() => {
     setShowForm(showForm => false);
-    dispatch(fetchCardGetInfo());
-  }, [stateInfo.cardInfoIsUpdate, showForm, dispatch]);
+    dispatch(fetchCardGetInfo());    
+  }, [cardInfoIsUpdate, showForm, dispatch]);
 
   useEffect(() => {
     setShowForm(showForm => true);
@@ -37,7 +35,7 @@ const ProfilePage = () => {
         expiryDate,
         cardName,
         cvc,
-        token: stateInfo.token
+        token: token
       })
     );
   };

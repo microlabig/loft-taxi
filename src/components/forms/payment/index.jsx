@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
-import { getCardInfo } from "../../../store/user";
+import { getCardInfo } from "../../../store/card";
 
 import FormPaymentDone from "../../forms/done/payment";
 import NumberInput from "../../numberinput";
@@ -12,7 +12,7 @@ import { TextField, Button, Paper } from "@material-ui/core";
 import "./styles.scss";
 
 const FormPayment = ({ changeShowForm, showForm }) => {
-  const cardInfo = useSelector(state => getCardInfo(state));
+  const cardInfo = useSelector(state => getCardInfo(state.card));
   const [values, setValues] = useState({
     cardNumber: cardInfo.cardNumber,
     expiryDate: cardInfo.expiryDate,

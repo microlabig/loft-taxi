@@ -28,26 +28,26 @@ export const userMiddleware = store => next => action => {
                 .catch(error => store.dispatch(actions.fetchUserFailure(error)));
             break;
 
-        // Card
-        case actions.fetchCardRequest.toString():
-            fetch(SERVER_URL + '/card', { method: 'POST', headers: { 'content-Type': 'application/json' }, body: JSON.stringify(payload) })
-                .then(response => response.json())
-                .then(data => {
-                    data.success
-                        ? store.dispatch(actions.fetchCardSuccess(payload))
-                        : Promise.reject(data);
-                })
-                .catch(error => store.dispatch(actions.fetchCardFailure(error)));
-            break;
+        // // Card
+        // case actions.fetchCardRequest.toString():
+        //     fetch(SERVER_URL + '/card', { method: 'POST', headers: { 'content-Type': 'application/json' }, body: JSON.stringify(payload) })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             data.success
+        //                 ? store.dispatch(actions.fetchCardSuccess(payload))
+        //                 : Promise.reject(data);
+        //         })
+        //         .catch(error => store.dispatch(actions.fetchCardFailure(error)));
+        //     break;
 
-        case actions.fetchCardGetInfo.toString():
-            fetch(SERVER_URL + `/card?token=${store.getState().user.token}`, { method: 'GET' })
-                .then(response => response.json())
-                .then(data => {
-                    store.dispatch(actions.fetchCardSaveInfoToLS(data));
-                })
-                .catch(error => store.dispatch(actions.fetchCardFailure(error)));
-            break;
+        // case actions.fetchCardGetInfo.toString():
+        //     fetch(SERVER_URL + `/card?token=${store.getState().user.token}`, { method: 'GET' })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             store.dispatch(actions.fetchCardSaveInfoToLS(data));
+        //         })
+        //         .catch(error => store.dispatch(actions.fetchCardFailure(error)));
+        //     break;
         
         // Route
         case actions.fetchRouteRequest.toString():
