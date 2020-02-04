@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { withRouter } from "react-router";
 import {
   Route,
   Redirect,
@@ -8,6 +9,10 @@ import {
 
 import routes from './routes';
 import PrivateRoute from './private';
+
+export const LocationDisplay = withRouter(({ location }) => (
+  <div data-testid="location-display">{location.pathname}</div>
+))
 
 const RouterComponent = () => {
   return (
@@ -29,7 +34,7 @@ const RouterComponent = () => {
                   />
             })
         }
-      <Redirect to="**" />
+        <Redirect to="**" />
     </Switch>
   );
 }

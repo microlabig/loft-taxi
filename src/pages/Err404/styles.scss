@@ -9,7 +9,11 @@
 
 .error404__container {
     text-align: center;
-    background-color: rgba($black_color, .5);
+    background-color: rgba($black_color, .7);
     color: $white_color;
     padding: 10px;
+}
+
+.error404__description {
+    margin-bottom: 15px;
 }

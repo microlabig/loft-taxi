@@ -42,6 +42,7 @@ const Header = () => {
       return (
         <div className="header__item" key={page.name}>
           <MenuButton
+            data-testid={`button-${page.name}`}
             name={page.name}
             caption={page.caption}
             onClick={e => handleClick(e)}
@@ -50,7 +51,7 @@ const Header = () => {
       );
     });
   };
-  
+
   return (
     <div className="header">
       <AppBar position="static">
@@ -61,7 +62,7 @@ const Header = () => {
             </div>
             <div className="header__menu">
               <div className="header__list">
-                {getButtons()}
+                { getButtons() }
                 <div className="header__item">
                   <MenuButton caption={"Выйти"} onClick={exit} />
                 </div>

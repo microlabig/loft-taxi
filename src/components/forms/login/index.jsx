@@ -14,6 +14,9 @@ const FormLogin = ({ submitData }) => {
             <div className="form__elements">
                 <label className="form__row">
                     <TextField 
+                        inputProps={{
+                            "data-testid":"input-email"
+                        }}
                         required 
                         name="email" 
                         label="Имя пользователя"
@@ -26,6 +29,9 @@ const FormLogin = ({ submitData }) => {
                 <label className="form__row">
                     <TextField 
                         required
+                        inputProps={{
+                            "data-testid":"input-password"
+                        }}
                         name="password" 
                         label="Пароль"
                         type="password" 
