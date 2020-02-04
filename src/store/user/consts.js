@@ -1,5 +1,5 @@
 // User
-export const USER_REQUEST = 'loft-taxi/user/REQUEST';
+// export const USER_REQUEST = 'loft-taxi/user/REQUEST';
 export const USER_SUCCESS = 'loft-taxi/user/SUCCESS';
 export const USER_FAILURE = 'loft-taxi/user/FAILURE';
 

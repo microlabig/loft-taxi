@@ -5,7 +5,7 @@ export const userMiddleware = store => next => action => {
     const { payload } = action;
 
     switch (action.type) {
-        // User
+        // USER_REGISTER
         case actions.fetchUserRegister.toString():
             fetch(SERVER_URL + '/register', { method: 'POST', headers: { 'content-Type': 'application/json' }, body: JSON.stringify(payload) })
                 .then(response => response.json())
@@ -17,6 +17,7 @@ export const userMiddleware = store => next => action => {
                 .catch(error => store.dispatch(actions.fetchUserFailure(error)));
             break;
 
+        // USER_LOGIN
         case actions.fetchUserLogin.toString():
             fetch(SERVER_URL + '/auth', { method: 'POST', headers: { 'content-Type': 'application/json' }, body: JSON.stringify(payload) })
                 .then(response => response.json())

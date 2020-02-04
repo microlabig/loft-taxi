@@ -5,7 +5,7 @@ export const addressMiddleware = store => next => action => {
     const { payload } = action;
 
     switch (action.type) {
-        // Route
+        // ROUTE_REQUEST
         case actions.fetchRouteRequest.toString():
             fetch(SERVER_URL + `/route?address1=${payload.address1}&${payload.address2}`, { method: 'GET' })
                 .then(response => response.json())
@@ -15,7 +15,7 @@ export const addressMiddleware = store => next => action => {
                 .catch(error => store.dispatch(actions.fetchRouteFailure(error)));
             break;
 
-        // AddressList
+        // ADDRESS_LIST_REQUEST
         case actions.fetchAddressListRequest.toString():
             fetch(SERVER_URL + '/addressList', { method: 'GET' })
                 .then(response => response.json())

@@ -5,7 +5,7 @@ export const cardMiddleware = store => next => action => {
     const { payload } = action;
 
     switch (action.type) {
-        // Card
+        // CARD_REQUEST
         case actions.fetchCardRequest.toString():
             fetch(SERVER_URL + '/card', { method: 'POST', headers: { 'content-Type': 'application/json' }, body: JSON.stringify(payload) })
                 .then(response => response.json())
@@ -16,7 +16,8 @@ export const cardMiddleware = store => next => action => {
                 })
                 .catch(error => store.dispatch(actions.fetchCardFailure(error)));
             break;
-
+        
+        // CARD_GET_INFO
         case actions.fetchCardGetInfo.toString():
             fetch(SERVER_URL + `/card?token=${store.getState().userReducer.token}`, { method: 'GET' })
                 .then(response => response.json())
