@@ -9,7 +9,7 @@ import { Visibility, VisibilityOff } from '@material-ui/icons';
 import HelpOutlineSharpIcon from '@material-ui/icons/HelpOutlineSharp';
 import './styles.scss';
 
-const CVC = ({ currentValue, onChangeValue }) => {
+const CVC = ({ onChangeValue, ...rest }) => {
     const [showPassword, setshowPassword] = React.useState(false);
 
     const handleClickShowCVC = () => {
@@ -28,7 +28,7 @@ const CVC = ({ currentValue, onChangeValue }) => {
                     textmask=""
                     type={showPassword ? 'text' : 'password'}
                     format="###"
-                    currentValue={currentValue}
+                    {...rest}
                     onChangeValue={(value) => onChangeValue(value)}
                     className="form__input validity cvc__input"
                 />
