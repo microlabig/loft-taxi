@@ -13,7 +13,7 @@ import FormPayment from "../../components/forms/payment";
 const ProfilePage = () => {
   const [showForm, setShowForm] = useState(true);
   const dispatch = useDispatch();
-  const cardInfoIsUpdate = useSelector(state => getCardInfoIsUpdate(state.card));
+  const cardInfoIsUpdate = useSelector(state => getCardInfoIsUpdate(state));
   const token = useSelector(state => getToken(state));
 
   useEffect(() => {

@@ -18,7 +18,7 @@ export const cardMiddleware = store => next => action => {
             break;
 
         case actions.fetchCardGetInfo.toString():
-            fetch(SERVER_URL + `/card?token=${store.getState().user.token}`, { method: 'GET' })
+            fetch(SERVER_URL + `/card?token=${store.getState().userReducer.token}`, { method: 'GET' })
                 .then(response => response.json())
                 .then(data => {
                     store.dispatch(actions.fetchCardSaveInfoToLS(data));

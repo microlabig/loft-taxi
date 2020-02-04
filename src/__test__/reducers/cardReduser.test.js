@@ -1,0 +1,116 @@
+import cardReducer, { initialState } from '../../store/card/reducer';
+import * as consts from '../../store/card/consts';
+import * as actions from '../../store/card/actions';
+
+// --------------------------------------------
+// cardReducer
+// --------------------------------------------
+describe('тесты редьюсера cardReducer', () => {
+    let initialTestState = {};
+
+    // инициализируем начальный стейт
+    beforeEach(() => { // ..Each - выполняется перед каждой ф-ией it
+        initialTestState = { ...initialState };
+    });
+
+    // подчищаем после завершения
+    afterEach(() => { // ..Each - выполняется перед каждой ф-ией it
+        initialTestState = null;
+    });
+
+    // --------------------------------------------
+    // CARD_SUCCESS
+    // --------------------------------------------
+    it(`удачная загрузка данных [${consts.CARD_SUCCESS}]`, () => {
+        const action = {
+            type: actions.fetchCardSuccess.toString(),
+            payload: {
+                cardNumber: '1234 5678 9012 3456',
+                expiryDate: '01/21',
+                cardName: 'IVAN IVANOV',
+                cvc: '123'
+            }
+        }
+
+        expect(cardReducer(initialTestState, action)).toEqual({
+            ...initialTestState,
+            isUpdate: true,
+            card: { ...action.payload }
+        });
+    });
+
+    // --------------------------------------------
+    // CARD_FAILURE
+    // --------------------------------------------
+    it(`неудачная загрузка данных [${consts.CARD_FAILURE}]`, () => {
+        const action = {
+            type: actions.fetchCardFailure.toString(),
+            payload: { error: 'error' }
+        }
+
+        expect(cardReducer(initialTestState, action)).toEqual({
+            ...initialTestState,
+            isUpdate: false,
+            isInfoLoaded: false,
+            error: action.payload.error
+        });
+    });
+
+    // --------------------------------------------
+    // CARD_SAVE_INFO_TO_LS
+    // --------------------------------------------
+    it(`сохранение данных карты в LS [${consts.CARD_SAVE_INFO_TO_LS}]`, () => {
+        const action = {
+            type: actions.fetchCardSaveInfoToLS.toString(),
+            payload: {
+                cardNumber: '1234 5678 9012 3456',
+                expiryDate: '01/21',
+                cardName: 'IVAN IVANOV',
+                cvc: '123'
+            }
+        }
+
+        expect(cardReducer(initialTestState, action)).toEqual({
+            ...initialTestState,
+            card: { ...action.payload },
+            isInfoLoaded: true
+        });
+    });
+
+    // --------------------------------------------
+    // CARD_ISLOADED_RESET
+    // --------------------------------------------
+    it(`сброс влага загрузки данных карты [${consts.CARD_ISLOADED_RESET}]`, () => {
+        const action = {
+            type: actions.fetchCardIsLoadedReset.toString()
+        }
+
+        expect(cardReducer(initialTestState, action)).toEqual({
+            ...initialTestState,
+            isInfoLoaded: false
+        });
+    });
+
+    // --------------------------------------------
+    // CARD_RESET
+    // --------------------------------------------
+    it(`выход пользователя и удаление данных карты [${consts.CARD_RESET}]`, () => {
+        const action = {
+            type: actions.fetchCardReset.toString()
+        }
+
+        const state = {
+            ...initialTestState,
+            card: {
+                cardNumber: '1234 5678 9012 3456',
+                expiryDate: '01/21',
+                cardName: 'IVAN IVANOV',
+                cvc: '123'
+            },
+            isUpdate: true,
+            isInfoLoaded: true
+        }
+
+        expect(cardReducer(state, action)).toEqual(initialTestState);
+    });
+});

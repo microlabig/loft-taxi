@@ -3,7 +3,7 @@ import * as actions from './actions';
 const STORAGE_NAME = 'loft-taxi/user';
 const cashedStore = JSON.parse(localStorage.getItem(STORAGE_NAME));
 
-let initStore = {
+const initialState = {
     user: {
         name: null,
         surName: null,
@@ -15,32 +15,40 @@ let initStore = {
     error: null
 };
 
+let loadedState = { ...initialState };
+
 if (cashedStore && cashedStore.token) {
-    initStore = { ...cashedStore };
+    loadedState = { ...cashedStore };
 }
 
-export default (state = initStore, action) => {
+const userReducer = (state = loadedState, action) => {
     const { payload } = action;
     let newState = {};
 
     switch (action.type) {
+        // USER_SUCCESS
         case actions.fetchUserSuccess.toString():
             newState = { ...state, authed: true, token: payload.token };
             localStorage.setItem(STORAGE_NAME, JSON.stringify(newState));
 
             return newState;
 
+        // USER_FAILURE
         case actions.fetchUserFailure.toString():
             newState = { ...state, authed: false, error: payload.error };
 
             return newState;
 
+        // USER_LOGOUT
         case actions.fetchUserLogout.toString():
             localStorage.removeItem(STORAGE_NAME);
 
-            return { user: {}, authed: false, token: null, error: null };
+            return { ...initialState };
 
         default:
             return state;
     }
 };
+
+export { initialState };
+export default userReducer;

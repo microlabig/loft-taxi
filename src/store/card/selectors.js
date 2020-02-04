@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 // Информация о карте
 export const getCardInfo = createSelector(
-    state => state.card,
+    state => state.cardReducer.card,
     card => ({
         cardNumber: card.cardNumber ? card.cardNumber : '',
         expiryDate: card.expiryDate ? card.expiryDate : '',
@@ -13,12 +13,12 @@ export const getCardInfo = createSelector(
 
 // Статус сохранения информации о платежной карте
 export const getCardInfoIsUpdate = createSelector(
-    state =>  state.isUpdate,
+    state =>  state.cardReducer.isUpdate,
     isUpdate => isUpdate
 );
 
 // Статус обновления информации о платежной карте
 export const getCardInfoLoaded = createSelector(
-    state => state.isInfoLoaded,
+    state => state.cardReducer.isInfoLoaded,
     isInfoLoaded => isInfoLoaded
 );

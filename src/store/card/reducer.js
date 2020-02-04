@@ -3,7 +3,7 @@ import * as actions from './actions';
 const STORAGE_NAME = 'loft-taxi/card';
 const cashedStore = JSON.parse(localStorage.getItem(STORAGE_NAME));
 
-let initStore = {
+const initialState = {
     card: {
         cardNumber: null,
         expiryDate: null,
@@ -15,18 +15,20 @@ let initStore = {
     error: null
 };
 
+let loadedState = {...initialState};
+
 if (cashedStore) {
-    initStore = { ...cashedStore };
+    loadedState = { ...cashedStore };
 }
 
-export default (state = initStore, action) => {
+const cardReducer = (state = loadedState, action) => {
     const { payload } = action;
     let newState = {};
 
     switch (action.type) {
-
+        // CARD_SUCCESS
         case actions.fetchCardSuccess.toString():
-            newState = { ...state, isUpdate: !state.isUpdate, card: { ...action.payload } };
+            newState = { ...state, isUpdate: !state.isUpdate, card: { ...payload } };
             
             if (newState.card.hasOwnProperty('token')) {
                 delete newState.card.token;
@@ -34,10 +36,12 @@ export default (state = initStore, action) => {
             localStorage.setItem(STORAGE_NAME, JSON.stringify(newState));
 
             return newState;
-
+        
+        // CARD_FAILURE
         case actions.fetchCardFailure.toString():
-            return { ...state, card: {}, isUpdate: false, isInfoLoaded: false, error: payload.error };
+            return { ...state, ...initialState, isUpdate: false, isInfoLoaded: false, error: payload.error };
 
+        // CARD_SAVE_INFO_TO_LS
         case actions.fetchCardSaveInfoToLS.toString():
             newState = { ...state, card: { ...payload }, isInfoLoaded: true };
             if (newState.card.hasOwnProperty('id')) {
@@ -47,18 +51,23 @@ export default (state = initStore, action) => {
 
             return newState;
 
+        // CARD_ISLOADED_RESET
         case actions.fetchCardIsLoadedReset.toString():
             newState = { ...state, isInfoLoaded: false };
             localStorage.setItem(STORAGE_NAME, JSON.stringify(newState));
             
             return newState;
 
+        // CARD_RESET
         case actions.fetchCardReset.toString():
             localStorage.removeItem(STORAGE_NAME);
 
-            return { card: {}, isUpdate: false, isInfoLoaded: false, error: null };
+            return {...initialState};
 
         default:
             return state;
     }
 };
+
+export { initialState };
+export default cardReducer;

@@ -13,8 +13,8 @@ import "./styles.scss";
 
 const FormPayment = ({ changeShowForm, showForm }) => {
   const dispatch = useDispatch();
-  const cardInfo = useSelector(state => getCardInfo(state.card));
-  const cardInfoLoaded = useSelector(state => getCardInfoLoaded(state.card));
+  const cardInfo = useSelector(state => getCardInfo(state));
+  const cardInfoLoaded = useSelector(state => getCardInfoLoaded(state));
   const [values, setValues] = useState({ ...cardInfo });
 
   useEffect(() => {
