@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-import NumberInput from '../../components/numberinput';
-import Hint from '../hint';
+import NumberInput from '../../../../shared/numberinput';
+import Hint from './hint';
 
 import { IconButton } from "@material-ui/core";
 import { Visibility, VisibilityOff } from '@material-ui/icons';

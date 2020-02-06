@@ -5,6 +5,7 @@ import * as consts from './consts';
 export const fetchUserLogin = createAction(consts.USER_LOGIN);
 export const fetchUserLogout = createAction (consts.USER_LOGOUT);
 export const fetchUserRegister = createAction(consts.USER_REGISTER);
+export const fetchUserLoading = createAction(consts.USER_LOADING);
 
 //export const fetchUserRequest = createAction(consts.USER_REQUEST);
 export const fetchUserSuccess = createAction(consts.USER_SUCCESS);

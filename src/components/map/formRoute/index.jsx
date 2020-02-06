@@ -6,9 +6,9 @@ import {
   fetchAddressListRequest  
 } from "../../../store/address";
 
-import DottedLine from "../../dottedline";
-import FormRouteDone from "../../forms/done/route";
-import AddressSelect from '../../address-select';
+import DottedLine from "./dottedline";
+import AddressSelect from './address-select';
+import FormRouteDone from "./done";
 
 import { Button } from "@material-ui/core";
 import { Place, MyLocation } from "@material-ui/icons";

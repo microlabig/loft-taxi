@@ -7,6 +7,7 @@ export const userMiddleware = store => next => action => {
     switch (action.type) {
         // USER_REGISTER
         case actions.fetchUserRegister.toString():
+            store.dispatch(actions.fetchUserLoading());
             fetch(SERVER_URL + '/register', { method: 'POST', headers: { 'content-Type': 'application/json' }, body: JSON.stringify(payload) })
                 .then(response => response.json())
                 .then(data => {
@@ -19,6 +20,7 @@ export const userMiddleware = store => next => action => {
 
         // USER_LOGIN
         case actions.fetchUserLogin.toString():
+            store.dispatch(actions.fetchUserLoading());
             fetch(SERVER_URL + '/auth', { method: 'POST', headers: { 'content-Type': 'application/json' }, body: JSON.stringify(payload) })
                 .then(response => response.json())
                 .then(data => {

@@ -7,8 +7,8 @@ import {
   getCardInfoIsUpdate
 } from "../../store/card";
 
-import Header from "../../components/header";
-import FormPayment from "../../components/forms/payment";
+import Header from "../../shared/header";
+import FormPayment from "./formPayment";
 
 const ProfilePage = () => {
   const [showForm, setShowForm] = useState(true);

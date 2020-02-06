@@ -3,9 +3,9 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserRegister, getAuthed } from "../../store/user";
 
-import LogoCompany from "../../components/logocompany";
-import FormRegister from "../../components/forms/register";
-import DescpriptionForForm from "../../components/forms/description";
+import LogoCompany from "../../shared/logocompany";
+import FormRegister from "./formRegister";
+import DescpriptionForForm from "../../shared/descriptionForForm";
 
 import "./styles.scss";
 

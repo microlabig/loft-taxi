@@ -10,6 +10,7 @@ const initialState = {
         email: null,
         password: null
     },
+    isLoading: false,
     authed: false,
     token: null,
     error: null
@@ -26,16 +27,23 @@ const userReducer = (state = loadedState, action) => {
     let newState = {};
 
     switch (action.type) {
+        // USER_LOADING
+        case actions.fetchUserLoading.toString():
+            newState = { ...state, isLoading: true};
+            localStorage.setItem(STORAGE_NAME, JSON.stringify(newState));
+
+            return newState;
         // USER_SUCCESS
         case actions.fetchUserSuccess.toString():
-            newState = { ...state, authed: true, token: payload.token };
+            newState = { ...state, isLoading: false, authed: true, token: payload.token };
+            
             localStorage.setItem(STORAGE_NAME, JSON.stringify(newState));
 
             return newState;
 
         // USER_FAILURE
         case actions.fetchUserFailure.toString():
-            newState = { ...state, authed: false, error: payload.error };
+            newState = { ...state, isLoading: false, authed: false, error: payload.error };
 
             return newState;
 

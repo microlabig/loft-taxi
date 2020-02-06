@@ -2,7 +2,7 @@ import React from 'react';
 import { TextField, MenuItem } from "@material-ui/core";
 
 import { useSelector } from "react-redux";
-import { getAdressList } from "../../store/address";
+import { getAdressList } from "../../../../store/address";
 
 const AddressSelect = ({ ...rest }) => {  
   const adressList = useSelector(state => getAdressList(state));

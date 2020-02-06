@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getCardInfo, getCardInfoLoaded, fetchCardIsLoadedReset } from "../../../store/card";
 
-import FormPaymentDone from "../../forms/done/payment";
-import NumberInput from "../../numberinput";
-import CVC from "../../cvc";
+import FormPaymentDone from "./done";
+import NumberInput from "../../../shared/numberinput";
+import CVC from "./cvc";
 
 import { TextField, Button, Paper } from "@material-ui/core";
 import "./styles.scss";
