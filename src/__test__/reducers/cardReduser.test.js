@@ -19,9 +19,26 @@ describe('тесты редьюсера cardReducer', () => {
     });
 
     // --------------------------------------------
+    // CARD_LOADING
+    // --------------------------------------------
+    it(`началась загрузка данных [${consts.CARD_LOADING}]`, () => {
+        const action = {
+            type: actions.fetchCardLoading.toString()
+        };
+
+        expect(cardReducer(initialTestState, action)).toEqual({
+            ...initialTestState,
+            isLoading: true
+        });
+    });
+
+    // --------------------------------------------
     // CARD_SUCCESS
     // --------------------------------------------
     it(`удачная загрузка данных [${consts.CARD_SUCCESS}]`, () => {
+        const state = {
+            ...initialTestState, isLoading: true
+        };
         const action = {
             type: actions.fetchCardSuccess.toString(),
             payload: {
@@ -30,10 +47,11 @@ describe('тесты редьюсера cardReducer', () => {
                 cardName: 'IVAN IVANOV',
                 cvc: '123'
             }
-        }
+        };
 
-        expect(cardReducer(initialTestState, action)).toEqual({
+        expect(cardReducer(state, action)).toEqual({
             ...initialTestState,
+            isLoading: false,
             isUpdate: true,
             card: { ...action.payload }
         });
@@ -43,13 +61,17 @@ describe('тесты редьюсера cardReducer', () => {
     // CARD_FAILURE
     // --------------------------------------------
     it(`неудачная загрузка данных [${consts.CARD_FAILURE}]`, () => {
+        const state = {
+            ...initialTestState, isLoading: true
+        };
         const action = {
             type: actions.fetchCardFailure.toString(),
             payload: { error: 'error' }
-        }
+        };
 
-        expect(cardReducer(initialTestState, action)).toEqual({
+        expect(cardReducer(state, action)).toEqual({
             ...initialTestState,
+            isLoading: false,
             isUpdate: false,
             isInfoLoaded: false,
             error: action.payload.error
@@ -60,6 +82,9 @@ describe('тесты редьюсера cardReducer', () => {
     // CARD_SAVE_INFO_TO_LS
     // --------------------------------------------
     it(`сохранение данных карты в LS [${consts.CARD_SAVE_INFO_TO_LS}]`, () => {
+        const state = {
+            ...initialTestState, isLoading: true
+        };
         const action = {
             type: actions.fetchCardSaveInfoToLS.toString(),
             payload: {
@@ -68,10 +93,11 @@ describe('тесты редьюсера cardReducer', () => {
                 cardName: 'IVAN IVANOV',
                 cvc: '123'
             }
-        }
+        };
 
-        expect(cardReducer(initialTestState, action)).toEqual({
+        expect(cardReducer(state, action)).toEqual({
             ...initialTestState,
+            isLoading: false,
             card: { ...action.payload },
             isInfoLoaded: true
         });
@@ -83,7 +109,7 @@ describe('тесты редьюсера cardReducer', () => {
     it(`сброс влага загрузки данных карты [${consts.CARD_ISLOADED_RESET}]`, () => {
         const action = {
             type: actions.fetchCardIsLoadedReset.toString()
-        }
+        };
 
         expect(cardReducer(initialTestState, action)).toEqual({
             ...initialTestState,
@@ -95,10 +121,6 @@ describe('тесты редьюсера cardReducer', () => {
     // CARD_RESET
     // --------------------------------------------
     it(`выход пользователя и удаление данных карты [${consts.CARD_RESET}]`, () => {
-        const action = {
-            type: actions.fetchCardReset.toString()
-        }
-
         const state = {
             ...initialTestState,
             card: {
@@ -107,9 +129,13 @@ describe('тесты редьюсера cardReducer', () => {
                 cardName: 'IVAN IVANOV',
                 cvc: '123'
             },
+            isLoading: 'true loading',
             isUpdate: true,
             isInfoLoaded: true
-        }
+        };
+        const action = {
+            type: actions.fetchCardReset.toString()
+        };
 
         expect(cardReducer(state, action)).toEqual(initialTestState);
     });

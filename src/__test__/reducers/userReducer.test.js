@@ -19,16 +19,35 @@ describe('тесты редьюсера userReducer', () => {
     });
 
     // --------------------------------------------
-    // USER_SUCCESS
+    // USER_LOADING
     // --------------------------------------------
-    it(`удачная загрузка данных [${consts.USER_SUCCESS}]`, () => {
+    it(`началась загрузка данных [${consts.USER_LOADING}]`, () => {
         const action = {
-            type: actions.fetchUserSuccess.toString(),
-            payload: { token: 'token' }
-        }
+            type: actions.fetchUserLoading.toString()
+        };
 
         expect(userReducer(initialTestState, action)).toEqual({
             ...initialTestState,
+            isLoading: true
+        });
+    });
+
+
+    // --------------------------------------------
+    // USER_SUCCESS
+    // --------------------------------------------
+    it(`удачная загрузка данных [${consts.USER_SUCCESS}]`, () => {
+        const state = {
+            ...initialTestState, isLoading: true
+        };
+        const action = {
+            type: actions.fetchUserSuccess.toString(),
+            payload: { token: 'token' }
+        };
+
+        expect(userReducer(state, action)).toEqual({
+            ...initialTestState,
+            isLoading: false,
             authed: true,
             token: action.payload.token
         });
@@ -38,13 +57,17 @@ describe('тесты редьюсера userReducer', () => {
     // USER_FAILURE
     // --------------------------------------------
     it(`неудачная загрузка данных [${consts.USER_FAILURE}]`, () => {
+        const state = {
+            ...initialTestState, isLoading: true
+        };
         const action = {
             type: actions.fetchUserFailure.toString(),
             payload: { error: 'error' }
-        }
+        };
 
-        expect(userReducer(initialTestState, action)).toEqual({
+        expect(userReducer(state, action)).toEqual({
             ...initialTestState,
+            isLoading: false,
             authed: false,
             error: action.payload.error
         });
@@ -56,8 +79,7 @@ describe('тесты редьюсера userReducer', () => {
     it(`выход пользователя [${consts.USER_LOGOUT}]`, () => {
         const action = {
             type: actions.fetchUserLogout.toString()
-        }
-
+        };
         const state = {
             ...initialTestState,
             user: {
@@ -66,6 +88,7 @@ describe('тесты редьюсера userReducer', () => {
                 email: 'ivanov@email.com',
                 password: 'password'
             },
+            isLoading: 'help me please',
             authed: true,
             token: 'token'
         }
