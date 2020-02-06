@@ -10,6 +10,7 @@ const initialState = {
         cardName: null,
         cvc: null,
     },
+    isLoading: false,
     isUpdate: false,
     isInfoLoaded: false,
     error: null
@@ -26,9 +27,13 @@ const cardReducer = (state = loadedState, action) => {
     let newState = {};
 
     switch (action.type) {
+        // CARD_LOADING
+        case actions.fetchCardLoading.toString():
+            return { ...state, isLoading: true};
+
         // CARD_SUCCESS
         case actions.fetchCardSuccess.toString():
-            newState = { ...state, isUpdate: !state.isUpdate, card: { ...payload } };
+            newState = { ...state, isLoading: false, isUpdate: !state.isUpdate, card: { ...payload } };
             
             if (newState.card.hasOwnProperty('token')) {
                 delete newState.card.token;
@@ -39,11 +44,11 @@ const cardReducer = (state = loadedState, action) => {
         
         // CARD_FAILURE
         case actions.fetchCardFailure.toString():
-            return { ...state, ...initialState, isUpdate: false, isInfoLoaded: false, error: payload.error };
+            return { ...state, isLoading: false, isUpdate: false, isInfoLoaded: false, error: payload.error };
 
         // CARD_SAVE_INFO_TO_LS
         case actions.fetchCardSaveInfoToLS.toString():
-            newState = { ...state, card: { ...payload }, isInfoLoaded: true };
+            newState = { ...state, isLoading: false, card: { ...payload }, isInfoLoaded: true };
             if (newState.card.hasOwnProperty('id')) {
                 delete newState.card.id;
             }

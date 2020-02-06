@@ -1,5 +1,17 @@
 import { createSelector } from 'reselect';
 
+// Статус загрузки Addresses
+export const getIsLoadingAddresses = createSelector(
+    state => state.addressReducer.isLoadingAddresses,
+    isLoadingAddresses => isLoadingAddresses
+);
+
+// Статус загрузки Routes
+export const getIsLoadingRoutes = createSelector(
+    state => state.addressReducer.isLoadingRoutes,
+    isLoadingRoutes => isLoadingRoutes
+);
+
 // Список адресов
 export const getAdressList = createSelector(
     state => state.addressReducer.addressList,

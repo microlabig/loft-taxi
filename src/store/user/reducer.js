@@ -29,10 +29,8 @@ const userReducer = (state = loadedState, action) => {
     switch (action.type) {
         // USER_LOADING
         case actions.fetchUserLoading.toString():
-            newState = { ...state, isLoading: true};
-            localStorage.setItem(STORAGE_NAME, JSON.stringify(newState));
-
-            return newState;
+            return { ...state, isLoading: true};
+            
         // USER_SUCCESS
         case actions.fetchUserSuccess.toString():
             newState = { ...state, isLoading: false, authed: true, token: payload.token };

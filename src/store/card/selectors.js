@@ -11,6 +11,12 @@ export const getCardInfo = createSelector(
     })
 );
 
+// Статус загрузки 
+export const getIsLoading = createSelector(
+    state => state.cardReducer.isLoading,
+    isLoading => isLoading
+);
+
 // Статус сохранения информации о платежной карте
 export const getCardInfoIsUpdate = createSelector(
     state =>  state.cardReducer.isUpdate,

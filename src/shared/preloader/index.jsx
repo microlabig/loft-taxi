@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { CircularProgress, Fade } from "@material-ui/core";
 import './styles.scss';
 
@@ -19,5 +20,15 @@ const Preloader = ({ isLoading, error }) => {
     </div>
   );
 };
+
+Preloader.defaultProp = {
+  isLoading: false,
+  error: ''
+}
+
+Preloader.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  error: PropTypes.string
+}
 
 export default Preloader;

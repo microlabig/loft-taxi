@@ -1,4 +1,5 @@
 // Card
+export const CARD_LOADING = 'loft-taxi/card/LOADING';
 export const CARD_REQUEST = 'loft-taxi/card/REQUEST';
 export const CARD_SUCCESS = 'loft-taxi/card/SUCCESS';
 export const CARD_FAILURE = 'loft-taxi/card/FAILURE';

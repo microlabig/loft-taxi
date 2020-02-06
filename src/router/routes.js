@@ -1,8 +1,8 @@
-import ProfilePage from '../components/profile';
-import MapPage from '../components/map';
-import LoginPage from '../components/login';
-import RegisterFormPage from '../components/register';
-import Err404 from '../components/err404';
+import ProfilePage from '../containers/profile';
+import MapPage from '../containers/map';
+import LoginPage from '../containers/login';
+import RegisterFormPage from '../containers/register';
+import Err404 from '../containers/err404';
 
 export default [
     {

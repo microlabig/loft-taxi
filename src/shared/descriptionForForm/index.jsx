@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from 'prop-types';
-
 import { Typography, Link } from "@material-ui/core";
 import './styles.scss';
 

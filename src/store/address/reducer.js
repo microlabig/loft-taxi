@@ -6,6 +6,8 @@ const cashedStore = JSON.parse(localStorage.getItem(STORAGE_NAME));
 const initialState = {
     route: [],
     addressList: [],
+    isLoadingAddresses: false,
+    isLoadingRoutes: false,
     error: null
 };
 
@@ -20,29 +22,37 @@ const addressReducer = (state = loadedState, action) => {
     let newState = {};
 
     switch (action.type) {
+        // ADDRESS_LOADING
+        case actions.fetchAddressLoading.toString():
+            return { ...state, isLoadingAddresses: true};
+        
+        // ROUTE_LOADING
+        case actions.fetchRouteLoading.toString():
+            return { ...state, isLoadingRoutes: true};
+
         // ROUTE_SUCCESS
         case actions.fetchRouteSuccess.toString():
-            newState = { ...state, route: [...payload] };
+            newState = { ...state, isLoadingRoutes: false, route: [...payload] };
             localStorage.setItem(STORAGE_NAME, JSON.stringify(newState));
 
             return newState;
 
         // ROUTE_FAILURE
         case actions.fetchRouteFailure.toString():
-            newState = { ...state, error: payload.error };
+            newState = { ...state, isLoadingRoutes: false, error: payload.error };
 
             return newState;
 
         // ADDRESS_LIST_SUCCESS
         case actions.fetchAddressListSuccess.toString():
-            newState = { ...state, addressList: [...payload.addresses] };
+            newState = { ...state, isLoadingAddresses: false, addressList: [...payload.addresses] };
             localStorage.setItem(STORAGE_NAME, JSON.stringify(newState));
 
             return newState;
 
         // ADDRESS_LIST_FAILURE
         case actions.fetchAddressListFailure.toString():
-            newState = { ...state, error: payload.error };
+            newState = { ...state, isLoadingAddresses: false, error: payload.error };
 
             return newState;
 

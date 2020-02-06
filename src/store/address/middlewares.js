@@ -7,16 +7,18 @@ export const addressMiddleware = store => next => action => {
     switch (action.type) {
         // ROUTE_REQUEST
         case actions.fetchRouteRequest.toString():
-            fetch(SERVER_URL + `/route?address1=${payload.address1}&${payload.address2}`, { method: 'GET' })
+            store.dispatch(actions.fetchRouteLoading());
+            fetch(SERVER_URL + `/route?address1=${payload.address1}&address2=${payload.address2}`, { method: 'GET' })
                 .then(response => response.json())
                 .then(data => {
                     store.dispatch(actions.fetchRouteSuccess(data));
                 })
                 .catch(error => store.dispatch(actions.fetchRouteFailure(error)));
             break;
-
+            
         // ADDRESS_LIST_REQUEST
         case actions.fetchAddressListRequest.toString():
+            store.dispatch(actions.fetchAddressLoading());
             fetch(SERVER_URL + '/addressList', { method: 'GET' })
                 .then(response => response.json())
                 .then(data => {

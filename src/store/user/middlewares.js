@@ -3,8 +3,9 @@ import * as actions from './actions';
 
 export const userMiddleware = store => next => action => {
     const { payload } = action;
-
+    
     switch (action.type) {
+
         // USER_REGISTER
         case actions.fetchUserRegister.toString():
             store.dispatch(actions.fetchUserLoading());
