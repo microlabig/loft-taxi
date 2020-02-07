@@ -23,7 +23,7 @@ const Preloader = ({ isLoading, error }) => {
 
 Preloader.defaultProp = {
   isLoading: false,
-  error: ''
+  error: '' 
 }
 
 Preloader.propTypes = {
