@@ -1,25 +1,35 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
-//import {composeWithDevTools} from 'redux-devtools-extension/developmentOnly';
+import createSagaMiddleware from 'redux-saga';
+import { all } from 'redux-saga/effects';
 
-import userReducer, { userMiddleware } from './user';
-import cardReducer, { cardMiddleware } from './card';
-import addressReducer, { addressMiddleware } from './address';
+import userReducer, { userSaga } from './user';
+import cardReducer, { cardSaga } from './card';
+import addressReducer, { addressSaga } from './address';
 
 export const rootReducer = combineReducers({
     userReducer,
     cardReducer,
     addressReducer
-})
+});
+
+const sagaMiddleware = createSagaMiddleware();
+
+function* rootSaga() {
+    yield all([
+        userSaga(),
+        cardSaga(),
+        addressSaga()
+    ]);
+}
 
 export default createStore(
     rootReducer,
     compose(
-    //composeWithDevTools(
-        applyMiddleware(userMiddleware),
-        applyMiddleware(cardMiddleware),
-        applyMiddleware(addressMiddleware),
+        applyMiddleware(sagaMiddleware),
         window.__REDUX_DEVTOOLS_EXTENSION__
             ? window.__REDUX_DEVTOOLS_EXTENSION__()
             : noop => noop
     )
 ); 
+
+sagaMiddleware.run(rootSaga);

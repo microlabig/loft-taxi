@@ -23,14 +23,14 @@ export default [
         name: 'map',
         url: '/map',
         exact: true,
-        private: false,
+        private: true,
         component: MapPage
     },
     {
         name: 'profile',
         url: '/profile',
         exact: true,
-        private: false,
+        private: true,
         component: ProfilePage
     },
     {
