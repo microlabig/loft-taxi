@@ -1,7 +1,7 @@
 import { takeLatest, call, put, fork } from 'redux-saga/effects';
 import * as consts from './consts';
 import * as actions from './actions';
-import * as api from '../../utils/api';
+import * as api from '../../utils/api/loft';
 
 function* fetchRequestWorker(action) {
     const { payload } = action;

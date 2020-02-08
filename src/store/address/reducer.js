@@ -4,7 +4,7 @@ const STORAGE_NAME = 'loft-taxi/address';
 const cashedStore = JSON.parse(localStorage.getItem(STORAGE_NAME));
 
 const initialState = {
-    route: [],
+    routesList: [],
     addressList: [],
     isLoadingAddresses: false,
     isLoadingRoutes: false,
@@ -32,7 +32,7 @@ const addressReducer = (state = loadedState, action) => {
 
         // ROUTE_SUCCESS
         case actions.fetchRouteSuccess.toString():
-            newState = { ...state, isLoadingRoutes: false, route: [...payload] };
+            newState = { ...state, isLoadingRoutes: false, routesList: [...payload] };
             localStorage.setItem(STORAGE_NAME, JSON.stringify(newState));
 
             return newState;

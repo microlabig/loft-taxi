@@ -1,7 +1,7 @@
 import { takeLatest, call, put, fork } from 'redux-saga/effects';
 import * as consts from './consts';
 import * as actions from './actions';
-import * as api from '../../utils/api';
+import * as api from '../../utils/api/loft';
 
 function* fetchUserWorker(action) {
     const { type, payload } = action;
@@ -17,7 +17,6 @@ function* fetchUserWorker(action) {
         default:
             return;
     }
-
     yield put(actions.fetchUserLoading());
     try {
         const response = yield call(apiFunc, payload);

@@ -12,6 +12,12 @@ export const getIsLoadingRoutes = createSelector(
     isLoadingRoutes => isLoadingRoutes
 );
 
+// Список роутов
+export const getRoutes = createSelector(
+    state => state.addressReducer.routesList,
+    routesList => routesList
+);
+
 // Список адресов
 export const getAdressList = createSelector(
     state => state.addressReducer.addressList,

@@ -47,7 +47,7 @@ describe('тесты редьюсера cardReducer', () => {
         expect(addressReducer(state, action)).toEqual({
             ...initialTestState,
             isLoadingRoutes: false,
-            route: [...action.payload]
+            routesList: [...action.payload]
         });
     });
 
@@ -134,7 +134,7 @@ describe('тесты редьюсера cardReducer', () => {
             ...initialTestState,
             isLoadingRoutes: 'false',
             isLoadingAddresses: 123,
-            route: [1, 2, 3, 4],
+            routesList: [1, 2, 3, 4],
             addressList: [5, 6, 7, 8],
         }
 

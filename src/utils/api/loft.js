@@ -1,4 +1,4 @@
-import { SERVER_URL } from './consts';
+import { SERVER_URL } from '../consts';
 
 const getStatusResponse = (response) => {
     if (response.ok) {
