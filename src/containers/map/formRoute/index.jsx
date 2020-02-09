@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector} from "react-redux";
-import { Button } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import { Paper, Button } from "@material-ui/core";
 import { Place, MyLocation } from "@material-ui/icons";
 import Preloader from "../../../shared/preloader";
 import DottedLine from "./dottedline";
@@ -14,7 +14,7 @@ import {
   getAdressList,
   fetchRouteLoading,
   fetchRouteRequest,
-  fetchAddressListRequest,
+  fetchAddressListRequest
 } from "../../../store/address";
 import { getToken } from "../../../store/user";
 import { fetchCardGetInfo, getCardInfo } from "../../../store/card";
@@ -75,7 +75,7 @@ const FormRoute = ({ submitData, showForm }) => {
   };
 
   const onClick = event => {
-    submitData(event)
+    submitData(event);
   };
 
   const formTemplate = () => {
@@ -130,18 +130,18 @@ const FormRoute = ({ submitData, showForm }) => {
             </label>
           </div>
         </>
-      )
+      );
     } else {
-      return <FormOrderSuccess submitData={submitData} />
+      return <FormOrderSuccess submitData={submitData} />;
     }
   };
 
   return (
-    <div className="routeform">
+    <Paper elevation={3} className="routeform">
       <form className="form" name="formRoute">
         {isCardExist ? formTemplate() : <FormWarning />}
       </form>
-    </div>
+    </Paper>
   );
 };
 

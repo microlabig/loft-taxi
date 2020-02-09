@@ -12,7 +12,7 @@ const MapPage = () => {
 
     return (
         <>
-            <Header />
+            <Header numCurrentPage={0}/>
             <Map />
             <FormRoute submitData={submitData} showForm={showForm} />
         </>

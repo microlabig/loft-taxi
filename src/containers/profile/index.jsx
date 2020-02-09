@@ -41,7 +41,7 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Header />
+      <Header numCurrentPage={1}/>
       <FormPayment changeShowForm={changeShowForm} showForm={showForm} />
     </>
   );

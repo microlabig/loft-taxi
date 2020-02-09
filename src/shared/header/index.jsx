@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AppBar, Paper, Toolbar } from "@material-ui/core";
@@ -21,7 +22,7 @@ const PAGES = [
   }
 ];
 
-const Header = () => {
+const Header = ({numCurrentPage}) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -35,13 +36,14 @@ const Header = () => {
   };
 
   const getButtons = () => {
-    return PAGES.map(page => {
+    return PAGES.map((page, index) => {
       return (
         <div className="header__item" key={page.name}>
           <MenuButton
             data-testid={`button-${page.name}`}
             name={page.name}
             caption={page.caption}
+            color={numCurrentPage === index ? "secondary": "default"}
             onClick={e => handleClick(e)}
           />
         </div>
@@ -71,5 +73,13 @@ const Header = () => {
     </div>
   );
 };
+
+Header.defaultProps = {
+  numCurrentPage: 0
+}
+
+Header.propTypes = {
+  numCurrentPage: PropTypes.number.isRequired
+}
 
 export default Header;
