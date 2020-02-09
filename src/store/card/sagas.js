@@ -16,7 +16,7 @@ function* fetchRequestWorker(action) {
             throw new Error(response.error);
         }
     } catch (error) {
-        yield put(actions.fetchCardFailure(error));
+        yield put(actions.fetchCardFailure(error.message));
     }
 }
 
@@ -33,7 +33,7 @@ function* fetchGetInfoWorker(action) {
             throw new Error(response.error);
         }
     } catch (error) {
-        yield put(actions.fetchCardFailure(error));
+        yield put(actions.fetchCardFailure(error.message));
     }
 }
 

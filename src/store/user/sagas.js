@@ -27,7 +27,7 @@ function* fetchUserWorker(action) {
             throw new Error(response.error);
         }
     } catch (error) {
-        yield put(actions.fetchUserFailure(error));
+        yield put(actions.fetchUserFailure(error.message));
     }
 }
 

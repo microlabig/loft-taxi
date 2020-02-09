@@ -1,27 +1,20 @@
+import axios from 'axios';
 import { SERVER_URL } from '../consts';
 
-const getStatusResponse = (response) => {
-    if (response.ok) {
-        return response.json();
-    } else {
-        throw new Error('Ошибка сети');
+const axiosInstance = axios.create(
+    {
+        baseURL: SERVER_URL
     }
-}
+);
 
-const requestData = (restUrl, data) => {
-    return fetch(
-        SERVER_URL + restUrl,
-        {
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        })
-        .then(response => getStatusResponse(response));
+const requestData = async (restUrl, sendData) => { 
+    const { data } = await axiosInstance.post(restUrl, sendData);
+    return data;
 }
 
 // USER
 
-export const userLogin = (data) => {
+export const userLogin = async (data) => {
     return requestData('/auth', data);
 };
 
@@ -35,32 +28,21 @@ export const cardRequest = (data) => {
     return requestData('/card', data);
 };
 
-export const cardGetInfo = (token) => {
-    return fetch(
-        SERVER_URL + `/card?token=${token}`,
-        {
-            method: 'GET'
-        }).then(response => getStatusResponse(response));
+export const cardGetInfo = async (token) => {
+    const { data } = await axiosInstance.get(`/card?token=${token}`);
+    return data;
 };
 
 // ROUTES
 
-export const routeRequest = (payload) => {
-    return fetch(
-        SERVER_URL + `/route?address1=${payload.address1}&address2=${payload.address2}`,
-        {
-            method: 'GET'
-        })
-        .then(response => getStatusResponse(response));
+export const routeRequest = async (payload) => {
+    const { data } = await axiosInstance.get(`/route?address1=${payload.address1}&address2=${payload.address2}`);
+    return data;
 };
 
 // ADDRESSES
 
-export const addressListRequest = () => {
-    return fetch(
-        SERVER_URL + '/addressList', 
-        { 
-            method: 'GET' 
-        })
-        .then(response => getStatusResponse(response));
+export const addressListRequest = async () => {
+    const { data } = await axiosInstance.get('/addressList');
+    return data;
 };
