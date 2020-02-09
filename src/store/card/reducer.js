@@ -44,7 +44,7 @@ const cardReducer = (state = loadedState, action) => {
         
         // CARD_FAILURE
         case actions.fetchCardFailure.toString():
-            return { ...state, isLoading: false, isUpdate: false, isInfoLoaded: false, error: payload.error };
+            return { ...state, isLoading: false, isUpdate: false, isInfoLoaded: false, error: payload };
 
         // CARD_SAVE_INFO_TO_LS
         case actions.fetchCardSaveInfoToLS.toString():
@@ -62,6 +62,10 @@ const cardReducer = (state = loadedState, action) => {
             localStorage.setItem(STORAGE_NAME, JSON.stringify(newState));
             
             return newState;
+
+        // CARD_CLEAR_ERROR
+        case actions.fetchCardClearError.toString():
+            return {...initialState, error: null};
 
         // CARD_RESET
         case actions.fetchCardReset.toString():

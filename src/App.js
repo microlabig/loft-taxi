@@ -1,4 +1,5 @@
 import React from 'react';
+import ErrorTooltip from './shared/errorTooltip';
 import './App.scss';
 
 import RouterComponent from './router';
@@ -7,10 +8,11 @@ import RouterComponent from './router';
 // root-компонент
 // --------------
 function App() {
-
   return (
     <div className="App">
-      <RouterComponent />
+      <ErrorTooltip>
+        <RouterComponent />
+      </ErrorTooltip>
     </div>
   );
 }

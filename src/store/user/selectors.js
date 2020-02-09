@@ -17,3 +17,9 @@ export const getToken = createSelector(
     state => state.userReducer.token,
     token => token
 );
+
+// Получение ошибки
+export const getUserErrorMessage = createSelector(
+    state => state.userReducer.error,
+    error => error
+)

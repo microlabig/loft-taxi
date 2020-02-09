@@ -11,3 +11,5 @@ export const fetchUserLoading = createAction(consts.USER_LOADING);
 export const fetchUserSuccess = createAction(consts.USER_SUCCESS);
 export const fetchUserFailure = createAction(consts.USER_FAILURE);
 
+export const fetchUserClearError = createAction(consts.USER_CLEAR_ERROR);
+

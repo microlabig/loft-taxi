@@ -41,10 +41,12 @@ const userReducer = (state = loadedState, action) => {
 
         // USER_FAILURE
         case actions.fetchUserFailure.toString():
-            newState = { ...state, isLoading: false, authed: false, error: payload.error };
-
-            return newState;
-
+            return { ...state, isLoading: false, authed: false, error: payload };
+            
+        // USER_CLEAR_ERROR
+        case actions.fetchUserClearError.toString():
+            return { ...state, error: null };
+            
         // USER_LOGOUT
         case actions.fetchUserLogout.toString():
             localStorage.removeItem(STORAGE_NAME);

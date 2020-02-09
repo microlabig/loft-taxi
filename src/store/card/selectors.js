@@ -28,3 +28,10 @@ export const getCardInfoLoaded = createSelector(
     state => state.cardReducer.isInfoLoaded,
     isInfoLoaded => isInfoLoaded
 );
+
+
+// Получение ошибки
+export const getCardErrorMessage = createSelector(
+    state => state.cardReducer.error,
+    error => error
+)

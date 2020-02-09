@@ -22,7 +22,7 @@ const addressReducer = (state = initialState, action) => {
 
         // ROUTE_FAILURE
         case actions.fetchRouteFailure.toString():
-            return { ...state, isLoadingRoutes: false, error: payload.error };
+            return { ...state, isLoadingRoutes: false, error: payload };
 
         // ADDRESS_LIST_LOADING
         case actions.fetchAddressLoading.toString():
@@ -35,6 +35,10 @@ const addressReducer = (state = initialState, action) => {
         // ADDRESS_LIST_FAILURE
         case actions.fetchAddressListFailure.toString():
             return { ...state, isLoadingAddresses: false, error: payload.error };
+
+        // ADDRESS_RESET 
+        case actions.fetchAddressClearError.toString():
+            return {...initialState, error: null};
 
         // ADDRESS_RESET 
         case actions.fetchAddressReset.toString():

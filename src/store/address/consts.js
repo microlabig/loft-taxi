@@ -10,4 +10,5 @@ export const ADDRESS_LIST_REQUEST = 'loft-taxi/address/ADDRESS_LIST_REQUEST';
 export const ADDRESS_LIST_SUCCESS = 'loft-taxi/address/ADDRESS_LIST_SUCCESS';
 export const ADDRESS_LIST_FAILURE = 'loft-taxi/address/ADDRESS_LIST_FAILURE';
 
+export const ADDRESS_CLEAR_ERROR = 'loft-taxi/address/ADDRESS_CLEAR_ERROR';
 export const ADDRESS_RESET = 'loft-taxi/address/ADDRESS_RESET';

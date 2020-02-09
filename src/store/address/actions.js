@@ -13,4 +13,5 @@ export const fetchAddressListRequest = createAction(consts.ADDRESS_LIST_REQUEST)
 export const fetchAddressListSuccess = createAction(consts.ADDRESS_LIST_SUCCESS);
 export const fetchAddressListFailure = createAction(consts.ADDRESS_LIST_FAILURE);
 
+export const fetchAddressClearError = createAction(consts.ADDRESS_CLEAR_ERROR);
 export const fetchAddressReset = createAction(consts.ADDRESS_RESET);

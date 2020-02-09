@@ -5,7 +5,7 @@ import * as actions from '../../store/address/actions';
 // --------------------------------------------
 // addressReducer
 // --------------------------------------------
-describe('тесты редьюсера cardReducer', () => {
+describe('тесты редьюсера addressReducer', () => {
     let initialTestState = {};
 
     // инициализируем начальный стейт
@@ -66,7 +66,7 @@ describe('тесты редьюсера cardReducer', () => {
         expect(addressReducer(state, action)).toEqual({
             ...initialTestState,
             isLoadingRoutes: false,
-            error: action.payload.error
+            error: action.payload
         });
     });
 
@@ -93,6 +93,7 @@ describe('тесты редьюсера cardReducer', () => {
         };
         const action = {
             type: actions.fetchAddressListSuccess.toString(),
+            isLoadingAddresses: 'loaded',
             payload: { addresses: [1, 2, 3, 4, 5] }
         };
 
@@ -119,6 +120,23 @@ describe('тесты редьюсера cardReducer', () => {
             ...initialTestState,
             isLoadingAddresses: false,
             error: action.payload.error
+        });
+    });
+
+    // --------------------------------------------
+    // CARD_CLEAR_ERROR
+    // --------------------------------------------
+    it(`сброс ошибки [${consts.ADDRESS_CLEAR_ERROR}]`, () => {
+        const state = {
+            ...initialTestState, error: 'ERROR'
+        };
+        const action = {
+            type: actions.fetchAddressClearError.toString()
+        };
+
+        expect(addressReducer(state, action)).toEqual({
+            ...initialTestState,
+            error: null
         });
     });
 

@@ -14,18 +14,18 @@ const requestData = async (restUrl, sendData) => {
 
 // USER
 
-export const userLogin = async (data) => {
-    return requestData('/auth', data);
+export const userLogin = async (sendData) => {
+    return requestData('/auth', sendData);
 };
 
-export const userRegister = (data) => {
-    return requestData('/register', data);
+export const userRegister = (sendData) => {
+    return requestData('/register', sendData);
 };
 
 // CARD
 
-export const cardRequest = (data) => {
-    return requestData('/card', data);
+export const cardRequest = (sendData) => {
+    return requestData('/card', sendData);
 };
 
 export const cardGetInfo = async (token) => {

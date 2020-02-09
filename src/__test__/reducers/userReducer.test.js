@@ -69,7 +69,24 @@ describe('тесты редьюсера userReducer', () => {
             ...initialTestState,
             isLoading: false,
             authed: false,
-            error: action.payload.error
+            error: action.payload
+        });
+    });
+
+    // --------------------------------------------
+    // USER_CLEAR_ERROR
+    // --------------------------------------------
+    it(`сброс ошибки [${consts.USER_CLEAR_ERROR}]`, () => {
+        const state = {
+            ...initialTestState, error: 'ERROR'
+        };
+        const action = {
+            type: actions.fetchUserClearError.toString()
+        };
+
+        expect(userReducer(state, action)).toEqual({
+            ...initialTestState,
+            error: null
         });
     });
 

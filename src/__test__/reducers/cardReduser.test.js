@@ -74,7 +74,7 @@ describe('тесты редьюсера cardReducer', () => {
             isLoading: false,
             isUpdate: false,
             isInfoLoaded: false,
-            error: action.payload.error
+            error: action.payload
         });
     });
 
@@ -114,6 +114,23 @@ describe('тесты редьюсера cardReducer', () => {
         expect(cardReducer(initialTestState, action)).toEqual({
             ...initialTestState,
             isInfoLoaded: false
+        });
+    });
+
+    // --------------------------------------------
+    // CARD_CLEAR_ERROR
+    // --------------------------------------------
+    it(`сброс ошибки [${consts.CARD_CLEAR_ERROR}]`, () => {
+        const state = {
+            ...initialTestState, error: 'ERROR'
+        };
+        const action = {
+            type: actions.fetchCardClearError.toString()
+        };
+
+        expect(cardReducer(state, action)).toEqual({
+            ...initialTestState,
+            error: null
         });
     });
 

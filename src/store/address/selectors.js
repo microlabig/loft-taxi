@@ -33,3 +33,8 @@ export const getAdressList = createSelector(
         : [{ value: '', label: '' }]
 );
 
+// Получение ошибки
+export const getAddressErrorMessage = createSelector(
+    state => state.addressReducer.error,
+    error => error
+)

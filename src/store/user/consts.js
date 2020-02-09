@@ -8,5 +8,8 @@ export const USER_LOADING = 'loft-taxi/user/LOADING';
 export const USER_SUCCESS = 'loft-taxi/user/SUCCESS';
 export const USER_FAILURE = 'loft-taxi/user/FAILURE';
 
+export const USER_CLEAR_ERROR = 'loft-taxi/user/CLEAR_ERROR';
+
+
 
 
