@@ -22,12 +22,10 @@ const ErrorTooltip = ({ children }) => {
     if (userError) {
       setMessage(userError);
     }
-    else if (cardError) {
-        console.log(cardError);
-        
+    if (cardError) {
       setMessage(cardError);
     }
-    else if (addressError) {
+    if (addressError) {
       setMessage(addressError);
     }
   }, [userError, cardError, addressError]);

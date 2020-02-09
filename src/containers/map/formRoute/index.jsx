@@ -14,6 +14,7 @@ import {
   getAdressList,
   fetchRouteLoading,
   fetchRouteRequest,
+  fetchRouteFailure,
   fetchAddressListRequest
 } from "../../../store/address";
 import { getToken } from "../../../store/user";
@@ -54,13 +55,22 @@ const FormRoute = ({ submitData, showForm }) => {
 
   useEffect(() => {
     if (isSelectRoute.from && isSelectRoute.to) {
-      dispatch(fetchRouteLoading());
-      dispatch(
-        fetchRouteRequest({
-          address1: addressList[from].label,
-          address2: addressList[to].label
-        })
-      );
+      if (from === to) {
+        dispatch(
+          fetchRouteFailure("Начальная и конечная точки должны отличаться!")
+        );
+        setIsSelectRoute({ ...isSelectRoute, from: false, to: false });
+        setFrom("");
+        setTo("");
+      } else {
+        dispatch(fetchRouteLoading());
+        dispatch(
+          fetchRouteRequest({
+            address1: addressList[from].label,
+            address2: addressList[to].label
+          })
+        );
+      }
     }
   }, [isSelectRoute, addressList, from, to, dispatch]);
 

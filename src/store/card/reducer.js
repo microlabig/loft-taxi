@@ -65,7 +65,7 @@ const cardReducer = (state = loadedState, action) => {
 
         // CARD_CLEAR_ERROR
         case actions.fetchCardClearError.toString():
-            return {...initialState, error: null};
+            return {...state, error: null};
 
         // CARD_RESET
         case actions.fetchCardReset.toString():

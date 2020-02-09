@@ -38,7 +38,7 @@ const addressReducer = (state = initialState, action) => {
 
         // ADDRESS_RESET 
         case actions.fetchAddressClearError.toString():
-            return {...initialState, error: null};
+            return {...state, error: null};
 
         // ADDRESS_RESET 
         case actions.fetchAddressReset.toString():

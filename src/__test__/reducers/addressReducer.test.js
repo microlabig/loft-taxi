@@ -128,14 +128,16 @@ describe('тесты редьюсера addressReducer', () => {
     // --------------------------------------------
     it(`сброс ошибки [${consts.ADDRESS_CLEAR_ERROR}]`, () => {
         const state = {
-            ...initialTestState, error: 'ERROR'
+            ...initialTestState, 
+            routesList: [1, 2, 3, 4],
+            error: 'ERROR'
         };
         const action = {
             type: actions.fetchAddressClearError.toString()
         };
 
         expect(addressReducer(state, action)).toEqual({
-            ...initialTestState,
+            ...state,
             error: null
         });
     });

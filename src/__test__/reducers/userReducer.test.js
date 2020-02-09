@@ -78,14 +78,16 @@ describe('тесты редьюсера userReducer', () => {
     // --------------------------------------------
     it(`сброс ошибки [${consts.USER_CLEAR_ERROR}]`, () => {
         const state = {
-            ...initialTestState, error: 'ERROR'
+            ...initialTestState, 
+            token: 'token', 
+            error: 'ERROR'
         };
         const action = {
             type: actions.fetchUserClearError.toString()
         };
 
         expect(userReducer(state, action)).toEqual({
-            ...initialTestState,
+            ...state,
             error: null
         });
     });

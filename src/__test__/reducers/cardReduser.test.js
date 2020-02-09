@@ -122,14 +122,16 @@ describe('тесты редьюсера cardReducer', () => {
     // --------------------------------------------
     it(`сброс ошибки [${consts.CARD_CLEAR_ERROR}]`, () => {
         const state = {
-            ...initialTestState, error: 'ERROR'
+            ...initialTestState, 
+            isLoading: 'true loading',
+            error: 'ERROR'
         };
         const action = {
             type: actions.fetchCardClearError.toString()
         };
 
         expect(cardReducer(state, action)).toEqual({
-            ...initialTestState,
+            ...state,
             error: null
         });
     });
