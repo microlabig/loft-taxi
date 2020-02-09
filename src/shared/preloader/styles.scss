@@ -1,7 +1,15 @@
 .isLoading {
-    &.formRoute .preloader{
-        left: 50%;
-        transform: translate(-50%, -20%);
+    &.formRoute {
+        &.warning {
+            & .preloader {
+                left: 50%;
+                transform: translate(-50%, -40%);
+            }
+        }
+        & .preloader {
+            left: 50%;
+            transform: translate(-50%, -20%);
+        }
     }
 }
 
