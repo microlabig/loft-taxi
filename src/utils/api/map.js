@@ -1,8 +1,15 @@
+import { API_MAPBOX_ACCESS_TOKEN } from "../consts";
+
+const ID_LAYER = "route";
+const CENTER = [ 30.371142, 59.92443 ];
+
+export const mapToken = API_MAPBOX_ACCESS_TOKEN;
+
 export const mapSetup = (mapContainer) => {
     return {
         container: mapContainer,
         style: 'mapbox://styles/mapbox/light-v8',
-        center: [-74.0066, 40.7135], // starting position [lng, lat]
+        center: CENTER, // starting position [lng, lat]
         zoom: 15 // starting zoom
     }
 };
@@ -15,7 +22,7 @@ export const drawRoute = (map, coordinates) => {
     });
 
     map.addLayer({
-        id: "route",
+        id: ID_LAYER,
         type: "line",
         source: {
             type: "geojson",
@@ -38,3 +45,10 @@ export const drawRoute = (map, coordinates) => {
         }
     });
 };
+
+export const removeRoute = (map) => {
+    if (map.getLayer(ID_LAYER)) {
+        map.removeLayer(ID_LAYER);
+        map.removeSource(ID_LAYER);
+    }
+}

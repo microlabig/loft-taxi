@@ -14,7 +14,7 @@ const MapPage = () => {
         <>
             <Header />
             <Map />
-            <FormRoute submitData={submitData} showForm={showForm}/>
+            <FormRoute submitData={submitData} showForm={showForm} />
         </>
     );
 }

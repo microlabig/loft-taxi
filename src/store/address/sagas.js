@@ -18,7 +18,7 @@ function* fetchRoutesWorker(action) {
 function* fetchAdresesWorker(action) {
     yield put(actions.fetchAddressLoading());
     try {
-        const response = yield call(api.addressListRequest, null);
+        const response = yield call(api.addressListRequest);
         yield put(actions.fetchAddressListSuccess(response));
     } catch (error) {
         yield put(actions.fetchAddressListFailure(error));

@@ -1,12 +1,11 @@
 import React, { Component, createRef } from "react";
 import { connect } from "react-redux";
 import mapboxgl from "mapbox-gl";
-import { API_MAPBOX_ACCESS_TOKEN } from "../../../utils/consts";
-import { getRoutes, getAdressList } from '../../../store/address';
+import { getRoutes } from '../../../store/address';
 import * as mapApi from "../../../utils/api/map";
 import "./styles.scss";
 
-mapboxgl.accessToken = API_MAPBOX_ACCESS_TOKEN;
+mapboxgl.accessToken = mapApi.mapToken;
 
 class Map extends Component {
   mapContainer = createRef();
@@ -16,9 +15,11 @@ class Map extends Component {
   }
 
   componentDidUpdate(prevState, prevProps) {
-    if (prevState.routesList && prevState.routesList[0] !== this.props.routesList[0]) {
+    const { routesList: prevRoutesList } = prevState;
+    if (prevRoutesList && prevRoutesList[0] !== this.props.routesList[0]) {
+      mapApi.removeRoute(this.map);
       mapApi.drawRoute(this.map,  this.props.routesList);
-    }
+    } 
   }
 
   componentWillUnmount() {
@@ -32,8 +33,7 @@ class Map extends Component {
 
 const mapStateToProps = state => {
   return {
-    routesList: getRoutes(state),
-    addressList: getAdressList(state)
+    routesList: getRoutes(state)
   };
 };
 

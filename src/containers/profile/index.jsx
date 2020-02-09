@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getToken } from "../../store/user";
 import {
   fetchCardRequest,
-  fetchCardGetInfo,
+  // fetchCardGetInfo,
   getCardInfoIsUpdate
 } from "../../store/card";
 import Header from "../../shared/header";
@@ -17,7 +17,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     setShowForm(showForm => false);
-    dispatch(fetchCardGetInfo(token));    
+    // dispatch(fetchCardGetInfo(token));    
   }, [ cardInfoIsUpdate, token, showForm, dispatch ]); // es-lint ругается если оставить только [cardInfoIsUpdate] (React Hook useEffect has missing dependencies: 'dispatch' and 'token'. Either include them or remove the dependency array - eslint(react-hooks/exhaustive-deps))
 
   useEffect(() => {

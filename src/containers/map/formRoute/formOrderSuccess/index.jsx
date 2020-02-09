@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { Button } from "@material-ui/core";
 
-const FormRouteDone = ({ submitData }) => {
+const FormOrderSuccess = ({ submitData }) => {
     return (
         <>
             <h2 className="form__title">Заказ размещен</h2>
@@ -24,12 +24,12 @@ const FormRouteDone = ({ submitData }) => {
     );
 }
 
-FormRouteDone.defaultProps = {
+FormOrderSuccess.defaultProps = {
     submitData: () => { }
 }
 
-FormRouteDone.propTypes = {
+FormOrderSuccess.propTypes = {
     submitData: PropTypes.func.isRequired
 }
 
-export default FormRouteDone;
+export default FormOrderSuccess;

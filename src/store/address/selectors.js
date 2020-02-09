@@ -21,5 +21,15 @@ export const getRoutes = createSelector(
 // Список адресов
 export const getAdressList = createSelector(
     state => state.addressReducer.addressList,
-    addressList => addressList.length > 0 ? addressList.map( (item, index) => ({ value: index, label: item })) : [ {value: '0', label: ''} ]
+    addressList => addressList.length > 0
+        ? addressList.reduce((prev, curr, index) => {
+            prev.push({
+                value: index,
+                label: curr
+            });
+
+            return prev;
+        }, [])
+        : [{ value: '', label: '' }]
 );
+
