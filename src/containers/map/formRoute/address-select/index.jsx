@@ -1,20 +1,48 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { MenuItem, Select, FormControl, InputLabel } from "@material-ui/core";
-import { getAdressList } from "../../../../store/address";
+import {FormControl,TextField} from "@material-ui/core";
+import { Autocomplete } from "@material-ui/lab";
+import { ExpandMore } from "@material-ui/icons/";
 
-const AddressSelect = ({ name, value, label, helperText, onChange }) => {
-  const adressList = useSelector(state => getAdressList(state));
-  
+const AddressSelect = ({ label, list,  onChange }) => {
+  const defaultProps = {
+    options: list,
+    getOptionLabel: option => option.label
+  };
+
+  const handleChange = (event, value) => {
+    onChange(value)
+  }
+
   return (
     <FormControl fullWidth={true}>
-      <InputLabel id={label}>{helperText}</InputLabel>
+      <Autocomplete
+        {...defaultProps}
+        clearOnEscape
+        autoComplete
+        autoHighlight
+        popupIcon={<ExpandMore/>}
+        onInputChange={(event, value) => handleChange(event, value)}
+        renderInput={params => (
+          <TextField {...params} label={label} margin="normal" fullWidth />
+        )}
+      />
+    </FormControl>
+  );
+};
+
+export default AddressSelect;
+
+/*
+ <InputLabel id={label}>{helperText}</InputLabel>
+      <TextField />
+      <Divider className={classes.divider} orientation="vertical" />
       <Select
         label={label}
         value={value}
         name={name}
-        className="form__input" 
-        onChange={(e) => onChange(e)}
+        IconComponent={ExpandMore}
+        className="form__input"
+        onChange={e => onChange(e)}
       >
         {adressList.map(address => (
           <MenuItem key={address.value} value={address.value}>
@@ -22,8 +50,4 @@ const AddressSelect = ({ name, value, label, helperText, onChange }) => {
           </MenuItem>
         ))}
       </Select>
-    </FormControl>
-  );
-};
-
-export default AddressSelect;
+ */

@@ -66,22 +66,26 @@ const FormRoute = ({ submitData, showForm }) => {
         dispatch(fetchRouteLoading());
         dispatch(
           fetchRouteRequest({
-            address1: addressList[from].label,
-            address2: addressList[to].label
+            address1: from,
+            address2: to
           })
         );
       }
     }
   }, [isSelectRoute, addressList, from, to, dispatch]);
 
-  const handleFromChange = event => {
-    setFrom(event.target.value);
-    setIsSelectRoute({ ...isSelectRoute, from: true });
+  const handleFromChange = value => {
+    if (value.length > 0) {
+        setFrom(value);
+        setIsSelectRoute({ ...isSelectRoute, from: true });
+    }
   };
 
-  const handleToChange = event => {
-    setTo(event.target.value);
-    setIsSelectRoute({ ...isSelectRoute, to: true });
+  const handleToChange = value => {
+    if (value.length > 0) {
+      setTo(value);
+      setIsSelectRoute({ ...isSelectRoute, to: true });
+    }
   };
 
   const onClick = event => {
@@ -101,19 +105,15 @@ const FormRoute = ({ submitData, showForm }) => {
             <div className="form__elements">
               <label className="form__row">
                 <AddressSelect
-                  name="from"
-                  value={from}
                   label="Откуда"
-                  helperText="Откуда"
+                  list={addressList.filter(el => el.label !== to)}
                   onChange={handleFromChange}
                 />
               </label>
               <label className="form__row">
                 <AddressSelect
-                  name="to"
-                  value={to}
                   label="Куда"
-                  helperText="Куда"
+                  list={addressList.filter(el => el.label !== from)}
                   onChange={handleToChange}
                 />
               </label>
