@@ -2,7 +2,7 @@ import React, { Component, createRef } from "react";
 import { connect } from "react-redux";
 import mapboxgl from "mapbox-gl";
 import { getRoutes } from '../../../store/address';
-import * as mapApi from "../../../utils/api/map";
+import * as mapApi from "../../../utils/map";
 import "./styles.scss";
 
 mapboxgl.accessToken = mapApi.mapToken;
@@ -37,10 +37,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Map);
+export default connect(mapStateToProps, null)(Map);

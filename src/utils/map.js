@@ -1,4 +1,4 @@
-import { API_MAPBOX_ACCESS_TOKEN } from "../consts";
+import { API_MAPBOX_ACCESS_TOKEN } from "./consts";
 
 const ID_LAYER = "route";
 const CENTER = [ 30.371142, 59.92443 ];

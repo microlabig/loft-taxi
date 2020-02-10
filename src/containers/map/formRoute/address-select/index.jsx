@@ -31,23 +31,3 @@ const AddressSelect = ({ label, list,  onChange }) => {
 };
 
 export default AddressSelect;
-
-/*
- <InputLabel id={label}>{helperText}</InputLabel>
-      <TextField />
-      <Divider className={classes.divider} orientation="vertical" />
-      <Select
-        label={label}
-        value={value}
-        name={name}
-        IconComponent={ExpandMore}
-        className="form__input"
-        onChange={e => onChange(e)}
-      >
-        {adressList.map(address => (
-          <MenuItem key={address.value} value={address.value}>
-            {address.label}
-          </MenuItem>
-        ))}
-      </Select>
- */

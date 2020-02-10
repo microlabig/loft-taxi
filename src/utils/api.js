@@ -1,9 +1,13 @@
 import axios from 'axios';
-import { SERVER_URL } from '../consts';
+import { SERVER_URL } from './consts';
 
 const axiosInstance = axios.create(
     {
-        baseURL: SERVER_URL
+        baseURL: SERVER_URL,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json'
+        }
     }
 );
 
