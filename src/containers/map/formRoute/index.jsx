@@ -74,14 +74,20 @@ const FormRoute = ({ submitData, showForm }) => {
     }
   }, [isSelectRoute, addressList, from, to, dispatch]);
 
-  const handleFromChange = value => {
+  const handleFromChange = (event, value, reason) => {
+    if (reason === 'clear') {
+      setFrom('');
+    } else
     if (value.length > 0) {
         setFrom(value);
         setIsSelectRoute({ ...isSelectRoute, from: true });
     }
   };
 
-  const handleToChange = value => {
+  const handleToChange = (event, value, reason) => {
+    if (reason === 'clear') {
+      setTo('');
+    } else
     if (value.length > 0) {
       setTo(value);
       setIsSelectRoute({ ...isSelectRoute, to: true });

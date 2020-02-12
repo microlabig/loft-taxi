@@ -1,17 +1,14 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import {FormControl,TextField} from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import { ExpandMore } from "@material-ui/icons/";
 
-const AddressSelect = ({ label, list,  onChange }) => {
+const AddressSelect = ({ label, list, onChange }) => {
   const defaultProps = {
     options: list,
     getOptionLabel: option => option.label
   };
-
-  const handleChange = (event, value) => {
-    onChange(value)
-  }
 
   return (
     <FormControl fullWidth={true}>
@@ -21,7 +18,7 @@ const AddressSelect = ({ label, list,  onChange }) => {
         autoComplete
         autoHighlight
         popupIcon={<ExpandMore/>}
-        onInputChange={(event, value) => handleChange(event, value)}
+        onInputChange={(event, value, reason) => onChange(event, value, reason)}
         renderInput={params => (
           <TextField {...params} label={label} margin="normal" fullWidth />
         )}
@@ -29,5 +26,17 @@ const AddressSelect = ({ label, list,  onChange }) => {
     </FormControl>
   );
 };
+
+AddressSelect.propTypes = {
+  label: '',
+  list: [],
+  onChange: () => { }
+}
+
+AddressSelect.propTypes = {
+  label: PropTypes.string.isRequired,
+  list: PropTypes.array,
+  onChange: PropTypes.func.isRequired
+}
 
 export default AddressSelect;
