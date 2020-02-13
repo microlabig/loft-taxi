@@ -18,14 +18,13 @@ const LoginPage = () => {
     }
   }, [authed, history]);
 
-  const submitData = (e, {emailValue, passwordValue}) => {
-    e.preventDefault();
+  const submitData = ({ email, password }) => {
     dispatch(
       fetchUserLogin({
         // email: "test1211@exa4mple.com",
         // password: "password00001654564"
-        email: emailValue,
-        password: passwordValue
+        email,
+        password
       })
     ); 
   };
