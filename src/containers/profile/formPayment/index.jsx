@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { TextField, Button, Paper } from "@material-ui/core";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import Preloader from "../../../shared/preloader";
 import {
   getCardInfo,
@@ -10,102 +12,205 @@ import {
   fetchCardIsLoadedReset
 } from "../../../store/card";
 import FormPaymentDone from "./formSuccess";
-import NumberInput from "../../../shared/numberinput";
 import CVC from "./cvc";
+import { onChangeValue } from "../../../utils/helpers";
 import "./styles.scss";
+
+const validationSchema = Yup.object({
+  cardNumber: Yup.string()
+    .length(19, "Пример '1234 5678 9012 3456'")
+    .matches(/^\d{4} \d{4} \d{4} \d{4}$/i, "Не валидный номер", {
+      excludeEmptyString: true
+    })
+    .required("Введите номер вашей карты"),
+
+  expiryDate: Yup.string()
+    .length(5, "Введите валидную дату 'MM/YY'")
+    .matches(/^\d{2}\/\d{2}$/i, "Не валидная дата", {
+      excludeEmptyString: true
+    })
+    .test(
+      "test expiry date",
+      "Не валидная дата или срок действия истек",
+      value => {
+        if (value && value.length === 5) {
+          const findStr = value.match(/.{5}/)[0];
+
+          if (findStr) {
+            const month = findStr.match(/^\d+/)[0];
+            const year = findStr.match(/\d+$/)[0];
+            const currDate = new Date();
+            const currYear = currDate
+              .getFullYear()
+              .toString()
+              .slice(2);
+
+            if (month < 0 || month > 12) {
+              return false;
+            }
+            if (year < currYear) {
+              return false;
+            }
+          }
+        }
+
+        return true;
+      }
+    )
+    .required("Введите срок действия вашей карты"),
+
+  cardName: Yup.string()
+    .matches(/^\w+ \w+$/i, "Введите валидное имя вида 'ИМЯ ФАМИЛИЯ'", {
+      excludeEmptyString: true
+    })
+    .required("Введите имя владельца карты"),
+
+  cvc: Yup.string()
+    .matches(/\d{3}/i, "Пример '123'", { excludeEmptyString: true })
+    .required("Введите CVC")
+});
 
 const FormPayment = ({ changeShowForm, showForm }) => {
   const dispatch = useDispatch();
   const cardInfo = useSelector(state => getCardInfo(state));
   const cardInfoLoaded = useSelector(state => getCardInfoLoaded(state));
-  const [values, setValues] = useState({ ...cardInfo });
   const isLoading = useSelector(state => getIsLoading(state));
 
   useEffect(() => {
     if (cardInfoLoaded) {
-      setValues({ ...values, ...cardInfo });
       dispatch(fetchCardIsLoadedReset());
     }
-  }, [cardInfoLoaded, dispatch, cardInfo, values]);
+  });
 
-  const formTemplate = (
-    <>
-      <div className="form__card">
-        <Paper elevation={3} className="form__side">
-          <div className="form__side-facial">
-            <div className="form__mastercard-logo" />
-            <NumberInput
-              label="Номер карты:"
-              textmask=""
-              format="#### #### #### ####"
-              currentValue={values.cardNumber}
-              onChangeValue={value =>
-                setValues({ ...values, cardNumber: value })
-              }
-              className="form__input"
-            />
-            <NumberInput
-              label="Срок действия:"
-              textmask=""
-              format="##/##"
-              currentValue={values.expiryDate}
-              onChangeValue={value =>
-                setValues({ ...values, expiryDate: value })
-              }
-              className="form__input validity"
-            />
-          </div>
-        </Paper>
-        <Paper elevation={3} className="form__side">
-          <div className="form__side-reverse">
-            <TextField
-              required
-              name="userName"
-              label="Имя владельца:"
-              fullWidth={true}
-              className="form__input"
-              value={values.cardName}
-              onChange={e =>
-                setValues({ ...values, cardName: e.target.value.toUpperCase() })
-              }
-            />
-            <CVC
-              className="form__input"
-              currentValue={values.cvc}
-              onChangeValue={value => setValues({ ...values, cvc: value })}
-            />
-          </div>
-        </Paper>
-      </div>
-      <div className="form__elements">
-        <label className="form__row button-submit">
-          {isLoading ? (
-            <div className="isLoading formRoute">
-              <Preloader isLoading={isLoading} />
+  const formTemplate = props => {
+    const { values, errors, setFieldValue, handleChange } = props;
+    const { cardNumber, expiryDate, cardName, cvc } = values;
+
+    const isDisable = errors => {
+      for (let err in errors) {
+        if (errors[err].length > 0) {
+          return true;
+        }
+      }
+      return false;
+    };
+
+    return (
+      <>
+        <div className="form__card">
+          <Paper elevation={3} className="form__side">
+            <div className="form__side-facial">
+              <div className="form__mastercard-logo" />
+              <TextField
+                required
+                fullWidth={true}
+                name="cardNumber"
+                error={Boolean(errors.cardNumber)}
+                helperText={errors.cardNumber}
+                label="Номер карты:"
+                value={cardNumber}
+                onChange={e =>
+                  onChangeValue(e, {
+                    name: "cardNumber",
+                    setFieldValue,
+                    handleChange
+                  })
+                }
+                className="form__input"
+              />
+              <TextField
+                required
+                fullWidth={true}
+                name="expiryDate"
+                error={Boolean(errors.expiryDate)}
+                helperText={errors.expiryDate}
+                label="Срок действия:"
+                value={expiryDate}
+                onChange={e =>
+                  onChangeValue(e, {
+                    name: "expiryDate",
+                    setFieldValue,
+                    handleChange
+                  })
+                }
+                className="form__input"
+              />
             </div>
-          ) : (
-            <Button
-              name="call"
-              onClick={e => changeShowForm(e, values)}
-              variant="contained"
-              color="primary"
-              className="form__button"
-            >
-              Сохранить
-            </Button>
-          )}
-        </label>
-      </div>
-    </>
-  );
+          </Paper>
+          <Paper elevation={3} className="form__side">
+            <div className="form__side-reverse">
+              <TextField
+                required
+                name="cardName"
+                label="Имя владельца:"
+                fullWidth={true}
+                className="form__input"
+                value={cardName}
+                error={Boolean(errors.cardName)}
+                onChange={handleChange}
+                helperText={errors.cardName}
+              />
+              <CVC
+                name="cvc"
+                label="CVC:"
+                error={Boolean(errors.cvc)}
+                helperText={errors.cvc}
+                value={cvc}
+                onChange={e =>
+                  onChangeValue(e, {
+                    name: "cvc",
+                    setFieldValue,
+                    handleChange
+                  })
+                }
+              />
+            </div>
+          </Paper>
+        </div>
+        <div className="form__elements">
+          <div className="form__row button-submit">
+            {isLoading ? (
+              <div className="isLoading formRoute">
+                <Preloader isLoading={isLoading} />
+              </div>
+            ) : (
+              <Button
+                disabled={isDisable(errors)}
+                name="save"
+                onClick={e => changeShowForm(e, values)}
+                variant="contained"
+                color="primary"
+                className="form__button"
+              >
+                Сохранить
+              </Button>
+            )}
+          </div>
+        </div>
+      </>
+    );
+  };
 
   return (
     <div className="paymentform">
-      <form className="form" name="formPayment" autoComplete="off">
-        <h2 className="form__title">Профиль</h2>
-        <p className="form__description">Способ оплаты</p>
-        {showForm ? formTemplate : <FormPaymentDone />}
-      </form>
+      <h2 className="form__title">Профиль</h2>
+      <p className="form__description">Способ оплаты</p>
+      <Formik
+        initialValues={{ ...cardInfo }}
+        validationSchema={validationSchema}
+        onSubmit={value => value}
+      >
+        {props => (
+          <form
+            className="form"
+            name="formPayment"
+            autoComplete="off"
+            onSubmit={props.handleSubmit}
+          >
+            {showForm ? formTemplate(props) : <FormPaymentDone />}
+          </form>
+        )}
+      </Formik>
     </div>
   );
 };

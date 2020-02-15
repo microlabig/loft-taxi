@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -9,12 +9,12 @@ import Preloader from "../../../shared/preloader";
 import "./styles.scss";
 
 const validationSchema = Yup.object({
-  email: Yup.string("Введите ваш e-mail")
+  email: Yup.string()
     .email("Введите валидный e-mail вида name@domain.com")
-    .required("Поле обязательное для ввода"),
+    .required("Введите ваш e-mail"),
   password: Yup.string("")
     .min(6, "Пароль должен содержать не менее 6 символов")
-    .required("Поле обязательное для ввода")
+    .required("Введите пароль")
 });
 
 const FormLogin = ({ submitData }) => {
@@ -25,10 +25,7 @@ const FormLogin = ({ submitData }) => {
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={validationSchema}
-        onSubmit={(value) => {
-          console.log(value);
-          submitData(value)
-        }}
+        onSubmit={(value) => submitData(value)}
       >
         {props => {
           const { values, errors, handleSubmit, handleChange } = props;
