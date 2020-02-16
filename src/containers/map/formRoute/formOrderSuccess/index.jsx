@@ -11,7 +11,7 @@ const FormOrderSuccess = ({ submitData }) => {
                 <label className="form__row button-submit">
                     <Button 
                         name="call" 
-                        onClick={submitData}
+                        onClick={() => submitData()}
                         variant="contained" 
                         color="primary"
                         fullWidth={true}

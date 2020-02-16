@@ -145,8 +145,6 @@ describe('проверка перехода по страницам', () => {
         expect(heading.textContent).toBe("Войти");
     });
 
-    
-
     it('переход на страницу с картой', () => {
         // Создадим мок-компонент Map
 
@@ -199,7 +197,5 @@ describe('проверка перехода по страницам', () => {
         const wrapper = mount(<App />);
         wrapper.find('.form__button-submit').at(0).simulate('click'); 
         */
-
     });
-
 });

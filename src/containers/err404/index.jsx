@@ -18,7 +18,7 @@ const Err404 = () => {
           onClick={() => history.push('/')}
           variant="contained"
           color="primary"
-          data-testid="button-submit"
+          data-testid="errorButton"
           className="form__button-submit"
         >
           Перейти на главную

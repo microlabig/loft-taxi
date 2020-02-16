@@ -95,6 +95,9 @@ const FormRoute = ({ submitData, showForm }) => {
   };
 
   const onClick = event => {
+    setIsSelectRoute({...isSelectRoute, from: false, to: false});
+    setFrom('');
+    setTo('');
     submitData(event);
   };
 
@@ -135,7 +138,7 @@ const FormRoute = ({ submitData, showForm }) => {
                 <Button
                   disabled={!(isSelectRoute.from && isSelectRoute.to)}
                   name="call"
-                  onClick={onClick}
+                  onClick={() => onClick()}
                   variant="contained"
                   color="primary"
                   fullWidth={true}
@@ -148,7 +151,7 @@ const FormRoute = ({ submitData, showForm }) => {
         </>
       );
     } else {
-      return <FormOrderSuccess submitData={submitData} />;
+      return <FormOrderSuccess submitData={() => submitData()} />;
     }
   };
 
