@@ -21,7 +21,7 @@ describe('user actions', () => {
         expect(actions.fetchUserLoading()).toEqual({
             type: consts.USER_LOADING
         });
-    });
+    }); 
     it('fetchUserSuccess', () => {
         expect(actions.fetchUserSuccess()).toEqual({
             type: consts.USER_SUCCESS
