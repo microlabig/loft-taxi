@@ -1,7 +1,7 @@
 import React, { Component, createRef } from "react";
 import { connect } from "react-redux";
 import mapboxgl from "mapbox-gl";
-import { getRoutes } from '../../../store/address';
+import { getRoutes } from '../store';
 import * as mapApi from "../../../utils/map";
 import "./styles.scss";
 

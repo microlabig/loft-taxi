@@ -1,6 +1,6 @@
-import cardReducer, { initialState } from '../../store/card/reducer';
-import * as consts from '../../store/card/consts';
-import * as actions from '../../store/card/actions';
+import cardReducer, { initialState } from '../../containers/profile/store/reducer';
+import * as consts from '../../containers/profile/store/consts';
+import * as actions from '../../containers/profile/store/actions';
 
 // --------------------------------------------
 // cardReducer

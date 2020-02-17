@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { TextField, Button } from "@material-ui/core";
-import { getIsLoading } from '../../../store/user';
+import { getIsLoading } from "../../login/store";
 import Preloader from "../../../shared/preloader";
 import "./styles.scss";
 
@@ -20,8 +20,7 @@ const validationSchema = Yup.object({
     .required("Введите вашу фамилию"),
   password: Yup.string("")
     .min(6, "Пароль должен содержать не менее 6 символов")
-    //.matches(/[\w\d]/i,{excludeEmptyString: true})
-    .required("Введите пароль"),
+    .required("Введите пароль")
 });
 
 const FormRegister = ({ submitData }) => {
@@ -32,19 +31,29 @@ const FormRegister = ({ submitData }) => {
       <Formik
         initialValues={{ email: "", name: "", surname: "", password: "" }}
         validationSchema={validationSchema}
-        onSubmit={(value) => submitData(value)}
+        onSubmit={value => submitData(value)}
       >
         {props => {
           const { values, errors, handleSubmit, handleChange } = props;
           const { email, name, surname, password } = values;
-          const isDisabled = email.length === 0 || name.length === 0 || surname.length === 0 || password.length === 0 || 
-                             Boolean(errors.email) || Boolean(errors.name) || Boolean(errors.surname) || Boolean(errors.password);
+          const isDisabled =
+            email.length === 0 ||
+            name.length === 0 ||
+            surname.length === 0 ||
+            password.length === 0;
+
+            const getDisableFromErrors = errors => {
+              for (let err in errors) {
+                if (errors[err].length > 0) {
+                  return true;
+                }
+              }
+              return false;
+            };
+        
+
           return (
-            <form
-              className="form"
-              name="formSubmit"
-              onSubmit={handleSubmit}
-            >
+            <form className="form" name="formSubmit" onSubmit={handleSubmit}>
               <div className="form__elements">
                 <label className="form__row">
                   <TextField
@@ -116,10 +125,10 @@ const FormRegister = ({ submitData }) => {
                 <div className="form__row button-submit">
                   <Preloader isLoading={isLoading} />
                   <Button
-                    disabled={isDisabled || isLoading}
+                    disabled={getDisableFromErrors(errors) || isDisabled || isLoading}
                     type="submit"
                     name="submit"
-                    //onClick={e => submitData(e, values)}
+                    onClick={handleSubmit}
                     variant="contained"
                     color="primary"
                     data-testid="button-submit"
@@ -130,7 +139,7 @@ const FormRegister = ({ submitData }) => {
                 </div>
               </div>
             </form>
-          )
+          );
         }}
       </Formik>
     </>
@@ -138,7 +147,7 @@ const FormRegister = ({ submitData }) => {
 };
 
 FormRegister.defaultProps = {
-  submitData: () => { }
+  submitData: () => {}
 };
 
 FormRegister.propTypes = {

@@ -1,7 +1,7 @@
 import { API_MAPBOX_ACCESS_TOKEN } from "./consts";
 
 const ID_LAYER = "route";
-const CENTER = [ 30.371142, 59.92443 ];
+const CENTER = [30.371142, 59.92443];
 
 export const mapToken = API_MAPBOX_ACCESS_TOKEN;
 

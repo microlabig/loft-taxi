@@ -1,5 +1,5 @@
-import * as actions from '../../store/user/actions';
-import * as consts from '../../store/user/consts';
+import * as actions from '../../containers/login/store/actions';
+import * as consts from '../../containers/login/store/consts';
 
 describe('user actions', () => {
     describe('sync', () => {

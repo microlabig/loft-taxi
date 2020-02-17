@@ -10,7 +10,7 @@ import {
   getCardInfoLoaded,
   getIsLoading,
   fetchCardIsLoadedReset
-} from "../../../store/card";
+} from "../store";
 import FormPaymentDone from "./formSuccess";
 import CVC from "./cvc";
 import { onChangeValue } from "../../../utils/helpers";
@@ -44,7 +44,6 @@ const validationSchema = Yup.object({
               .getFullYear()
               .toString()
               .slice(2);
-
             if (month < 0 || month > 12) {
               return false;
             }

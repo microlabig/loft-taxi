@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useSelector } from "react-redux";
 import { TextField, Button } from "@material-ui/core";
-import { getIsLoading } from "../../../store/user";
+import { getIsLoading } from "../store";
 import Preloader from "../../../shared/preloader";
 import "./styles.scss";
 

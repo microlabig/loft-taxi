@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getAuthed } from "../store/user";
+import { getAuthed } from "../containers/login/store";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const authed = useSelector(state => getAuthed(state));

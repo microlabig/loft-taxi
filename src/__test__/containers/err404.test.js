@@ -10,7 +10,7 @@ import '@testing-library/jest-dom/extend-expect';
 
 import { Provider } from 'react-redux'
 import { createStore } from 'redux';
-import { rootReducer } from "../../store";
+import { rootReducer } from "../../core/store";
 
 import App from '../../App';
 import Err404 from '../../containers/err404';

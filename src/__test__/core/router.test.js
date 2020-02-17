@@ -6,7 +6,7 @@ import { render as TestingRender, fireEvent } from "@testing-library/react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { Provider } from 'react-redux'
 import { createStore } from 'redux';
-import { rootReducer } from "../../store";
+import { rootReducer } from "../../core/store";
 import App from "../../App";
 
 // Сделаем мок-компонент Map

@@ -27,7 +27,7 @@ const AddressSelect = ({ label, list, onChange }) => {
   );
 };
 
-AddressSelect.propTypes = {
+AddressSelect.defaultProps = {
   label: '',
   list: [],
   onChange: () => { }

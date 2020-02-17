@@ -6,7 +6,7 @@ import { act } from "react-dom/test-utils";
 
 import { Provider } from 'react-redux'
 import { createStore } from 'redux';
-import { rootReducer } from "../../store";
+import { rootReducer } from "../../core/store";
 
 import ProfilePage from '../../containers/profile';
 

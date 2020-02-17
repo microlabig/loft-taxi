@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getToken } from "../../store/user";
+import { getToken } from "../login/store";
 import {
   fetchCardRequest,
   getCardInfoIsUpdate
-} from "../../store/card";
+} from "./store";
 import Header from "../../shared/header";
 import FormPayment from "./formPayment";
 

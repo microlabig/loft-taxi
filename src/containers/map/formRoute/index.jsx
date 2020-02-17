@@ -16,12 +16,9 @@ import {
   fetchRouteRequest,
   fetchRouteFailure,
   fetchAddressListRequest
-} from "../../../store/address";
-import { getToken } from "../../../store/user";
-import { fetchCardGetInfo, getCardInfo } from "../../../store/card";
-
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faMapMarkerAlt, faDotCircle } from '@fortawesome/free-solid-svg-icons'
+} from "../store";
+import { getToken } from "../../login/store";
+import { fetchCardGetInfo, getCardInfo } from "../../profile/store";
 
 import "./styles.scss";
 

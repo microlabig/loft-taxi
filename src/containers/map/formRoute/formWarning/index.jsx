@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from 'react-redux';
-import { getIsLoading } from "../../../../store/card";
+import { getIsLoading } from "../../../profile/store";
 import Preloader from "../../../../shared/preloader";
 
 const FormWarning = () => {

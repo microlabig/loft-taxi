@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserRegister, getAuthed } from "../../store/user";
+import { fetchUserRegister, getAuthed } from "../login/store";
 import LogoCompany from "../../shared/logocompany";
 import FormRegister from "./formRegister";
 import DescpriptionForForm from "../../shared/descriptionForForm";
@@ -18,14 +18,9 @@ const RegisterPage = () => {
     }
   }, [authed, history]);
 
-  const submitData = (e, {email, password, name, surname}) => {
-    e.preventDefault();
+  const submitData = ({email, password, name, surname}) => {
     dispatch(
       fetchUserRegister({
-        // email: "test1211@exa4mple.com",
-        // password: "password00001654564",
-        // name: "Name",
-        // surname: "Surname"
         email,
         password,
         name,

@@ -1,6 +1,6 @@
-import userReducer, { initialState } from '../../store/user/reducer';
-import * as consts from '../../store/user/consts';
-import * as actions from '../../store/user/actions';
+import userReducer, { initialState } from '../../containers/login/store/reducer';
+import * as consts from '../../containers/login/store/consts';
+import * as actions from '../../containers/login/store/actions';
 
 // --------------------------------------------
 // userReducer

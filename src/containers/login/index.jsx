@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserLogin, getAuthed } from "../../store/user";
+import { fetchUserLogin, getAuthed } from "./store";
 import LogoCompany from "../../shared/logocompany";
 import FormLogin from "./formLogin";
 import DescpriptionForForm from "../../shared/descriptionForForm";
