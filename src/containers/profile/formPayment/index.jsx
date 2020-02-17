@@ -83,10 +83,16 @@ const FormPayment = ({ changeShowForm, showForm }) => {
   });
 
   const formTemplate = props => {
-    const { values, errors, setFieldValue, handleChange } = props;
+    const { values, errors, setFieldValue, handleChange, handleSubmit } = props;
     const { cardNumber, expiryDate, cardName, cvc } = values;
 
-    const isDisable = errors => {
+    const isDisable =
+      cardNumber.length === 0 ||
+      expiryDate.length === 0 ||
+      cardName.length === 0 ||
+      cvc.length === 0;
+
+    const getDisableFromErrors = errors => {
       for (let err in errors) {
         if (errors[err].length > 0) {
           return true;
@@ -103,6 +109,9 @@ const FormPayment = ({ changeShowForm, showForm }) => {
               <div className="form__mastercard-logo" />
               <TextField
                 required
+                inputProps={{
+                  "data-testid": "input-cardNumber"
+                }}
                 fullWidth={true}
                 name="cardNumber"
                 error={Boolean(errors.cardNumber)}
@@ -120,6 +129,9 @@ const FormPayment = ({ changeShowForm, showForm }) => {
               />
               <TextField
                 required
+                inputProps={{
+                  "data-testid": "input-expiryDate"
+                }}
                 fullWidth={true}
                 name="expiryDate"
                 error={Boolean(errors.expiryDate)}
@@ -141,6 +153,9 @@ const FormPayment = ({ changeShowForm, showForm }) => {
             <div className="form__side-reverse">
               <TextField
                 required
+                inputProps={{
+                  "data-testid": "input-cardName"
+                }}
                 name="cardName"
                 label="Имя владельца:"
                 fullWidth={true}
@@ -175,12 +190,14 @@ const FormPayment = ({ changeShowForm, showForm }) => {
               </div>
             ) : (
               <Button
-                disabled={isDisable(errors)}
+                disabled={getDisableFromErrors(errors) || isDisable}
                 name="save"
-                onClick={e => changeShowForm(e, values)}
+                onClick={handleSubmit}
+                type="submit"
                 variant="contained"
                 color="primary"
                 className="form__button"
+                data-testid="button-save"
               >
                 Сохранить
               </Button>
@@ -198,7 +215,7 @@ const FormPayment = ({ changeShowForm, showForm }) => {
       <Formik
         initialValues={{ ...cardInfo }}
         validationSchema={validationSchema}
-        onSubmit={value => value}
+        onSubmit={value => changeShowForm(value)}
       >
         {props => (
           <form

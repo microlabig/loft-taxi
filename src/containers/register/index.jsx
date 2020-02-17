@@ -7,7 +7,7 @@ import FormRegister from "./formRegister";
 import DescpriptionForForm from "../../shared/descriptionForForm";
 import "./styles.scss";
 
-const RegisterFormPage = () => {
+const RegisterPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const authed = useSelector(state => getAuthed(state));
@@ -59,4 +59,4 @@ const RegisterFormPage = () => {
   );
 };
 
-export default RegisterFormPage;
+export default RegisterPage;

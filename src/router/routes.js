@@ -1,7 +1,7 @@
 import ProfilePage from '../containers/profile';
 import MapPage from '../containers/map';
 import LoginPage from '../containers/login';
-import RegisterFormPage from '../containers/register';
+import RegisterPage from '../containers/register';
 import Err404 from '../containers/err404';
 
 export default [
@@ -17,7 +17,7 @@ export default [
         url: '/register',
         exact: true,
         private: false,
-        component: RegisterFormPage
+        component: RegisterPage
     },
     {
         name: 'map',

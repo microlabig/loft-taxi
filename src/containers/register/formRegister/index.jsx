@@ -37,7 +37,8 @@ const FormRegister = ({ submitData }) => {
         {props => {
           const { values, errors, handleSubmit, handleChange } = props;
           const { email, name, surname, password } = values;
-          const isDisabled = (email.length === 0 && name.length === 0 && surname.length === 0 && password.length === 0);
+          const isDisabled = email.length === 0 || name.length === 0 || surname.length === 0 || password.length === 0 || 
+                             Boolean(errors.email) || Boolean(errors.name) || Boolean(errors.surname) || Boolean(errors.password);
           return (
             <form
               className="form"
@@ -50,7 +51,10 @@ const FormRegister = ({ submitData }) => {
                     required
                     name="email"
                     label="Адрес электронной почты"
-                    type="email"
+                    //type="email"
+                    inputProps={{
+                      "data-testid": "input-email"
+                    }}
                     fullWidth={true}
                     autoFocus
                     value={email}
@@ -66,6 +70,9 @@ const FormRegister = ({ submitData }) => {
                     required
                     name="name"
                     label="Имя"
+                    inputProps={{
+                      "data-testid": "input-name"
+                    }}
                     value={name}
                     helperText={errors.name}
                     error={Boolean(errors.name)}
@@ -77,6 +84,9 @@ const FormRegister = ({ submitData }) => {
                     required
                     name="surname"
                     label="Фамилия"
+                    inputProps={{
+                      "data-testid": "input-surname"
+                    }}
                     value={surname}
                     helperText={errors.surname}
                     error={Boolean(errors.surname)}
@@ -91,6 +101,9 @@ const FormRegister = ({ submitData }) => {
                     name="password"
                     label="Пароль"
                     type="password"
+                    inputProps={{
+                      "data-testid": "input-password"
+                    }}
                     fullWidth={true}
                     value={password}
                     helperText={errors.password}
@@ -106,9 +119,11 @@ const FormRegister = ({ submitData }) => {
                     disabled={isDisabled || isLoading}
                     type="submit"
                     name="submit"
-                    onClick={e => submitData(e, values)}
+                    //onClick={e => submitData(e, values)}
                     variant="contained"
                     color="primary"
+                    data-testid="button-submit"
+                    className="form__button-submit"
                   >
                     Зарегистрироваться
                   </Button>

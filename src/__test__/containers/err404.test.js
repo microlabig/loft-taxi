@@ -68,7 +68,6 @@ describe('компонент Err404', () => {
             fireEvent.click(getByTestId(/errorButton/i));
             
             expect(history.location.pathname).toEqual('/');
-
         })
     });
 });

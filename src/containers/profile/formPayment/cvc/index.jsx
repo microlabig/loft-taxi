@@ -20,14 +20,17 @@ const CVC = ({ onChange, ...rest }) => {
     return (
         <div className="cvc">
             <div htmlFor="formPayment" className="cvc__wrapper">
-            <TextField
-                required
-                fullWidth={true}
-                type={showPassword ? 'text' : 'password'}
-                onChange={e => onChange(e)}
-                className="form__input"
-                {...rest}
-              />
+                <TextField
+                    required
+                    inputProps={{
+                        "data-testid": "input-cvc"
+                    }}
+                    fullWidth={true}
+                    type={showPassword ? 'text' : 'password'}
+                    onChange={e => onChange(e)}
+                    className="form__input"
+                    {...rest}
+                />
                 <div className="cvc__helpicon">
                     <Hint textHint="3 последние цифры на оборотной стороне карты" className="cvc__helpicon">
                         <HelpOutlineSharpIcon fontSize="small" />
@@ -42,7 +45,7 @@ const CVC = ({ onChange, ...rest }) => {
                         {showPassword ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
                 </div>
-                
+
             </div>
         </div>
     );

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getToken } from "../../store/user";
 import {
   fetchCardRequest,
-  // fetchCardGetInfo,
   getCardInfoIsUpdate
 } from "../../store/card";
 import Header from "../../shared/header";
@@ -24,9 +23,7 @@ const ProfilePage = () => {
     setShowForm(showForm => true);
   }, []);
 
-  const changeShowForm = (e, { cardNumber, expiryDate, cardName, cvc }) => {
-    e.preventDefault();
-
+  const changeShowForm = ({ cardNumber, expiryDate, cardName, cvc }) => {
     dispatch(
       fetchCardRequest({
         //cardNumber: "0014 0030 0020 0040", expiryDate: "01/31", cardName: "TEST NAME", cvc: "123", token: "recYP3UHH89o6XAIx"

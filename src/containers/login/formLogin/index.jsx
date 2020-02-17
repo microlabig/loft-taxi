@@ -25,11 +25,17 @@ const FormLogin = ({ submitData }) => {
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={validationSchema}
-        onSubmit={(value) => submitData(value)}
+        onSubmit={value => submitData(value)}
       >
         {props => {
           const { values, errors, handleSubmit, handleChange } = props;
           const { email, password } = values;
+          const isDisable =
+            email.length === 0 ||
+            password.length === 0 ||
+            Boolean(errors.email) ||
+            Boolean(errors.password);
+            
           return (
             <form className="form" name="formLogin" onSubmit={handleSubmit}>
               <div className="form__elements">
@@ -70,7 +76,7 @@ const FormLogin = ({ submitData }) => {
                 <div className="form__row button-submit">
                   <Preloader isLoading={isLoading} />
                   <Button
-                    disabled={(email.length === 0) || (password.length === 0) || isLoading}
+                    disabled={isDisable || isLoading}
                     type="submit"
                     name="submit"
                     variant="contained"

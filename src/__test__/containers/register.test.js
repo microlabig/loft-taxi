@@ -7,9 +7,9 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux';
 import { rootReducer } from "../../store";
 
-import LoginPage from '../../containers/Login';
+import RegisterPage from '../../containers/register';
 
-describe('компонент LoginPage', () => {
+describe('компонент RegisterPage', () => {
     let initStore = null;
     let wrapper = null;
 
@@ -19,7 +19,7 @@ describe('компонент LoginPage', () => {
         wrapper = mount(
             <MemoryRouter>
                 <Provider store={initStore}>
-                    <LoginPage />
+                    <RegisterPage />
                 </Provider>
             </MemoryRouter>
         );
@@ -34,23 +34,23 @@ describe('компонент LoginPage', () => {
 
     describe('инициализация', () => {
         it('монтирование компонента', () => {
-            expect(wrapper.find(LoginPage)).toHaveLength(1);
+            expect(wrapper.find(RegisterPage)).toHaveLength(1);
         });
 
         it('есть необходимая текстовая информация', () => {
             expect(wrapper.find('h1').text()).toEqual("Loft Taxi");
-            expect(wrapper.find('h2').text()).toEqual("Войти");
+            expect(wrapper.find('h2').text()).toEqual("Регистрация");
         });
 
         it('есть ссылка для перехода на регистрацию пользователя', () => {
-            expect(wrapper.find('a').text()).toEqual("Зарегистрируйтесь");
+            expect(wrapper.find('a').text()).toEqual("Войти");
         });
 
-        it('есть поля ввода e-mail и password', () => {
-            expect(wrapper.find('input')).toHaveLength(2);
+        it('есть поля ввода e-mail, password, name, surname', () => {
+            expect(wrapper.find('input')).toHaveLength(4);
         });
 
-        it('есть кнопка входа', () => {
+        it('есть кнопка регистрации', () => {
             expect(wrapper.find('button')).toHaveLength(1);
         });
     });
@@ -60,7 +60,10 @@ describe('компонент LoginPage', () => {
         // подготавливаем DOM-элемент, куда будем рендерить
         beforeEach(() => { // ..Each - выполняется перед каждой ф-ией it
             values = {
-                email: 'name@domain.com', password: 'password123'
+                email: 'name@domain.com', 
+                name: 'Name',
+                surname: 'Surname',
+                password: 'password123'
             }
         });
 
@@ -79,6 +82,8 @@ describe('компонент LoginPage', () => {
 
         it('при вводе данных в разные поля ввода кнопка неактивна', async () => {
             const emailInput = wrapper.find('[data-testid="input-email"]');
+            const nameInput = wrapper.find('[data-testid="input-name"]');
+            const surnameInput = wrapper.find('[data-testid="input-surname"]');
             const passwordInput = wrapper.find('[data-testid="input-password"]');
             const button = wrapper.find('button');
 
@@ -100,6 +105,40 @@ describe('компонент LoginPage', () => {
                         value: ''
                     }
                 });
+                await nameInput.simulate('change', {
+                    target: {
+                        name: 'name',
+                        value: values.name
+                    }
+                });
+            });
+
+            expect(button.prop('disabled')).toBeTruthy();
+
+            await act(async () => {
+                await nameInput.simulate('change', {
+                    target: {
+                        name: 'name',
+                        value: ''
+                    }
+                });
+                await surnameInput.simulate('change', {
+                    target: {
+                        name: 'surname',
+                        value: values.surname
+                    }
+                });
+            });
+
+            expect(button.prop('disabled')).toBeTruthy();
+
+            await act(async () => {
+                await surnameInput.simulate('change', {
+                    target: {
+                        name: 'surname',
+                        value: ''
+                    }
+                });
                 await passwordInput.simulate('change', {
                     target: {
                         name: 'password',
@@ -113,6 +152,8 @@ describe('компонент LoginPage', () => {
 
         it('при вводе валидных данных во все поля ввода кнопка активна', async () => {
             const emailInput = wrapper.find('[data-testid="input-email"]');
+            const nameInput = wrapper.find('[data-testid="input-name"]');
+            const surnameInput = wrapper.find('[data-testid="input-surname"]');
             const passwordInput = wrapper.find('[data-testid="input-password"]');
 
             await act(async () => {
@@ -120,6 +161,18 @@ describe('компонент LoginPage', () => {
                     target: {
                         name: 'email',
                         value: values.email
+                    }
+                });
+                await nameInput.simulate('change', {
+                    target: {
+                        name: 'name',
+                        value: values.name
+                    }
+                });
+                await surnameInput.simulate('change', {
+                    target: {
+                        name: 'surname',
+                        value: values.surname
                     }
                 });
                 await passwordInput.simulate('change', {
@@ -132,38 +185,5 @@ describe('компонент LoginPage', () => {
             
             expect(wrapper.find('button').prop('disabled')).toBeFalsy();
         });
-
-        /* it('форма сабмитится', async () => {
-            //const instance = wrapper.instance();
-            const form = wrapper.find('form');
-            const spy = jest.spyOn(form.props(), 'onSubmit');
-
-            wrapper.update();
-            wrapper.instance().forceUpdate();
-
-            const emailInput = wrapper.find('[data-testid="input-email"]');
-            const passwordInput = wrapper.find('[data-testid="input-password"]');
-            const button = wrapper.find('button');
-            
-            await act(async () => {
-                await emailInput.simulate('change', {
-                    target: {
-                        name: 'email',
-                        value: values.email
-                    }
-                });
-                await passwordInput.simulate('change', {
-                    target: {
-                        name: 'password',
-                        value: values.password
-                    }
-                });
-                await button.simulate('click',{ target: { name: 'submit' } });
-                //await form.prop('onSubmit')();
-            });
-
-            expect(spy).toHaveBeenCalled();
-            spy.mockClear();
-        }); */
     })
 });
