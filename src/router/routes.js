@@ -1,8 +1,8 @@
-import ProfilePage from '../containers/profile';
-import MapPage from '../containers/map';
-import LoginPage from '../containers/login';
-import RegisterPage from '../containers/register';
-import Err404 from '../containers/err404';
+import ProfilePage from '../pages/Profile';
+import MapPage from '../pages/Map';
+import LoginPage from '../pages/Login';
+import RegisterPage from '../pages/Register';
+import Err404 from '../pages/Err404';
 
 export default [
     {

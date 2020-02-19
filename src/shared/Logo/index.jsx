@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import './styles.scss';
 
-const LogoCompany = ({ type }) => {
+const Logo = ({ type }) => {
   return (
     <div className="logo">
         <div className="logo__image"></div>
@@ -14,12 +14,12 @@ const LogoCompany = ({ type }) => {
   );
 };
 
-LogoCompany.defaultProps = {
+Logo.defaultProps = {
   type: ''
 }
 
-LogoCompany.propTypes = {
+Logo.propTypes = {
   type: PropTypes.string
 }
 
-export default LogoCompany;
+export default Logo;

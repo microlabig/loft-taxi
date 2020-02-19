@@ -5,11 +5,12 @@ import * as Yup from "yup";
 import { useSelector } from "react-redux";
 import { TextField, Button } from "@material-ui/core";
 import { getIsLoading } from "../store";
-import Preloader from "../../../shared/preloader";
+import Preloader from "../../../shared/Preloader";
 import "./styles.scss";
 
 const validationSchema = Yup.object({
   email: Yup.string()
+    .min(5,"Введите ваш e-mail")
     .email("Введите валидный e-mail вида name@domain.com")
     .required("Введите ваш e-mail"),
   password: Yup.string("")
@@ -17,27 +18,21 @@ const validationSchema = Yup.object({
     .required("Введите пароль")
 });
 
-const FormLogin = ({ submitData }) => {
+const LoginForm = ({ submitData }) => {
   const isLoading = useSelector(state => getIsLoading(state));
 
   return (
-    <>
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={validationSchema}
         onSubmit={value => submitData(value)}
       >
         {props => {
-          const { values, errors, handleSubmit, handleChange } = props;
+          const { values, errors, handleSubmit, handleChange, isValid } = props;
           const { email, password } = values;
-          const isDisable =
-            email.length === 0 ||
-            password.length === 0 ||
-            Boolean(errors.email) ||
-            Boolean(errors.password);
             
           return (
-            <form className="form" name="formLogin" onSubmit={handleSubmit}>
+            <form className="form" name="LoginForm" onSubmit={handleSubmit}>
               <div className="form__elements">
                 <label className="form__row">
                   <TextField
@@ -76,9 +71,10 @@ const FormLogin = ({ submitData }) => {
                 <div className="form__row button-submit">
                   <Preloader isLoading={isLoading} />
                   <Button
-                    disabled={isDisable || isLoading}
+                    disabled={!isValid || isLoading}
                     type="submit"
-                    name="submit"
+                    name="auth"
+                    onClick={handleSubmit}
                     variant="contained"
                     color="primary"
                     data-testid="button-submit"
@@ -92,16 +88,15 @@ const FormLogin = ({ submitData }) => {
           );
         }}
       </Formik>
-    </>
   );
 };
 
-FormLogin.defaultProps = {
-  submitData: () => {}
+LoginForm.defaultProps = {
+  submitData: () => { }
 };
 
-FormLogin.propTypes = {
+LoginForm.propTypes = {
   submitData: PropTypes.func.isRequired
 };
 
-export default FormLogin;
+export default LoginForm;

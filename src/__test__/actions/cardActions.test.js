@@ -1,5 +1,5 @@
-import * as actions from '../../containers/profile/store/actions';
-import * as consts from '../../containers/profile/store/consts';
+import * as actions from '../../pages/profile/store/actions';
+import * as consts from '../../pages/profile/store/consts';
 
 describe('card actions', () => {
     describe('sync', () => {

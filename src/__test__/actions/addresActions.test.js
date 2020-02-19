@@ -1,5 +1,5 @@
-import * as actions from '../../containers/map/store/actions';
-import * as consts from '../../containers/map/store/consts';
+import * as actions from '../../pages/map/store/actions';
+import * as consts from '../../pages/map/store/consts';
 
 describe('user actions', () => {
     describe('route actions', () => {

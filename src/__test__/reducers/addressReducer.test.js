@@ -1,6 +1,6 @@
-import addressReducer, { initialState } from '../../containers/map/store/reducer';
-import * as consts from '../../containers/map/store/consts';
-import * as actions from '../../containers/map/store/actions';
+import addressReducer, { initialState } from '../../pages/map/store/reducer';
+import * as consts from '../../pages/map/store/consts';
+import * as actions from '../../pages/map/store/actions';
 
 // --------------------------------------------
 // addressReducer

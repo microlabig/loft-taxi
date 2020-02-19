@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Snackbar, Slide } from "@material-ui/core";
-import { getUserErrorMessage, fetchUserClearError } from "../../containers/login/store";
-import { getCardErrorMessage, fetchCardClearError } from "../../containers/profile/store";
-import { getAddressErrorMessage, fetchAddressClearError } from "../../containers/map/store";
+import { getUserErrorMessage, fetchUserClearError } from "../../pages/Login/store";
+import { getCardErrorMessage, fetchCardClearError } from "../../pages/Profile/store";
+import { getAddressErrorMessage, fetchAddressClearError } from "../../pages/Map/store";
 import { DELAY_TOOLTIP } from '../../utils/consts';
 
 const SlideTransition = (props) => {

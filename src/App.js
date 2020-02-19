@@ -1,5 +1,5 @@
 import React from 'react';
-import ErrorTooltip from './shared/errorTooltip';
+import ErrorTooltip from './shared/ErrorTooltip';
 import './App.scss';
 
 import RouterComponent from './router';

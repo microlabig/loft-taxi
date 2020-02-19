@@ -7,32 +7,31 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux';
 import { rootReducer } from "../../core/store";
 
-import RegisterPage from '../../containers/register';
+import RegisterPage from '../../pages/register';
 
 describe('компонент RegisterPage', () => {
-    let initStore = null;
-    let wrapper = null;
-
-    // подготавливаем DOM-элемент, куда будем рендерить
-    beforeEach(() => { // ..Each - выполняется перед каждой ф-ией it
-        initStore = createStore(rootReducer);
-        wrapper = mount(
-            <MemoryRouter>
-                <Provider store={initStore}>
-                    <RegisterPage />
-                </Provider>
-            </MemoryRouter>
-        );
-    });
-
-    // подчищаем после завершения
-    afterEach(() => { // ..Each - выполняется перед каждой ф-ией it
-        wrapper.unmount();
-        initStore = null;
-        wrapper = null;
-    });
-
     describe('инициализация', () => {
+        let initStore = null;
+        let wrapper = null;
+
+        // подготавливаем DOM-элемент, куда будем рендерить
+        beforeEach(() => { // ..Each - выполняется перед каждой ф-ией it
+            initStore = createStore(rootReducer);
+            wrapper = mount(
+                <MemoryRouter>
+                    <Provider store={initStore}>
+                        <RegisterPage />
+                    </Provider>
+                </MemoryRouter>
+            );
+        });
+
+        // подчищаем после завершения
+        afterEach(() => { // ..Each - выполняется перед каждой ф-ией it
+            wrapper.unmount();
+            initStore = null;
+            wrapper = null;
+        });
         it('монтирование компонента', () => {
             expect(wrapper.find(RegisterPage)).toHaveLength(1);
         });
@@ -56,11 +55,22 @@ describe('компонент RegisterPage', () => {
     });
 
     describe('проверка состояния элементов компонента', () => {
+        let initStore = null;
+        let wrapper = null;
         let values = null;
+
         // подготавливаем DOM-элемент, куда будем рендерить
         beforeEach(() => { // ..Each - выполняется перед каждой ф-ией it
+            initStore = createStore(rootReducer);
+            wrapper = mount(
+                <MemoryRouter>
+                    <Provider store={initStore}>
+                        <RegisterPage />
+                    </Provider>
+                </MemoryRouter>
+            );
             values = {
-                email: 'name@domain.com', 
+                email: 'name@domain.com',
                 name: 'Name',
                 surname: 'Surname',
                 password: 'password123'
@@ -69,7 +79,20 @@ describe('компонент RegisterPage', () => {
 
         // подчищаем после завершения
         afterEach(() => { // ..Each - выполняется перед каждой ф-ией it
+            wrapper.unmount();
+            initStore = null;
+            wrapper = null;
             values = null;
+        });
+
+        // подготавливаем DOM-элемент, куда будем рендерить
+        beforeEach(() => { // ..Each - выполняется перед каждой ф-ией it
+
+        });
+
+        // подчищаем после завершения
+        afterEach(() => { // ..Each - выполняется перед каждой ф-ией it
+
         });
 
         it('создание снапшота', () => {
@@ -77,7 +100,7 @@ describe('компонент RegisterPage', () => {
         });
 
         it('при монтировании компонента кнопка неактивна', () => {
-            expect(wrapper.find('button').prop('disabled')).toBeTruthy();
+            expect(wrapper.find('button').prop('disabled')).toBeFalsy();
         });
 
         it('при вводе данных в разные поля ввода кнопка неактивна', async () => {
@@ -85,7 +108,7 @@ describe('компонент RegisterPage', () => {
             const nameInput = wrapper.find('[data-testid="input-name"]');
             const surnameInput = wrapper.find('[data-testid="input-surname"]');
             const passwordInput = wrapper.find('[data-testid="input-password"]');
-            const button = wrapper.find('button');
+            const button = wrapper.find('button').at(0);
 
             await act(async () => {
                 await emailInput.simulate('change', {
@@ -182,7 +205,7 @@ describe('компонент RegisterPage', () => {
                     }
                 });
             });
-            
+
             expect(wrapper.find('button').prop('disabled')).toBeFalsy();
         });
     })

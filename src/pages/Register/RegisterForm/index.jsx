@@ -4,12 +4,13 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useSelector } from "react-redux";
 import { TextField, Button } from "@material-ui/core";
-import { getIsLoading } from "../../login/store";
-import Preloader from "../../../shared/preloader";
+import { getIsLoading } from "../../Login/store";
+import Preloader from "../../../shared/Preloader";
 import "./styles.scss";
 
 const validationSchema = Yup.object({
   email: Yup.string()
+    .min(6, "Введите ваш e-mail")
     .email("Введите валидный e-mail вида name@domain.com")
     .required("Введите ваш e-mail"),
   name: Yup.string("")
@@ -34,23 +35,8 @@ const FormRegister = ({ submitData }) => {
         onSubmit={value => submitData(value)}
       >
         {props => {
-          const { values, errors, handleSubmit, handleChange } = props;
+          const { values, errors, handleSubmit, handleChange, isValid } = props;
           const { email, name, surname, password } = values;
-          const isDisabled =
-            email.length === 0 ||
-            name.length === 0 ||
-            surname.length === 0 ||
-            password.length === 0;
-
-            const getDisableFromErrors = errors => {
-              for (let err in errors) {
-                if (errors[err].length > 0) {
-                  return true;
-                }
-              }
-              return false;
-            };
-        
 
           return (
             <form className="form" name="formSubmit" onSubmit={handleSubmit}>
@@ -125,9 +111,9 @@ const FormRegister = ({ submitData }) => {
                 <div className="form__row button-submit">
                   <Preloader isLoading={isLoading} />
                   <Button
-                    disabled={getDisableFromErrors(errors) || isDisabled || isLoading}
+                    disabled={!isValid || isLoading}
                     type="submit"
-                    name="submit"
+                    name="register"
                     onClick={handleSubmit}
                     variant="contained"
                     color="primary"

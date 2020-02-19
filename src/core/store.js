@@ -2,9 +2,9 @@ import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { all } from 'redux-saga/effects';
 
-import userReducer, { userSaga } from '../containers/login/store';
-import cardReducer, { cardSaga } from '../containers/profile/store';
-import addressReducer, { addressSaga } from '../containers/map/store';
+import userReducer, { userSaga } from '../pages/Login/store';
+import cardReducer, { cardSaga } from '../pages/Profile/store';
+import addressReducer, { addressSaga } from '../pages/Map/store';
 
 // делаем общий срез редьюсеров
 export const rootReducer = combineReducers({

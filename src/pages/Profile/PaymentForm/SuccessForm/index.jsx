@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import "./styles.scss";
 
-const FormPaymentDone = () => {
+const SuccessForm = () => {
   const history = useHistory();
 
   const handlerClick = () => {
@@ -33,12 +33,12 @@ const FormPaymentDone = () => {
   );
 };
 
-FormPaymentDone.defaultProps = {
+SuccessForm.defaultProps = {
   changeShowForm: () => false
 };
 
-FormPaymentDone.propTypes = {
+SuccessForm.propTypes = {
   changeShowForm: PropTypes.func.isRequired
 };
 
-export default FormPaymentDone;
+export default SuccessForm;

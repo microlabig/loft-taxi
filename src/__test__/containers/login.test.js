@@ -7,32 +7,34 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux';
 import { rootReducer } from "../../core/store";
 
-import LoginPage from '../../containers/Login';
+import LoginPage from '../../pages/Login';
 
 describe('компонент LoginPage', () => {
-    let initStore = null;
-    let wrapper = null;
 
-    // подготавливаем DOM-элемент, куда будем рендерить
-    beforeEach(() => { // ..Each - выполняется перед каждой ф-ией it
-        initStore = createStore(rootReducer);
-        wrapper = mount(
-            <MemoryRouter>
-                <Provider store={initStore}>
-                    <LoginPage />
-                </Provider>
-            </MemoryRouter>
-        );
-    });
-
-    // подчищаем после завершения
-    afterEach(() => { // ..Each - выполняется перед каждой ф-ией it
-        wrapper.unmount();
-        initStore = null;
-        wrapper = null;
-    });
 
     describe('инициализация', () => {
+        let initStore = null;
+        let wrapper = null;
+
+        // подготавливаем DOM-элемент, куда будем рендерить
+        beforeEach(() => { // ..Each - выполняется перед каждой ф-ией it
+            initStore = createStore(rootReducer);
+            wrapper = mount(
+                <MemoryRouter>
+                    <Provider store={initStore}>
+                        <LoginPage />
+                    </Provider>
+                </MemoryRouter>
+            );
+        });
+
+        // подчищаем после завершения
+        afterEach(() => { // ..Each - выполняется перед каждой ф-ией it
+            wrapper.unmount();
+            initStore = null;
+            wrapper = null;
+        });
+
         it('монтирование компонента', () => {
             expect(wrapper.find(LoginPage)).toHaveLength(1);
         });
@@ -56,9 +58,19 @@ describe('компонент LoginPage', () => {
     });
 
     describe('проверка состояния элементов компонента', () => {
+        let initStore = null;
+        let wrapper = null;
         let values = null;
         // подготавливаем DOM-элемент, куда будем рендерить
         beforeEach(() => { // ..Each - выполняется перед каждой ф-ией it
+            initStore = createStore(rootReducer);
+            wrapper = mount(
+                <MemoryRouter>
+                    <Provider store={initStore}>
+                        <LoginPage />
+                    </Provider>
+                </MemoryRouter>
+            );
             values = {
                 email: 'name@domain.com', password: 'password123'
             }
@@ -66,6 +78,9 @@ describe('компонент LoginPage', () => {
 
         // подчищаем после завершения
         afterEach(() => { // ..Each - выполняется перед каждой ф-ией it
+            wrapper.unmount();
+            initStore = null;
+            wrapper = null;
             values = null;
         });
 
@@ -73,14 +88,14 @@ describe('компонент LoginPage', () => {
             expect(wrapper).toMatchSnapshot();
         });
 
-        it('при монтировании компонента кнопка неактивна', () => {
-            expect(wrapper.find('button').prop('disabled')).toBeTruthy();
+        it('при монтировании компонента кнопка активна', () => {
+            expect(wrapper.find('button').prop('disabled')).toBeFalsy();
         });
 
         it('при вводе данных в разные поля ввода кнопка неактивна', async () => {
             const emailInput = wrapper.find('[data-testid="input-email"]');
             const passwordInput = wrapper.find('[data-testid="input-password"]');
-            const button = wrapper.find('button');
+            const button = wrapper.find('[data-testid="button-submit"]').at(0);
 
             await act(async () => {
                 await emailInput.simulate('change', {
@@ -90,6 +105,8 @@ describe('компонент LoginPage', () => {
                     }
                 });
             });
+
+            console.log(button.props());        
 
             expect(button.prop('disabled')).toBeTruthy();
 
@@ -129,7 +146,7 @@ describe('компонент LoginPage', () => {
                     }
                 });
             });
-            
+
             expect(wrapper.find('button').prop('disabled')).toBeFalsy();
         });
 

@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserRegister, getAuthed } from "../login/store";
-import LogoCompany from "../../shared/logocompany";
-import FormRegister from "./formRegister";
-import DescpriptionForForm from "../../shared/descriptionForForm";
+import { fetchUserRegister, getAuthed } from "../Login/store";
+import LogoCompany from "../../shared/Logo";
+import FormRegister from "./RegisterForm";
+import DescpriptionForForm from "../../shared/DescriptionForForm";
 import "./styles.scss";
 
 const RegisterPage = () => {
@@ -29,7 +29,7 @@ const RegisterPage = () => {
     );
   };
 
-  const toAction = e => {
+  const goToPage = e => {
     e.preventDefault();
     history.push("/");
   };
@@ -45,7 +45,7 @@ const RegisterPage = () => {
             headingText={"Регистрация"}
             questionText={"Уже зарегистрирован? "}
             actionTextLink={"Войти"}
-            toAction={toAction}
+            goToPage={goToPage}
           />
           <FormRegister submitData={submitData} />
         </div>

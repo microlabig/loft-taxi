@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getToken } from "../login/store";
+import { getToken } from "../Login/store";
 import {
   fetchCardRequest,
   getCardInfoIsUpdate
 } from "./store";
-import Header from "../../shared/header";
-import FormPayment from "./formPayment";
+import Header from "../../shared/Header";
+import FormPayment from "./PaymentForm";
 
 const ProfilePage = () => {
   const [showForm, setShowForm] = useState(true);
@@ -26,7 +26,6 @@ const ProfilePage = () => {
   const changeShowForm = ({ cardNumber, expiryDate, cardName, cvc }) => {
     dispatch(
       fetchCardRequest({
-        //cardNumber: "0014 0030 0020 0040", expiryDate: "01/31", cardName: "TEST NAME", cvc: "123", token: "recYP3UHH89o6XAIx"
         cardNumber,
         expiryDate,
         cardName,

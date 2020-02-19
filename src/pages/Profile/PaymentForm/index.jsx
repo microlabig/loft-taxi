@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { TextField, Button, Paper } from "@material-ui/core";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import Preloader from "../../../shared/preloader";
+import Preloader from "../../../shared/Preloader";
 import {
   getCardInfo,
   getCardInfoLoaded,
   getIsLoading,
   fetchCardIsLoadedReset
 } from "../store";
-import FormPaymentDone from "./formSuccess";
-import CVC from "./cvc";
+import SuccessForm from "./SuccessForm";
+import CVC from "./CVC";
 import { onChangeValue } from "../../../utils/helpers";
 import "./styles.scss";
 
@@ -59,12 +59,14 @@ const validationSchema = Yup.object({
     .required("Введите срок действия вашей карты"),
 
   cardName: Yup.string()
+    .min(3, "Введите имя владельца карты")
     .matches(/^\w+ \w+$/i, "Введите валидное имя вида 'ИМЯ ФАМИЛИЯ'", {
       excludeEmptyString: true
     })
     .required("Введите имя владельца карты"),
 
   cvc: Yup.string()
+    .length(3, "Введите CVC")
     .matches(/\d{3}/i, "Пример '123'", { excludeEmptyString: true })
     .required("Введите CVC")
 });
@@ -82,23 +84,8 @@ const FormPayment = ({ changeShowForm, showForm }) => {
   });
 
   const formTemplate = props => {
-    const { values, errors, setFieldValue, handleChange, handleSubmit } = props;
+    const { values, errors, setFieldValue, handleChange, handleSubmit, isValid } = props;
     const { cardNumber, expiryDate, cardName, cvc } = values;
-
-    const isDisable =
-      cardNumber.length === 0 ||
-      expiryDate.length === 0 ||
-      cardName.length === 0 ||
-      cvc.length === 0;
-
-    const getDisableFromErrors = errors => {
-      for (let err in errors) {
-        if (errors[err].length > 0) {
-          return true;
-        }
-      }
-      return false;
-    };
 
     return (
       <>
@@ -189,7 +176,7 @@ const FormPayment = ({ changeShowForm, showForm }) => {
               </div>
             ) : (
               <Button
-                disabled={getDisableFromErrors(errors) || isDisable}
+                disabled={!isValid}
                 name="save"
                 onClick={handleSubmit}
                 type="submit"
@@ -223,7 +210,7 @@ const FormPayment = ({ changeShowForm, showForm }) => {
             autoComplete="off"
             onSubmit={props.handleSubmit}
           >
-            {showForm ? formTemplate(props) : <FormPaymentDone />}
+            {showForm ? formTemplate(props) : <SuccessForm />}
           </form>
         )}
       </Formik>

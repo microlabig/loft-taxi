@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { TextField, IconButton } from "@material-ui/core";
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import HelpOutlineSharpIcon from '@material-ui/icons/HelpOutlineSharp';
-import Hint from './hint';
+import Hint from './Hint';
 import './styles.scss';
 
 const CVC = ({ onChange, ...rest }) => {

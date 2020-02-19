@@ -13,7 +13,7 @@ import { createStore } from 'redux';
 import { rootReducer } from "../../core/store";
 
 import App from '../../App';
-import Err404 from '../../containers/err404';
+import Err404 from '../../pages/err404';
 
 // Сделаем мок-компонент Map
 jest.mock('mapbox-gl/dist/mapbox-gl', () => ({

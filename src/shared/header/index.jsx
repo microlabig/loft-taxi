@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AppBar, Paper, Toolbar } from "@material-ui/core";
-import { fetchUserLogout } from "../../containers/login/store";
-import { fetchCardReset } from "../../containers/profile/store";
-import { fetchAddressReset } from "../../containers/map/store";
-import MenuButton from "../menu-button";
-import Logo from "../logocompany";
+import { fetchUserLogout } from "../../pages/Login/store";
+import { fetchCardReset } from "../../pages/Profile/store";
+import { fetchAddressReset } from "../../pages/Map/store";
+import MenuButton from "../MenuButton";
+import Logo from "../Logo";
 import "./styles.scss";
 
 // список страниц

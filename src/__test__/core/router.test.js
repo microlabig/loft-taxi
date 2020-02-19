@@ -2,7 +2,7 @@ import React from "react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import { act } from "react-dom/test-utils";
-import { render as TestingRender, fireEvent } from "@testing-library/react";
+import { render as testingRender, fireEvent, act as testingAct } from "@testing-library/react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { Provider } from 'react-redux'
 import { createStore } from 'redux';
@@ -30,6 +30,13 @@ describe('проверка перехода по страницам', () => {
     history = createMemoryHistory();
     container = document.createElement('div');
     document.body.appendChild(container);
+    act(() => {
+      render(<Router history={history}>
+        <Provider store={initStore}>
+          <App />
+        </Provider>
+      </Router>, container);
+    });
   });
 
   // подчищаем после завершения
@@ -42,14 +49,12 @@ describe('проверка перехода по страницам', () => {
     window.URL.createObjectURL.mockReset();
   });
 
+  it('находимся на странице логина', () => {
+    const heading = container.querySelector("[data-testid=descriptionTitle]");
+    expect(heading.textContent).toBe("Войти");
+  });
+
   it('переход на страницу с регистрацией', () => {
-    act(() => {
-      render(<Router history={history}>
-        <Provider store={initStore}>
-          <App />
-        </Provider>
-      </Router>, container);
-    });
     // находим ссылку для перехода на регистрационную форму
     const link = container.querySelector("[data-testid=linkToregisterForm]");
 
@@ -63,14 +68,6 @@ describe('проверка перехода по страницам', () => {
   });
 
   it('обратный переход на страницу с вводом логина', () => {
-    act(() => {
-      render(<Router history={history}>
-        <Provider store={initStore}>
-          <App />
-        </Provider>
-      </Router>, container);
-    });
-
     // находим ссылку для перехода на регистрационную форму
     const link = container.querySelector("[data-testid=linkToregisterForm]");
     // кликаем по ссылке
@@ -86,18 +83,23 @@ describe('проверка перехода по страницам', () => {
     });
 
     const heading = container.querySelector("[data-testid=descriptionTitle]");
+
     expect(heading.textContent).toBe("Войти");
   });
 });
 
 
-/* describe('тесты роутинга компонентов', () => {
+describe('продолжение "проверка перехода по страницам"', () => {
   window.URL.createObjectURL = jest.fn(); // Since window.URL.createObjectURL is not (yet) available in jest-dom, you need to provide a mock implementation for it.
 
-  it("авторизация пользователя", () => {
+  it("авторизация пользователя и переход на страницу с картой", async () => {
+    const values = {
+      email: 'igor-rock@list.ru', password: '290388'
+    };
     const history = createMemoryHistory();
+    const initStore = createStore(rootReducer);
 
-    const { container, getByTestId } = TestingRender(
+    const { container, getByTestId } = testingRender(
       <Router history={history}>
         <Provider store={initStore}>
           <App />
@@ -105,29 +107,31 @@ describe('проверка перехода по страницам', () => {
       </Router>
     );
 
-    expect(container.innerHTML).toMatch("Войти");
-
-    const values = {
-      email: 'igor-rock@list.ru', password: '290388'
-    }
+    // проверка, что находимся на root-странице
+    expect(history.location.pathname).toEqual("/");
 
     const emailInput = getByTestId(/input-email/i);
     const passwordInput = getByTestId(/input-password/i);
+    const button = getByTestId(/button-submit/i);
 
-    //fireEvent.change(getByTestId(/input-email/i,{value: values.emailValue}));
-    emailInput.setAttribute('value', values.email);
-    passwordInput.setAttribute('value', values.password);
+    expect(container.innerHTML).toMatch("Войти");
 
+    // вводим данные в поля ввода
+    await testingAct(async () => {
+      await fireEvent.change(emailInput, { target: { value: values.email } });
+      await fireEvent.change(passwordInput, { target: { value: values.password } });
+      //emailInput.setAttribute('value', values.email);
+    });
+
+    // проверяем, что все данные ввелись нормально и кнопка активна
     expect(emailInput.getAttribute('value')).toMatch(values.email);
     expect(passwordInput.getAttribute('value')).toMatch(values.password);
-    
-        // fireEvent.click(getByTestId(/button-submit/i));
-        // // act(() => {
-        // //   getByTestId(/button-submit/i).dispatchEvent(new MouseEvent("click", { bubbles: true }));
-        // // }); 
-        // //getByTestId(/button-submit/i).dispatchEvent(new MouseEvent("click", { bubbles: true }));
-        
-        // expect(container.innerHTML).toMatch("Authenticate here");
-    
+    expect(button.getAttribute('disable')).toBeFalsy();
+
+    await testingAct(async () => {
+      await fireEvent.click(button, { target: { name: "submit" } });
+    });
+
+    expect(history.location.pathname).toMatch("/map");
   });
-}); */
+});

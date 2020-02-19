@@ -3,22 +3,20 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { Paper, Button } from "@material-ui/core";
 import { Place, MyLocation } from "@material-ui/icons";
-import Preloader from "../../../shared/preloader";
-import DottedLine from "./dottedline";
-import AddressSelect from "./address-select";
-import FormOrderSuccess from "./formOrderSuccess";
-import FormWarning from "./formWarning";
+import Preloader from "../../../shared/Preloader";
+import DottedLine from "./DottedLine";
+import AddressSelect from "./AddressSelect";
+import FormOrderSuccess from "./OrderSuccessForm";
+import FormWarning from "./WarningForm";
 import {
   getIsLoadingAddresses,
   getIsLoadingRoutes,
   getAdressList,
-  fetchRouteLoading,
   fetchRouteRequest,
-  fetchRouteFailure,
   fetchAddressListRequest
 } from "../store";
-import { getToken } from "../../login/store";
-import { fetchCardGetInfo, getCardInfo } from "../../profile/store";
+import { getToken } from "../../Login/store";
+import { fetchCardGetInfo, getCardInfo } from "../../Profile/store";
 
 import "./styles.scss";
 
@@ -36,6 +34,7 @@ const FormRoute = ({ submitData, showForm }) => {
   const cardInfo = useSelector(state => getCardInfo(state));
   const isLoadingAddresses = useSelector(state => getIsLoadingAddresses(state));
   const isLoadingRoutes = useSelector(state => getIsLoadingRoutes(state));
+  const [isCalled, setIsCalled] = useState(false);
 
   useEffect(() => {
     if (!isCardExist) {
@@ -51,51 +50,41 @@ const FormRoute = ({ submitData, showForm }) => {
   }, [dispatch, cardInfo]);
 
   useEffect(() => {
-    if (isSelectRoute.from && isSelectRoute.to) {
-      if (from === to) {
-        dispatch(
-          fetchRouteFailure("Начальная и конечная точки должны отличаться!")
-        );
-        setIsSelectRoute({ ...isSelectRoute, from: false, to: false });
-        setFrom("");
-        setTo("");
-      } else {
-        dispatch(fetchRouteLoading());
-        dispatch(
-          fetchRouteRequest({
-            address1: from,
-            address2: to
-          })
-        );
-      }
+    if (isCalled && !isLoadingRoutes) {
+      submitData();
+      setIsCalled(false);
     }
-  }, [isSelectRoute, addressList, from, to, dispatch]);
+  }, [isCalled, isLoadingRoutes, submitData]);
 
   const handleFromChange = (event, value, reason) => {
-    if (reason === 'clear') {
-      setFrom('');
-    } else
-    if (value.length > 0) {
-        setFrom(value);
-        setIsSelectRoute({ ...isSelectRoute, from: true });
+    if (reason === "clear") {
+      setFrom("");
+    } else if (value.length > 0) {
+      setFrom(value);
+      setIsSelectRoute({ ...isSelectRoute, from: true });
     }
   };
 
   const handleToChange = (event, value, reason) => {
-    if (reason === 'clear') {
-      setTo('');
-    } else
-    if (value.length > 0) {
+    if (reason === "clear") {
+      setTo("");
+    } else if (value.length > 0) {
       setTo(value);
       setIsSelectRoute({ ...isSelectRoute, to: true });
     }
   };
 
-  const onClick = event => {
-    setIsSelectRoute({...isSelectRoute, from: false, to: false});
-    setFrom('');
-    setTo('');
-    submitData(event);
+  const callTaxi = () => {
+    dispatch(
+      fetchRouteRequest({
+        address1: from,
+        address2: to
+      })
+    );
+    setIsCalled(true);
+    setIsSelectRoute({ ...isSelectRoute, from: false, to: false });
+    setFrom("");
+    setTo("");
   };
 
   const formTemplate = () => {
@@ -135,7 +124,7 @@ const FormRoute = ({ submitData, showForm }) => {
                 <Button
                   disabled={!(isSelectRoute.from && isSelectRoute.to)}
                   name="call"
-                  onClick={() => onClick()}
+                  onClick={() => callTaxi()}
                   variant="contained"
                   color="primary"
                   fullWidth={true}

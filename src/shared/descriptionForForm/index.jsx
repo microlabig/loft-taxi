@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Typography, Link } from "@material-ui/core";
 import './styles.scss';
 
-const DescpriptionForForm = ({ headingText, questionText, actionTextLink, toAction }) => {
+const DescpriptionForForm = ({ headingText, questionText, actionTextLink, goToPage }) => {
     return (
         <div className="description">
             <h2 className="description__title" data-testid="descriptionTitle">{headingText}</h2>
@@ -12,7 +12,7 @@ const DescpriptionForForm = ({ headingText, questionText, actionTextLink, toActi
                     <span>{questionText}</span>
                     <Link 
                         href="#" 
-                        onClick={toAction}
+                        onClick={goToPage}
                         data-testid="linkToregisterForm"
                     >
                         {actionTextLink}
@@ -27,14 +27,14 @@ DescpriptionForForm.defaultProps = {
     headingText: '', 
     questionText: '', 
     actionTextLink: '', 
-    toAction: () => { }
+    goToPage: () => { }
 }
 
 DescpriptionForForm.propTypes = {
     headingText: PropTypes.string, 
     questionText: PropTypes.string, 
     actionTextLink: PropTypes.string, 
-    toAction: PropTypes.func
+    goToPage: PropTypes.func
 }
 
 export default DescpriptionForForm;

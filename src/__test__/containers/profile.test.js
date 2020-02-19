@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux';
 import { rootReducer } from "../../core/store";
 
-import ProfilePage from '../../containers/profile';
+import ProfilePage from '../../pages/profile';
 
 describe('компонент ProfilePage', () => {
     let initStore = null;
@@ -73,8 +73,8 @@ describe('компонент ProfilePage', () => {
             expect(wrapper).toMatchSnapshot();
         });
 
-        it('при монтировании компонента кнопка неактивна', () => {
-            expect(wrapper.find('button[data-testid="button-save"]').prop('disabled')).toBeTruthy();
+        it('при монтировании компонента кнопка активна', () => {
+            expect(wrapper.find('button[data-testid="button-save"]').prop('disabled')).toBeFalsy();
         });
 
         it('при вводе данных в разные поля ввода кнопка неактивна', async () => {
@@ -82,7 +82,7 @@ describe('компонент ProfilePage', () => {
             const expiryDateInput = wrapper.find('[data-testid="input-expiryDate"]');
             const cardNameInput = wrapper.find('[data-testid="input-cardName"]');
             const cvcInput = wrapper.find('[data-testid="input-cvc"]');
-            const button = wrapper.find('button[data-testid="button-save"]');
+            const button = wrapper.find('button[data-testid="button-save"]').at(0);
 
             await act(async () => {
                 await cardNumberInput.simulate('change', {
@@ -146,7 +146,7 @@ describe('компонент ProfilePage', () => {
 
             expect(button.prop('disabled')).toBeTruthy();
         });
-/*
+
         it('при вводе валидных данных во все поля ввода кнопка активна', async () => {
                 const cardNumberInput = wrapper.find('[data-testid="input-cardNumber"]');
                 const expiryDateInput = wrapper.find('[data-testid="input-expiryDate"]');
@@ -180,16 +180,9 @@ describe('компонент ProfilePage', () => {
                         }
                     });
                 });
-                new Promise(resolve => {
-                    setTimeout(() => {
-                        resolve();
-                    }, 0)
-                })
-                wrapper.update();
             
                 expect(button.prop('disabled')).toBeFalsy();
-                
         });
-*/
+
     });
 });
