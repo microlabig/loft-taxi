@@ -20,6 +20,9 @@ import { fetchCardGetInfo, getCardInfo } from "../../Profile/store";
 
 import "./styles.scss";
 
+// ---------
+// компонент
+// ---------
 const FormRoute = ({ submitData, showForm }) => {
   const [isCardExist, setIsCardExist] = useState(false);
   const [from, setFrom] = useState("");
@@ -36,12 +39,14 @@ const FormRoute = ({ submitData, showForm }) => {
   const isLoadingRoutes = useSelector(state => getIsLoadingRoutes(state));
   const [isCalled, setIsCalled] = useState(false);
 
+  // если данные карты существуют - запросить карту
   useEffect(() => {
     if (!isCardExist) {
       dispatch(fetchCardGetInfo(token));
     }
   }, [isCardExist, dispatch, token]);
 
+  // если информация о карте есть - запросить список адресов
   useEffect(() => {
     if (cardInfo.cardNumber.length > 0) {
       setIsCardExist(true);
@@ -49,6 +54,7 @@ const FormRoute = ({ submitData, showForm }) => {
     }
   }, [dispatch, cardInfo]);
 
+  // для показа формы об успешном вызове такси
   useEffect(() => {
     if (isCalled && !isLoadingRoutes) {
       submitData();
@@ -56,6 +62,7 @@ const FormRoute = ({ submitData, showForm }) => {
     }
   }, [isCalled, isLoadingRoutes, submitData]);
 
+  // обработчик изменения значения поля "Откуда"
   const handleFromChange = (event, value, reason) => {
     if (reason === "clear") {
       setFrom("");
@@ -65,6 +72,7 @@ const FormRoute = ({ submitData, showForm }) => {
     }
   };
 
+  // обработчик изменения значения поля "Куда"
   const handleToChange = (event, value, reason) => {
     if (reason === "clear") {
       setTo("");
@@ -74,6 +82,7 @@ const FormRoute = ({ submitData, showForm }) => {
     }
   };
 
+  // обработчик клика по кнопке "Вызвать такси"
   const callTaxi = () => {
     dispatch(
       fetchRouteRequest({

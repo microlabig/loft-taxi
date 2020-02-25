@@ -16,6 +16,9 @@ import CVC from "./CVC";
 import { onChangeValue } from "../../../utils/helpers";
 import "./styles.scss";
 
+// ---------
+// валидация
+// ---------
 const validationSchema = Yup.object({
   cardNumber: Yup.string()
     .length(19, "Пример '1234 5678 9012 3456'")
@@ -71,6 +74,9 @@ const validationSchema = Yup.object({
     .required("Введите CVC")
 });
 
+// ---------
+// компонент
+// ---------
 const FormPayment = ({ changeShowForm, showForm }) => {
   const dispatch = useDispatch();
   const cardInfo = useSelector(state => getCardInfo(state));

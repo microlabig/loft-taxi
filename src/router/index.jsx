@@ -6,7 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import routes from './routes';
-import PrivateRoute from './private';
+import PrivateRoute from './Private';
 
 export const LocationDisplay = withRouter(({ location }) => (
   <div data-testid="location-display">{location.pathname}</div>

@@ -2,11 +2,13 @@ import React from "react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import { act } from "react-dom/test-utils";
-import { render as testingRender, fireEvent, act as testingAct } from "@testing-library/react";
+import { render as testingRender, fireEvent, act as testingLAct } from "@testing-library/react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { Provider } from 'react-redux'
 import { createStore } from 'redux';
+import { fetchUserLogin } from '../../pages/Login/store/';
 import { rootReducer } from "../../core/store";
+
 import App from "../../App";
 
 // Сделаем мок-компонент Map
@@ -94,10 +96,13 @@ describe('продолжение "проверка перехода по стр�
 
   it("авторизация пользователя и переход на страницу с картой", async () => {
     const values = {
-      email: 'igor-rock@list.ru', password: '290388'
+      email: 'mail@domain.com', password: 'password123'
     };
     const history = createMemoryHistory();
     const initStore = createStore(rootReducer);
+    const mockAction = fetchUserLogin(values);
+
+    initStore.dispatch = jest.fn(); // для дальнейшей проверки  
 
     const { container, getByTestId } = testingRender(
       <Router history={history}>
@@ -114,24 +119,27 @@ describe('продолжение "проверка перехода по стр�
     const passwordInput = getByTestId(/input-password/i);
     const button = getByTestId(/button-submit/i);
 
+    // на главной странице есть строка "Войти"
     expect(container.innerHTML).toMatch("Войти");
 
     // вводим данные в поля ввода
-    await testingAct(async () => {
+    await testingLAct(async () => {
       await fireEvent.change(emailInput, { target: { value: values.email } });
       await fireEvent.change(passwordInput, { target: { value: values.password } });
-      //emailInput.setAttribute('value', values.email);
     });
 
     // проверяем, что все данные ввелись нормально и кнопка активна
     expect(emailInput.getAttribute('value')).toMatch(values.email);
     expect(passwordInput.getAttribute('value')).toMatch(values.password);
-    expect(button.getAttribute('disable')).toBeFalsy();
+    expect(button.disabled).toBeFalsy();
 
-    await testingAct(async () => {
-      await fireEvent.click(button, { target: { name: "submit" } });
+    // кликаем по кнопке
+    await testingLAct(async () => {
+      await fireEvent.click(button);
     });
 
-    expect(history.location.pathname).toMatch("/map");
+    // проверяем выполнение dispath с параметрами mockAction
+    expect(initStore.dispatch).toHaveBeenNthCalledWith(1, mockAction);
+    initStore.dispatch.mockClear();
   });
 });

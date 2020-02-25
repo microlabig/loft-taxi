@@ -2,7 +2,7 @@ import React from 'react';
 import { MemoryRouter } from "react-router-dom";
 
 import { mount } from "enzyme";
-import { act } from "react-dom/test-utils";
+import { act, render, fireEvent } from "@testing-library/react";
 
 import { Provider } from 'react-redux'
 import { createStore } from 'redux';
@@ -78,6 +78,52 @@ describe('компонент ProfilePage', () => {
         });
 
         it('при вводе данных в разные поля ввода кнопка неактивна', async () => {
+            // // @testing-library
+            // const onChange=jest.fn((e) => {
+            //     console.log(e);
+            //     e.target.value = '123';
+            // });
+
+            // const { getByTestId } = render(
+            //     <MemoryRouter>
+            //         <Provider store={initStore}>
+            //             <ProfilePage />
+            //         </Provider>
+            //     </MemoryRouter>
+            // );
+
+            // const cardNumberInput = getByTestId(/input-cardNumber/i);
+            // const expiryDateInput = getByTestId(/input-expiryDate/i);
+            // const cardNameInput = getByTestId(/input-cardName/i);
+            // const cvcInput = getByTestId(/input-cvc/i);
+            // const button = getByTestId(/button-save/i);
+
+            // await act(async () => {
+            //     await fireEvent.change(cardNumberInput, { target: { value: values.cardNumber } });
+            // });
+            // expect(cardNumberInput.getAttribute('value')).toMatch(values.cardNumber);
+            // expect(button.disabled).toBeTruthy();
+
+            // await act(async () => {
+            //     await fireEvent.change(cardNumberInput, { target: { value: '' } });
+            //     await fireEvent.change(expiryDateInput, { target: { value: values.expiryDate } });
+            // });
+            // expect(button.disabled).toBeTruthy();
+
+            // await act(async () => {
+            //     await fireEvent.change(expiryDateInput, { target: { value: '' } });
+            //     await fireEvent.change(cardNameInput, { target: { value: values.cardName } });
+            // });
+            // expect(button.disabled).toBeTruthy();
+
+            // await act(async () => {
+            //     await fireEvent.change(cardNameInput, { target: { value: '' } });
+            //     await fireEvent.change(cvcInput, { target: { value: values.cvc } });
+            // });
+            // expect(button.disabled).toBeTruthy();
+            // onChange.mockClear();
+            // //jest.resetAllMock();
+
             const cardNumberInput = wrapper.find('[data-testid="input-cardNumber"]');
             const expiryDateInput = wrapper.find('[data-testid="input-expiryDate"]');
             const cardNameInput = wrapper.find('[data-testid="input-cardName"]');
@@ -148,40 +194,40 @@ describe('компонент ProfilePage', () => {
         });
 
         it('при вводе валидных данных во все поля ввода кнопка активна', async () => {
-                const cardNumberInput = wrapper.find('[data-testid="input-cardNumber"]');
-                const expiryDateInput = wrapper.find('[data-testid="input-expiryDate"]');
-                const cardNameInput = wrapper.find('[data-testid="input-cardName"]');
-                const cvcInput = wrapper.find('[data-testid="input-cvc"]');
-                const button = wrapper.find('button[data-testid="button-save"]');
-            
-                await act(async () => {
-                    await cardNumberInput.simulate('change', {
-                        target: {
-                            name: 'cardNumber',
-                            value: '1234567812345678'//values.cardNumber
-                        }
-                    });
-                    await expiryDateInput.simulate('change', {
-                        target: {
-                            name: 'expiryDate',
-                            value: '02/22'//values.expiryDate
-                        }
-                    });
-                    await cardNameInput.simulate('change', {
-                        target: {
-                            name: 'cardName',
-                            value: 'NAME1 NAME2'//values.cardName
-                        }
-                    });
-                    await cvcInput.simulate('change', {
-                        target: {
-                            name: 'cvc',
-                            value: '123'//values.cvc
-                        }
-                    });
+            const cardNumberInput = wrapper.find('[data-testid="input-cardNumber"]');
+            const expiryDateInput = wrapper.find('[data-testid="input-expiryDate"]');
+            const cardNameInput = wrapper.find('[data-testid="input-cardName"]');
+            const cvcInput = wrapper.find('[data-testid="input-cvc"]');
+            const button = wrapper.find('button[data-testid="button-save"]');
+
+            await act(async () => {
+                await cardNumberInput.simulate('change', {
+                    target: {
+                        name: 'cardNumber',
+                        value: values.cardNumber
+                    }
                 });
-            
-                expect(button.prop('disabled')).toBeFalsy();
+                await expiryDateInput.simulate('change', {
+                    target: {
+                        name: 'expiryDate',
+                        value: values.expiryDate
+                    }
+                });
+                await cardNameInput.simulate('change', {
+                    target: {
+                        name: 'cardName',
+                        value: values.cardName
+                    }
+                });
+                await cvcInput.simulate('change', {
+                    target: {
+                        name: 'cvc',
+                        value: values.cvc
+                    }
+                });
+            });
+
+            expect(button.prop('disabled')).toBeFalsy();
         });
 
     });

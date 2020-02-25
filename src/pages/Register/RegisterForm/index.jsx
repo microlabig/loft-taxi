@@ -8,6 +8,9 @@ import { getIsLoading } from "../../Login/store";
 import Preloader from "../../../shared/Preloader";
 import "./styles.scss";
 
+// ---------
+// валидация
+// ---------
 const validationSchema = Yup.object({
   email: Yup.string()
     .min(6, "Введите ваш e-mail")
@@ -24,6 +27,9 @@ const validationSchema = Yup.object({
     .required("Введите пароль")
 });
 
+// ---------
+// компонент
+// ---------
 const FormRegister = ({ submitData }) => {
   const isLoading = useSelector(state => getIsLoading(state));
 

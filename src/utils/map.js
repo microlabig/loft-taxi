@@ -2,6 +2,7 @@ import { API_MAPBOX_ACCESS_TOKEN } from "./consts";
 
 const ID_LAYER = "route";
 const CENTER = [30.371142, 59.92443];
+const FROM_IMAGE = '../assets/icons/from.png';
 
 export const mapToken = API_MAPBOX_ACCESS_TOKEN;
 
@@ -20,6 +21,38 @@ export const drawRoute = (map, coordinates) => {
         center: coordinates[0],
         zoom: 15
     });
+
+    map.loadImage(
+        FROM_IMAGE,
+        (error, image) => {
+            // попробовать через FileReader
+            map.addImage('from', image);
+            map.addSource('point', {
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: [
+                        {
+                            type: 'Feature',
+                            geometry: {
+                                type: 'Point',
+                                coordinates: coordinates[0]
+                            }
+                        }
+                    ]
+                }
+            });
+            map.addLayer({
+                id: 'from',
+                type: 'symbol',
+                source: 'point',
+                layout: {
+                    'icon-image': 'from',
+                    'icon-size': 0.25
+                }
+            });
+        }
+    );
 
     map.addLayer({
         id: ID_LAYER,

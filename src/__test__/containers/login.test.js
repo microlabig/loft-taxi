@@ -1,7 +1,7 @@
 import React from 'react';
 import { MemoryRouter } from "react-router-dom";
 import { mount } from "enzyme";
-import { act } from "react-dom/test-utils";
+import { act, render, fireEvent } from '@testing-library/react';
 
 import { Provider } from 'react-redux'
 import { createStore } from 'redux';
@@ -10,7 +10,6 @@ import { rootReducer } from "../../core/store";
 import LoginPage from '../../pages/Login';
 
 describe('компонент LoginPage', () => {
-
 
     describe('инициализация', () => {
         let initStore = null;
@@ -61,6 +60,7 @@ describe('компонент LoginPage', () => {
         let initStore = null;
         let wrapper = null;
         let values = null;
+
         // подготавливаем DOM-элемент, куда будем рендерить
         beforeEach(() => { // ..Each - выполняется перед каждой ф-ией it
             initStore = createStore(rootReducer);
@@ -93,39 +93,33 @@ describe('компонент LoginPage', () => {
         });
 
         it('при вводе данных в разные поля ввода кнопка неактивна', async () => {
-            const emailInput = wrapper.find('[data-testid="input-email"]');
-            const passwordInput = wrapper.find('[data-testid="input-password"]');
-            const button = wrapper.find('[data-testid="button-submit"]').at(0);
-
+            // @testing-library
+            const { getByTestId } = render(
+                <MemoryRouter>
+                    <Provider store={initStore}>
+                        <LoginPage />
+                    </Provider>
+                </MemoryRouter>
+            );
+    
+            const emailInput = getByTestId(/input-email/i);
+            const passwordInput = getByTestId(/input-password/i);
+            const button = getByTestId(/button-submit/i);
+    
             await act(async () => {
-                await emailInput.simulate('change', {
-                    target: {
-                        name: 'email',
-                        value: values.email
-                    }
-                });
+                await fireEvent.change(emailInput, { target: { value: values.email } });
             });
-
-            console.log(button.props());        
-
-            expect(button.prop('disabled')).toBeTruthy();
-
+            expect(emailInput.getAttribute('value')).toMatch(values.email);
+            expect(passwordInput.getAttribute('value')).toMatch('');
+            expect(button.disabled).toBeTruthy();
+    
             await act(async () => {
-                await emailInput.simulate('change', {
-                    target: {
-                        name: 'email',
-                        value: ''
-                    }
-                });
-                await passwordInput.simulate('change', {
-                    target: {
-                        name: 'password',
-                        value: values.password
-                    }
-                });
+                await fireEvent.change(emailInput, { target: { value: '' } });
+                await fireEvent.change(passwordInput, { target: { value: values.password } });
             });
-
-            expect(button.prop('disabled')).toBeTruthy();
+            expect(emailInput.getAttribute('value')).toMatch('');
+            expect(passwordInput.getAttribute('value')).toMatch(values.password);
+            expect(button.disabled).toBeTruthy();
         });
 
         it('при вводе валидных данных во все поля ввода кнопка активна', async () => {
@@ -149,38 +143,8 @@ describe('компонент LoginPage', () => {
 
             expect(wrapper.find('button').prop('disabled')).toBeFalsy();
         });
+    });
 
-        /* it('форма сабмитится', async () => {
-            //const instance = wrapper.instance();
-            const form = wrapper.find('form');
-            const spy = jest.spyOn(form.props(), 'onSubmit');
+    
 
-            wrapper.update();
-            wrapper.instance().forceUpdate();
-
-            const emailInput = wrapper.find('[data-testid="input-email"]');
-            const passwordInput = wrapper.find('[data-testid="input-password"]');
-            const button = wrapper.find('button');
-            
-            await act(async () => {
-                await emailInput.simulate('change', {
-                    target: {
-                        name: 'email',
-                        value: values.email
-                    }
-                });
-                await passwordInput.simulate('change', {
-                    target: {
-                        name: 'password',
-                        value: values.password
-                    }
-                });
-                await button.simulate('click',{ target: { name: 'submit' } });
-                //await form.prop('onSubmit')();
-            });
-
-            expect(spy).toHaveBeenCalled();
-            spy.mockClear();
-        }); */
-    })
 });
