@@ -26,7 +26,7 @@ export const drawRoute = (map, coordinates) => {
         FROM_IMAGE,
         (error, image) => {
             // попробовать через FileReader
-            map.addImage('from', image);
+            // map.addImage('from', image);
             map.addSource('point', {
                 type: 'geojson',
                 data: {
@@ -42,15 +42,15 @@ export const drawRoute = (map, coordinates) => {
                     ]
                 }
             });
-            map.addLayer({
-                id: 'from',
-                type: 'symbol',
-                source: 'point',
-                layout: {
-                    'icon-image': 'from',
-                    'icon-size': 0.25
-                }
-            });
+            // map.addLayer({
+            //     id: 'from',
+            //     type: 'symbol',
+            //     source: 'point',
+            //     layout: {
+            //         'icon-image': 'from',
+            //         'icon-size': 0.25
+            //     }
+            // });
         }
     );
 
